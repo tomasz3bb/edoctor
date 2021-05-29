@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.MySQL5Dialect
+        </property>
+
+        <property name = "hibernate.connection.driver_class">
+            com.mysql.cj.jdbc.Driver
+        </property>
+
+        <!-- Assume test is the database name -->
+
+        <property name = "hibernate.connection.url">
+            jdbc:mysql://localhost/przychodnia
+        </property>
+
+        <property name = "hibernate.connection.username">
+            root
+        </property>
+
+        <property name = "hibernate.connection.password"/>
+
+        <property name="show_sql">
+            true
+        </property>
+
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- List of XML mapping files -->
+        <mapping class="pl.edu.wszib.edoctor.model.User"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Doctor"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Appointment"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Patient"/>
+        <mapping class="pl.edu.wszib.edoctor.model.DoctorList"/>
+        <mapping class="pl.edu.wszib.edoctor.model.AppointmentSlot"/>
+        <mapping class="pl.edu.wszib.edoctor.model.DoctorSchedule"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Speciality"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Day"/>
+        <mapping class="pl.edu.wszib.edoctor.model.Calendar"/>
+    </session-factory>
+</hibernate-configuration>

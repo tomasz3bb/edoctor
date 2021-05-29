@@ -1,0 +1,20 @@
+a:link, a:visited {
+    background-color: #393636;
+    color: #d2cbcb;
+    border: 2px solid green;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: green;
+    color: white;
+}
+
+.edit-button{
+    font-size: 16px;
+}
+
+

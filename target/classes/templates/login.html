@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+<div id="page">
+<div th:replace="fragments.html :: logo"></div>
+<form id="login-form" method="post">
+    <input type="text" placeholder="Podaj login" th:field="*{userModel.login}">
+    <input type="password" placeholder="Podaj hasło" th:field="*{userModel.password}">
+    <input type="submit" value="Zaloguj">
+</form>
+</div>
+</body>
+</html>

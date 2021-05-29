@@ -1,0 +1,63 @@
+#form {
+    width: 600px;
+    margin: 5px auto;
+}
+#form input[type="text"] {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+#form input[type="date"] {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+#form input[type="password"] {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+#form input[type="submit"] {
+    width: 200px;
+    margin: 10px auto;
+    display: block;
+    font-size: 20px;
+    border: 2px solid black;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+#form input[type="submit"]:hover {
+    color: white;
+    background-color: black;
+}
+
+#form input[type="button"] {
+    width: 200px;
+    margin: 10px auto;
+    display: block;
+    font-size: 20px;
+    border: 2px solid black;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+#form input[type="button"]:hover {
+    color: white;
+    background-color: black;
+}

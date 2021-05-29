@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+</head>
+<body>
+<div id="menu" th:fragment="menu">
+    <ul>
+        <a href="/main" class="menu-button">Strona główna</a>
+        <a href="/about" class="menu-button">O aplikacji</a>
+        <a href="/contact" class="menu-button">Kontakt</a>
+        <a href="/login" class="menu-button" th:if="${!isLogged}">Zaloguj</a>
+        <a href="/logout" class="menu-button" th:if="${isLogged}">Wyloguj</a>
+        <a href="/panel" class="menu-button" th:if="${role == 'ADMIN'}" style="color:red;">Panel admina</a>
+        <br><br>
+        <a href="/doctors" class="menu-button" th:if="${isLogged}">Nasi lekarze</a>
+        <a href="/doctor_account" class="menu-button" th:if="${role == 'Lekarz'}">Moje konto</a>
+        <a href="/patient_account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a>
+        <a href="/patient_doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a>
+        <a href="/doctor_patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a>
+        <a href="/patient_app" th:if="${role == 'Pacjent'}">Historia leczenia</a>
+    </ul>
+</div>
+<div id="logo" th:fragment="logo"></div>
+<div id="footer" th:fragment="footer">
+    <p>Aplikacja eDoctor</p>
+    <script type="text/javascript">
+        const data = new Date();
+        const rok = data.getYear() + 1900;
+        document.write(rok);
+    </script>
+</div>
+</body>
+</html>

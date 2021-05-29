@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/edit.css">
+    <script src="passValidator.js"></script>
+</head>
+<body>
+<div id="page">
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <form method="post" id="form">
+        <p th:if="${info}" th:text="${info}" id="error"></p>
+        <input type="text" th:field="${currentUser.login}" readonly>
+        <input type="password" th:field="*{currentUser.pass}" placeholder="Stare hasło">
+        <input type="password" th:field="*{passModel.newPass}" placeholder="Nowe hasło">
+        <input type="password" th:field="*{passModel.newPass2}" placeholder="Powtórz nowe hasło">
+        <input type="text" th:field="${currentUser.role}" readonly>
+        <input type="submit">
+    </form>
+</div>
+</div>
+</body>
+</html>

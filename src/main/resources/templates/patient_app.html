@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu" ></div>
+<div id="content">
+    <div class="admin">
+        <div class="row header">
+            <div class="name">Imię</div>
+            <div class="surname">Nazwisko</div>
+            <div class="phone">Specjalizacja</div>
+            <div class="dateOfBirth">Data wizyty</div>
+            <div class="number">Dzień tygodnia</div>
+            <div class="number">Godzina rozpoczęcia wizyty</div>
+            <div class="number">Godzina zakończnia wizyty</div>
+        </div>
+        <th:block th:each="currnetApp : ${loggedPatientApp}">
+            <div class="row">
+            <div class="name" th:text="${currnetApp.doctor.name}"></div>
+                <div class="surname" th:text="${currnetApp.doctor.surname}"></div>
+                <div class="name" th:text="${currnetApp.doctor.speciality}"></div>
+                <div class="name" th:text="${currnetApp.appointmentSlot.calendar.date}"></div>
+                <div class="name" th:text="${currnetApp.appointmentSlot.calendar.dayOfWeek.nameOfWeek}"></div>
+                <div class="name" th:text="${currnetApp.appointmentSlot.appointmentTimeStart}"></div>
+                <div class="name" th:text="${currnetApp.appointmentSlot.appointmentTimeEnd}"></div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

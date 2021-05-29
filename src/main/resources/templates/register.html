@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/register.css">
+    <script src="registerValidator.js"></script>
+</head>
+<body>
+<div id="page">
+<div th:replace="fragments.html :: logo"></div>
+<form id="register-form" method="post" onsubmit="return validate()">
+    <p th:if="${info}" th:text="${info}" id="error"></p>
+    <input type="text" placeholder="Login" th:field="*{registrationModel.login}" id="login">
+    <input type="password" placeholder="Hasło" th:field="*{registrationModel.pass}" id="pass">
+    <input type="password" placeholder="Powtórz hasło" th:field="*{registrationModel.pass2}" id="pass2">
+    <input type="text" placeholder="Imię" th:field="*{registrationModel.name}" id="name">
+    <input type="text" placeholder="Nazwisko" th:field="*{registrationModel.surname}">
+    <input type="text" placeholder="PESEL" th:field="*{registrationModel.pesel}">
+    <input type="text" placeholder="Numer telefonu" th:field="*{registrationModel.phone}">
+    <input type="submit" value="Zarejestruj">
+</form>
+</div>
+</body>
+</html>

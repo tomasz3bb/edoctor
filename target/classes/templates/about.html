@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <h3>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</h3>
+    <ul>
+        <li>Administrator może:</li>
+        <p>rejestrować nowego pacjenta lub nowego lekarza</p>
+        <p></p>
+        <li>Lekarz może:</li>
+        <p>przeglądać aktualne wizyty i historię wizyt pacjentów</p>
+        <p>zmieniać swoje hasło</p>
+        <p>zmieniać status wizyty</p>
+        <li>Pacjent może:</li>
+        <p>przeglądać aktualne wizyty i historię swoich wizyt</p>
+        <p>zmieniać swoje hasło</p>
+        <p></p>
+    </ul>
+</div>
+<div id="footer" th:replace="fragments.html :: footer"></div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <div class="admin">
+        <div class="row header">
+            <div class="name">Dzień tygodnia</div>
+            <div class="surname">Godzina rozpoczęcia</div>
+            <div class="phone">Godzina zakończenia</div>
+        </div>
+        <th:block th:each="doctorSchedule : ${currentDS}">
+            <div class="row">
+            <div class="name" th:text="${doctorSchedule.dayOfWeek}"></div>
+            <div class="surname" th:text="${doctorSchedule.startOfWork}"></div>
+            <div class="phone" th:text="${doctorSchedule.endOfWork}"></div>
+                <a th:if="${role == 'Lekarz'}"  th:href="@{/editdoctorSchedule/{dsId}(dsId=${doctorSchedule.doctorScheduleId})}" class="edit-button">Edytuj</a>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>
