@@ -121,7 +121,7 @@ public class DoctorController {
             return "redirect:/login";
         }
         this.doctorScheduleService.updateDoctorSchedule(doctorSchedule);
-        return "redirect:/main";
+        return "redirect:/doctors";
     }
 
     @RequestMapping(value = "/doctor_deleteDS/{doctorScheduleId}", method = RequestMethod.GET)
@@ -141,6 +141,6 @@ public class DoctorController {
             return "redirect:/login";
         }
         this.doctorScheduleService.deleteDoctorSchedule(doctorSchedule);
-        return "redirect:/main";
+        return "redirect:/doctors";
     }
 }

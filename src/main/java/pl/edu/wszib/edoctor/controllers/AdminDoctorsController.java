@@ -60,7 +60,7 @@ public class AdminDoctorsController {
             return "redirect:/login";
         }
         if(this.doctorService.addDoctor(doctor, user)) {
-            return "redirect:/panel";
+            return "redirect:/admin_adddoctor";
         } else {
             return "redirect:/admin_adddoctor";
         }
