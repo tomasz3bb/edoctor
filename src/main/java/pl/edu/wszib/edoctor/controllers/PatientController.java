@@ -3,7 +3,6 @@ package pl.edu.wszib.edoctor.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,7 +52,7 @@ public class PatientController {
             return "redirect:/login";
         }
         Patient loggedPatient = this.patientService.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
-        model.addAttribute("patientDoctors", this.doctorListService.getDoctorsByPatient(loggedPatient));
+        model.addAttribute("doctorsList", this.doctorListService.getDoctorsByPatient(loggedPatient));
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "patient_doctors";
@@ -64,21 +63,19 @@ public class PatientController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        model.addAttribute("chosenDoctor", this.doctorService.getDoctorByDoctorId(doctorId));
+        Doctor doctorFromDB = this.doctorService.getDoctorByDoctorId(doctorId);
+        Patient loggedPatient = this.patientService.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        this.doctorListService.savePatientToDoctor(loggedPatient, doctorFromDB);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         return "patient_doctorConfirm";
     }
+
     @RequestMapping(value = "/patient_doctorConfirm/{docotrId}", method = RequestMethod.POST)
-    public String savePatientToDoctor(@ModelAttribute Patient patient, @ModelAttribute Doctor doctor){
+    public String savePatientToDoctor(){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-
-        if(this.doctorListService.savePatientToDoctor(patient, doctor)) {
-            return "redirect:/patient_doctors";
-        } else {
-            return "redirect:/patient_doctorConfirm";
-        }
+        return "redirect:/patient_doctors";
     }
 }

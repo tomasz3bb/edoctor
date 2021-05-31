@@ -1,5 +1,5 @@
 #form {
-    width: 600px;
+    width: 500px;
     margin: 5px auto;
 }
 #form input[type="text"] {
@@ -35,8 +35,9 @@
     text-align: center;
 }
 #form input[type="submit"] {
-    width: 200px;
+    width: 350px;
     margin: 10px auto;
+    padding: 1px;
     display: block;
     font-size: 20px;
     border: 2px solid black;
@@ -55,6 +56,7 @@
 #form input[type="button"] {
     width: 200px;
     margin: 10px auto;
+    padding: 1px;
     display: block;
     font-size: 20px;
     border: 2px solid black;

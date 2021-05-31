@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.edoctor.dao.IDoctorListDAO;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.DoctorSchedule;
 import pl.edu.wszib.edoctor.model.Patient;
@@ -13,7 +12,6 @@ import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 
 @Controller
 public class DoctorController {

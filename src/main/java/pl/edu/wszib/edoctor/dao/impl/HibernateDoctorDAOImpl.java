@@ -18,7 +18,6 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     @Autowired
     SessionFactory sessionFactory;
 
-
     @Override
     public Doctor getDoctorByUserId(int userId) {
         Session session = this.sessionFactory.openSession();

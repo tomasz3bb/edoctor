@@ -23,15 +23,6 @@ public class AdminController {
     @Autowired
     IUserService userService;
 
-    @Autowired
-    IDoctorService doctorService;
-
-    @Autowired
-    IPatientService patientService;
-
-    @Autowired
-    ISpecialityService specialityService;
-
     @RequestMapping(value = "/panel", method = RequestMethod.GET)
     public String enterAdmin(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
@@ -41,6 +32,5 @@ public class AdminController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         return "panel";
     }
-
 
 }

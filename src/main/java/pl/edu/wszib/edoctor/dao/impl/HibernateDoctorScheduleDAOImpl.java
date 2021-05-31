@@ -60,7 +60,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.saveOrUpdate(doctorSchedule);
+            session.save(doctorSchedule);
             tx.commit();
         } catch (Exception e) {
             if (tx != null){

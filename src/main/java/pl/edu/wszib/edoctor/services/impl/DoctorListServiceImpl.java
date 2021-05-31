@@ -44,14 +44,8 @@ public class DoctorListServiceImpl implements IDoctorListService {
     @Override
     public boolean savePatientToDoctor(Patient patient, Doctor doctor) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
-        Patient patientFromDB = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
-        DoctorList newDoctorList = new DoctorList(0, doctorFromDB, patientFromDB);
-        return this.doctorListDAO.savePatientToDoctor(newDoctorList);
-
-    }
-
-    @Override
-    public void deletePatientFromDoctor(Patient patient, Doctor doctor) {
-
+        Patient loggedPatient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        DoctorList doctorList = new DoctorList(0, doctorFromDB, loggedPatient);
+        return this.doctorListDAO.savePatientToDoctor(doctorList);
     }
 }

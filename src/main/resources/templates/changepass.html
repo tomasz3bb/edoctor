@@ -22,6 +22,7 @@
         <input type="password" th:field="*{passModel.newPass2}" placeholder="Powtórz nowe hasło">
         <input type="text" th:field="${currentUser.role}" readonly>
         <input type="submit">
+        <input type="button" onclick="history.back();" value="Wróć">
     </form>
 </div>
 </div>

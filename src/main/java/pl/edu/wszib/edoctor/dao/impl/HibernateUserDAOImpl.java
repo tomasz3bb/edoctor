@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.edoctor.dao.IUserDAO;
-import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.User;
 
 import javax.persistence.NoResultException;
@@ -68,7 +67,7 @@ public class HibernateUserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public void deleteUser(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -82,7 +81,6 @@ public class HibernateUserDAOImpl implements IUserDAO {
         }finally {
             session.close();
         }
-        return true;
     }
 
     @Override
