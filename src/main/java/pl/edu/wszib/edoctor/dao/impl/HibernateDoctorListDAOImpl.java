@@ -2,6 +2,7 @@ package pl.edu.wszib.edoctor.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,5 +37,23 @@ public class HibernateDoctorListDAOImpl implements IDoctorListDAO {
         List<DoctorList> doctors = doctorQuery.getResultList();
         session.close();
         return doctors;
+    }
+
+    @Override
+    public boolean savePatientToDoctor(DoctorList doctorList) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(doctorList);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        }finally {
+            session.close();
+        }
+        return true;
     }
 }

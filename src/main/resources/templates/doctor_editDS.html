@@ -15,9 +15,9 @@
 <div id="content">
     <div id="form">
         <form action="#" method="post" id="edit-form">
-            <input type="text" th:field="${doctorSchedule.dayOfWeek.nameOfWeek}" readonly class="name" placeholder="Dzień tygodnia">
-            <input type="time" th:field="*{doctorSchedule.startOfWork}">
-            <input type="time" th:field="*{doctorSchedule.endOfWork}">
+            <input type="text" th:field="*{doctorDS.dayOfWeek.dayOfWeek}" class="name" readonly>
+            <input type="time" th:field="*{doctorDS.startOfWork}" class="dateOfBirth" placeholder="Godzina rozpoczęcia pracy">
+            <input type="time" th:field="*{doctorDS.endOfWork}" class="dateOfBirth" placeholder="Godzina zakończenia pracy">
             <input type="submit">
         </form>
     </div>

@@ -29,8 +29,7 @@
                 <div class="phone" th:text="${doctor.phone}"></div>
                 <div class="speciality" th:text="${doctor.speciality.specialityName}"></div>
                 <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a>
-                <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Pokaż dostępne terminy wizyt</a>
-                <a th:if="${role == 'Pacjent'}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctor.doctorId})}">Wybierz lekarza</a>
+                <a th:if="${role == 'Pacjent'}" th:href="@{/patient_doctorConfirm/{doctorId}(doctorId=${doctor.doctorId})}">Zapisz się do lekarza</a>
             </div>
         </th:block>
     </div>

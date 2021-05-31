@@ -14,5 +14,4 @@ public interface IPatientDAO {
     void deletePatient(Patient patient);
     void updatePatient(Patient patient);
     boolean addPatient(Patient patient);
-    List<Appointment> getAppointmentByPatient(Patient patient);
 }

@@ -20,6 +20,9 @@
             <p th:text="'Numer telefonu: ' + ${doctor.phone}"></p>
             <p th:text="'Specjalizacja: ' + ${doctor.speciality.specialityName}"></p>
             <p th:text="'Numer prawa wykonywania zawodu: ' + ${doctor.PWZNumber}"></p>
+            <p style="font-size: 16px">
+                <a th:if="${role == 'Lekarz'}"  th:href="@{/currentdoctorschedule/{dsId}(dsId=${doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a>
+            </p>
         </div>
         <h3>Zmień hasło do konta</h3>
         <form id="form" >

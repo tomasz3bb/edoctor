@@ -35,6 +35,9 @@ public class DoctorController {
     @Autowired
     IDoctorListService doctorListService;
 
+    @Autowired
+    IAppointmentService appointmentService;
+
 
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public String showAllDoctors(Model model){
@@ -70,23 +73,76 @@ public class DoctorController {
         return "doctor_patients";
     }
 
-    @RequestMapping(value = "/doctor_editday/{dsId}", method = RequestMethod.GET)
-    public String editDoctorSchedule(@PathVariable int dsId, Model model) {
+    @RequestMapping(value = "/doctor_patienthist/{patientId}", method = RequestMethod.GET)
+    public String showAllPatientAppointmentBy(Model model, @PathVariable int patientId){
+        if (!this.sessionObject.isLogged()){
+            return "redirect:/login";
+        }
+        Doctor loggedDoctor = this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
+        Patient patientFromDB = this.patientService.getPatientByPatientId(patientId);
+        model.addAttribute("loggedDoctor", this.doctorListService.getPatientsByDoctor(loggedDoctor));
+        model.addAttribute("patientHist", this.appointmentService.getAppointmentByDoctor(loggedDoctor, patientFromDB));
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        return "doctor_patienthist";
+    }
+
+    @RequestMapping(value = "/doctor_addday", method = RequestMethod.GET)
+    public String addDoctorSchedule(Model model) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
-        DoctorSchedule doctorSchedule = this.doctorScheduleService.getDoctorScheduleById(dsId);
-        model.addAttribute("doctorSchedule", doctorSchedule);
+        model.addAttribute("doctorSchedule", new DoctorSchedule());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "doctor_editday";
+        return "doctor_addday";
     }
-    @RequestMapping(value = "/doctor_editday/{dsId}", method = RequestMethod.POST)
-    public String editDoctorSchedule(@ModelAttribute DoctorSchedule doctorSchedule) {
+    @RequestMapping(value = "/doctor_addday", method = RequestMethod.POST)
+    public String addDoctorSchedule(@ModelAttribute DoctorSchedule doctorSchedule) {
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        this.doctorScheduleService.addDoctorSchedule(doctorSchedule);
+        return "redirect:/doctors";
+    }
+
+    @RequestMapping(value = "/doctor_editDS/{doctorScheduleId}", method = RequestMethod.GET)
+    public String editDoctorSchedule(@PathVariable int doctorScheduleId, Model model){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        DoctorSchedule doctorSchedule = this.doctorScheduleService.getDoctorScheduleById(doctorScheduleId);
+        model.addAttribute("doctorDS", doctorSchedule);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        return "doctor_editDS";
+    }
+    @RequestMapping(value = "/doctor_editDS/{doctorScheduleId}", method = RequestMethod.POST)
+    public String editDoctorSchedule(@ModelAttribute DoctorSchedule doctorSchedule){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
         this.doctorScheduleService.updateDoctorSchedule(doctorSchedule);
-        return "redirect:/doctors";
+        return "redirect:/main";
+    }
+
+    @RequestMapping(value = "/doctor_deleteDS/{doctorScheduleId}", method = RequestMethod.GET)
+    public String deleteDoctorSchedule(@PathVariable int doctorScheduleId, Model model){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        DoctorSchedule doctorSchedule = this.doctorScheduleService.getDoctorScheduleById(doctorScheduleId);
+        model.addAttribute("doctorDS", doctorSchedule);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        return "doctor_deleteDS";
+    }
+    @RequestMapping(value = "/doctor_deleteDS/{doctorScheduleId}", method = RequestMethod.POST)
+    public String deleteDoctorSchedule(@ModelAttribute DoctorSchedule doctorSchedule){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        this.doctorScheduleService.deleteDoctorSchedule(doctorSchedule);
+        return "redirect:/main";
     }
 }

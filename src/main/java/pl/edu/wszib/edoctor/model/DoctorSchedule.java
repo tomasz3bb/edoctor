@@ -1,5 +1,6 @@
 package pl.edu.wszib.edoctor.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class DoctorSchedule {
     private Doctor doctor;
     @ManyToOne(fetch = FetchType.EAGER)
     private Day dayOfWeek;
-    private Time startOfWork;
-    private Time endOfWork;
+    private String startOfWork;
+    private String endOfWork;
 
 }

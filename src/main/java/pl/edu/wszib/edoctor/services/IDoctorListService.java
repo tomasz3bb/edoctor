@@ -1,6 +1,5 @@
 package pl.edu.wszib.edoctor.services;
 
-import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.DoctorList;
 import pl.edu.wszib.edoctor.model.Patient;
@@ -11,4 +10,7 @@ public interface IDoctorListService {
 
     List<DoctorList> getDoctorsByPatient(Patient patient);
     List<DoctorList> getPatientsByDoctor(Doctor doctor);
+
+    boolean savePatientToDoctor(Patient patient, Doctor doctor);
+    void deletePatientFromDoctor(Patient patient, Doctor doctor);
 }

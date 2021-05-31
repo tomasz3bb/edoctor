@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+    <link rel="stylesheet" href="/form.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <div id="form">
+        <form action="#" method="post" id="edit-form">
+            <input type="text" th:field="*{doctorSchedule.dayOfWeek.dayOfWeek}" class="name" placeholder="1">
+            <input type="time" th:field="*{doctorSchedule.startOfWork}" class="dateOfBirth" placeholder="Godzina rozpoczęcia pracy">
+            <input type="time" th:field="*{doctorSchedule.endOfWork}" class="dateOfBirth" placeholder="Godzina zakończenia pracy">
+            <input type="submit">
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.User;
+import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.services.IDoctorService;
 import pl.edu.wszib.edoctor.services.IPatientService;
 import pl.edu.wszib.edoctor.services.IUserService;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     IPatientService patientService;
+
+    @Autowired
+    IDoctorScheduleService doctorScheduleService;
 
     @Resource
     SessionObject sessionObject;
@@ -73,6 +77,8 @@ public class UserController {
         }
         model.addAttribute("user", this.sessionObject.getLoggedUser());
         model.addAttribute("doctor", this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId()));
+        model.addAttribute("doctorSchedule", this.doctorScheduleService.getDoctorScheduleByDoctor
+                        (this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId())));
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         return "doctor_account";

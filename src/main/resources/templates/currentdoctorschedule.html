@@ -23,9 +23,11 @@
             <div class="name" th:text="${doctorSchedule.dayOfWeek.nameOfWeek}"></div>
             <div class="surname" th:text="${doctorSchedule.startOfWork}"></div>
             <div class="phone" th:text="${doctorSchedule.endOfWork}"></div>
-                <a th:if="${role == 'Lekarz'}"  th:href="@{/doctor_editday/{dsId}(dsId=${doctorSchedule.doctorScheduleId})}" class="edit-button">Edytuj</a>
+                <a th:if="${role == 'Lekarz'}"  th:href="@{/doctor_editDS/{doctorScheduleId}(doctorScheduleId=${doctorSchedule.doctorScheduleId})}" class="edit-button">Edytuj</a>
+                <a th:if="${role == 'Lekarz'}"  th:href="@{/doctor_deleteDS/{doctorScheduleId}(doctorScheduleId=${doctorSchedule.doctorScheduleId})}" class="edit-button">Usuń</a>
             </div>
         </th:block>
+        <a th:if="${role == 'Lekarz'}"  href="/doctor_addday" style="margin-top: 20px">Dodaj dzień</a>
     </div>
 </div>
 </body>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+</div>
+
+<th:block th:each="doctor: ${chosenDoctor}">
+    <div class="row">
+        <div class="name" th:text="${chosenDoctor.name}"></div>
+        <div class="surname" th:text="${chosenDoctor.doctorId}"></div>
+        <div class="phone" th:text="${chosenDoctor.surname}"></div>
+        <div class="speciality" th:text="${chosenDoctor.speciality.specialityName}"></div>
+    </div>
+</th:block>
+
+<div id="content">
+    <form method="post" id="form">
+        <div style="text-align: center;"><h2>Czy potwierdzasz wybór lekarza?</h2></div>
+        <input type="button" onclick="history.back();" value="Wróć">
+        <input type="submit" value="Potwierdź wybór lekarza">
+    </form>
+</div>
+</body>
+</html>

@@ -3,15 +3,14 @@ package pl.edu.wszib.edoctor.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.edu.wszib.edoctor.dao.IDoctorListDAO;
+import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
-import pl.edu.wszib.edoctor.services.IAppointmentService;
-import pl.edu.wszib.edoctor.services.IDoctorListService;
-import pl.edu.wszib.edoctor.services.IPatientService;
-import pl.edu.wszib.edoctor.services.IUserService;
+import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
@@ -34,6 +33,9 @@ public class PatientController {
     @Autowired
     IAppointmentService appointmentService;
 
+    @Autowired
+    IDoctorService doctorService;
+
     @RequestMapping(value = "/patient_app", method = RequestMethod.GET)
     public String showCurrentPatientApp(Model model){
         if (!this.sessionObject.isLogged()){
@@ -55,5 +57,28 @@ public class PatientController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "patient_doctors";
+    }
+
+    @RequestMapping(value = "/patient_doctorConfirm/{doctorId}", method = RequestMethod.GET)
+    public String savePatientToDoctor(Model model, @PathVariable int doctorId){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
+            return "redirect:/login";
+        }
+        model.addAttribute("chosenDoctor", this.doctorService.getDoctorByDoctorId(doctorId));
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        return "patient_doctorConfirm";
+    }
+    @RequestMapping(value = "/patient_doctorConfirm/{docotrId}", method = RequestMethod.POST)
+    public String savePatientToDoctor(@ModelAttribute Patient patient, @ModelAttribute Doctor doctor){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
+            return "redirect:/login";
+        }
+
+        if(this.doctorListService.savePatientToDoctor(patient, doctor)) {
+            return "redirect:/patient_doctors";
+        } else {
+            return "redirect:/patient_doctorConfirm";
+        }
     }
 }

@@ -28,6 +28,7 @@
                 <div class="surname" th:text="${patients.patient.surname}"></div>
                 <div class="dateOfBirth" th:text="${patients.patient.dateOfBirth}"></div>
                 <div class="name" th:text="${patients.patient.PESEL}"></div>
+                <a th:if="${role == 'Lekarz'}" th:href="@{/doctor_patienthist/{patientId}(patientId=${patients.patient.patientId})}" class="edit-button">Pokaż historię wizyt</a>
             </div>
         </th:block>
     </div>

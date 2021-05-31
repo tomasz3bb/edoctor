@@ -9,4 +9,6 @@ import java.util.List;
 public interface IDoctorListDAO {
     List<DoctorList> getPatientsByDoctor(Doctor doctor);
     List<DoctorList> getDoctorsByPatient(Patient patient);
+
+    boolean savePatientToDoctor(DoctorList doctorList);
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+</div>
+
+
+<div id="content">
+    <div class="admin">
+        <div class="row header">
+            <div class="name">Imię</div>
+            <div class="surname">Nazwisko</div>
+            <div class="dateOfBirth">Data urodzenia</div>
+            <div class="name">PESEL</div>
+        </div>
+        <th:block th:each="patientHist : ${patientHist}">
+            <div class="row">
+                <div class="name" th:text="${patientHist.patient.name}"></div>
+                <div class="surname" th:text="${patientHist.patient.surname}"></div>
+                <div class="dateOfBirth" th:text="${patientHist.appointmentTimeEnd}"></div>
+                <div class="name" th:text="${patientHist.appointmentTimeStart}"></div>
+            </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

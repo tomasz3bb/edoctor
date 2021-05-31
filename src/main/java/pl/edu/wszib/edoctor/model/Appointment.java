@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,8 +24,9 @@ public class Appointment {
     private Doctor doctor;
     @ManyToOne(fetch = FetchType.EAGER)
     private DoctorSchedule doctorSchedule;
-    private Date appointmentTimeStart;
-    private Date appointmentTimeEnd;
+    private Date appointmentDate;
+    private Time appointmentTimeStart;
+    private Time appointmentTimeEnd;
     private String status;
 
 }

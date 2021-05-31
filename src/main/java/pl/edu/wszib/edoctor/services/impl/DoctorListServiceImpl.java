@@ -9,11 +9,16 @@ import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.DoctorList;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.services.IDoctorListService;
+import pl.edu.wszib.edoctor.session.SessionObject;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class DoctorListServiceImpl implements IDoctorListService {
+
+    @Resource
+    SessionObject sessionObject;
 
     @Autowired
     IDoctorDAO doctorDAO;
@@ -34,5 +39,19 @@ public class DoctorListServiceImpl implements IDoctorListService {
     public List<DoctorList> getDoctorsByPatient(Patient patient) {
         Patient patientFromDB = this.patientDAO.getPatientByUserId(patient.getUser().getUserId());
         return this.doctorListDAO.getDoctorsByPatient(patientFromDB);
+    }
+
+    @Override
+    public boolean savePatientToDoctor(Patient patient, Doctor doctor) {
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
+        Patient patientFromDB = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        DoctorList newDoctorList = new DoctorList(0, doctorFromDB, patientFromDB);
+        return this.doctorListDAO.savePatientToDoctor(newDoctorList);
+
+    }
+
+    @Override
+    public void deletePatientFromDoctor(Patient patient, Doctor doctor) {
+
     }
 }
