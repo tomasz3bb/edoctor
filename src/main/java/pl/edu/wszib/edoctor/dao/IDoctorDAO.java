@@ -4,7 +4,7 @@ import pl.edu.wszib.edoctor.model.*;
 
 import java.util.List;
 
-public interface IDoctorDAO {
+public interface IDoctorDAO{
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
     List<Doctor> getAllDoctors();
@@ -12,6 +12,4 @@ public interface IDoctorDAO {
     void deleteDoctor(Doctor doctor);
     void updateDoctor(Doctor doctor);
     boolean addDoctor(Doctor doctor);
-    List <DoctorSchedule> getCurrentDoctorSchedule(int doctorId);
-    List<DoctorList> getPatientsByDoctor(Doctor doctor);
 }

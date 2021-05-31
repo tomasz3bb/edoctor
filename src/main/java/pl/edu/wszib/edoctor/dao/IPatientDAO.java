@@ -15,5 +15,4 @@ public interface IPatientDAO {
     void updatePatient(Patient patient);
     boolean addPatient(Patient patient);
     List<Appointment> getAppointmentByPatient(Patient patient);
-    List<DoctorList> getAllDoctorsByPatient(Patient patient);
 }

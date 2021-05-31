@@ -52,16 +52,6 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public List<DoctorList> getAllDoctorsByPatient(Patient patient) {
-        Session session = this.sessionFactory.openSession();
-        Query<DoctorList> doctorQuery= session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorList where patient = : patient");
-        doctorQuery.setParameter("patient", patient);
-        List<DoctorList> doctors = doctorQuery.getResultList();
-        session.close();
-        return doctors;
-    }
-
-    @Override
     public List<Patient> getAllPatients() {
         Session session = this.sessionFactory.openSession();
         Query<Patient> patientQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Patient");

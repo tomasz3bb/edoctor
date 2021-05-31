@@ -2,14 +2,13 @@ package pl.edu.wszib.edoctor.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.edoctor.dao.IDoctorDAO;
-import pl.edu.wszib.edoctor.dao.ISpecialityDAO;
-import pl.edu.wszib.edoctor.dao.IUserDAO;
+import pl.edu.wszib.edoctor.dao.*;
 import pl.edu.wszib.edoctor.model.*;
 import pl.edu.wszib.edoctor.services.IDoctorService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -27,15 +26,15 @@ public class DoctorServiceImpl implements IDoctorService {
     @Autowired
     ISpecialityDAO specialityDAO;
 
+    @Autowired
+    IDoctorListDAO doctorListDAO;
+
+    @Autowired
+    IDoctorScheduleDAO doctorScheduleDAO;
+
     @Override
     public List<Doctor> getAllDoctors() {
         return this.doctorDAO.getAllDoctors();
-    }
-
-    @Override
-    public List<DoctorList> getPatientsByDoctor(Doctor doctor) {
-        Doctor doctorFromDB = this.doctorDAO.getDoctorByUserId(doctor.getUser().getUserId());
-        return this.doctorDAO.getPatientsByDoctor(doctorFromDB);
     }
 
     @Override
@@ -77,8 +76,4 @@ public class DoctorServiceImpl implements IDoctorService {
         this.doctorDAO.updateDoctor(doctorFromDB);
     }
 
-    @Override
-    public List<DoctorSchedule> getCurrentDoctorSchedule(int doctorId) {
-        return this.doctorDAO.getCurrentDoctorSchedule(doctorId);
-    }
 }

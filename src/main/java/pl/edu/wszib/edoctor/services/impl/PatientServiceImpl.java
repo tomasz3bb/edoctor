@@ -2,6 +2,8 @@ package pl.edu.wszib.edoctor.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.edoctor.dao.IDoctorListDAO;
+import pl.edu.wszib.edoctor.dao.IDoctorScheduleDAO;
 import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.dao.IUserDAO;
 import pl.edu.wszib.edoctor.model.*;
@@ -18,6 +20,12 @@ public class PatientServiceImpl implements IPatientService {
     @Autowired
     IUserDAO userDAO;
 
+    @Autowired
+    IDoctorScheduleDAO doctorScheduleDAO;
+
+    @Autowired
+    IDoctorListDAO doctorListDAO;
+
     @Override
     public List<Patient> getAllPatients() {
         return this.patientDAO.getAllPatients();
@@ -31,18 +39,6 @@ public class PatientServiceImpl implements IPatientService {
     @Override
     public Patient getPatientByUserId(int userId) {
         return this.patientDAO.getPatientByUserId(userId);
-    }
-
-    @Override
-    public List<Appointment> getAppointmentByPatient(int userId) {
-        Patient patient = this.patientDAO.getPatientByUserId(userId);
-        return this.patientDAO.getAppointmentByPatient(patient);
-    }
-
-    @Override
-    public List<DoctorList> getAllDoctorsByPatient(Patient patient) {
-        Patient patientFromDB = this.patientDAO.getPatientByUserId(patient.getUser().getUserId());
-        return this.patientDAO.getAllDoctorsByPatient(patientFromDB);
     }
 
     @Override

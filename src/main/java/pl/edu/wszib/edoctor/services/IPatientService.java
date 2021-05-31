@@ -11,6 +11,5 @@ public interface IPatientService {
     boolean addPatient(Patient patient, User user);
     void deletePatient(Patient patient);
     void updatePatient(Patient patient);
-    List<Appointment> getAppointmentByPatient(int userId);
-    List<DoctorList> getAllDoctorsByPatient(Patient patient);
+
 }

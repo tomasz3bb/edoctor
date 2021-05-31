@@ -27,9 +27,9 @@
                 <div class="name" th:text="${doctors.doctor.name}"></div>
                 <div class="surname" th:text="${doctors.doctor.surname}"></div>
                 <div class="phone" th:text="${doctors.doctor.phone}"></div>
-                <div class="speciality" th:text="${doctors.doctor.speciality}"></div>
+                <div class="speciality" th:text="${doctors.doctor.speciality.specialityName}"></div>
                 <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctors.doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a>
-                <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctors.doctor.doctorId})}" class="edit-button">Pokaż dostępne terminy wizyt</a>
+
             </div>
         </th:block>
     </div>

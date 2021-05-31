@@ -18,25 +18,6 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     @Autowired
     SessionFactory sessionFactory;
 
-    @Override
-    public List<DoctorSchedule> getCurrentDoctorSchedule(int doctorId) {
-        Session session = this.sessionFactory.openSession();
-        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId");
-        query.setParameter("doctorId", doctorId);
-        List<DoctorSchedule> doctorScheduleList = query.getResultList();
-        session.close();
-        return doctorScheduleList;
-    }
-
-    @Override
-    public List<DoctorList> getPatientsByDoctor(Doctor doctor) {
-        Session session = this.sessionFactory.openSession();
-        Query<DoctorList> patientQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorList where doctor = : doctor");
-        patientQuery.setParameter("doctor", doctor);
-        List<DoctorList> patientList = patientQuery.getResultList();
-        session.close();
-        return patientList;
-    }
 
     @Override
     public Doctor getDoctorByUserId(int userId) {
@@ -138,4 +119,5 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
         }
         return true;
     }
+
 }

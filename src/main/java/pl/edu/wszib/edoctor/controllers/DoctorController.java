@@ -3,19 +3,18 @@ package pl.edu.wszib.edoctor.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import pl.edu.wszib.edoctor.dao.IDoctorListDAO;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.DoctorSchedule;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
-import pl.edu.wszib.edoctor.services.IDoctorService;
-import pl.edu.wszib.edoctor.services.IPatientService;
-import pl.edu.wszib.edoctor.services.IUserService;
+import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+
 @Controller
 public class DoctorController {
     @Resource
@@ -29,6 +28,13 @@ public class DoctorController {
 
     @Autowired
     IDoctorService doctorService;
+
+    @Autowired
+    IDoctorScheduleService doctorScheduleService;
+
+    @Autowired
+    IDoctorListService doctorListService;
+
 
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public String showAllDoctors(Model model){
@@ -48,7 +54,7 @@ public class DoctorController {
         }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("currentDS", this.doctorService.getCurrentDoctorSchedule(doctorId));
+        model.addAttribute("currentDS", this.doctorScheduleService.getDoctorScheduleByDoctorId(doctorId));
         return "currentdoctorschedule";
     }
 
@@ -58,9 +64,29 @@ public class DoctorController {
             return "redirect:/login";
         }
         Doctor loggedDoctor = this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
-        model.addAttribute("patientsList", this.doctorService.getPatientsByDoctor(loggedDoctor));
+        model.addAttribute("patientsList", this.doctorListService.getPatientsByDoctor(loggedDoctor));
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "doctor_patients";
+    }
+
+    @RequestMapping(value = "/doctor_editday/{dsId}", method = RequestMethod.GET)
+    public String editDoctorSchedule(@PathVariable int dsId, Model model) {
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        DoctorSchedule doctorSchedule = this.doctorScheduleService.getDoctorScheduleById(dsId);
+        model.addAttribute("doctorSchedule", doctorSchedule);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        return "doctor_editday";
+    }
+    @RequestMapping(value = "/doctor_editday/{dsId}", method = RequestMethod.POST)
+    public String editDoctorSchedule(@ModelAttribute DoctorSchedule doctorSchedule) {
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        this.doctorScheduleService.updateDoctorSchedule(doctorSchedule);
+        return "redirect:/doctors";
     }
 }

@@ -1,7 +1,15 @@
 package pl.edu.wszib.edoctor.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity(name = "tdoctorlist")
 public class DoctorList {
     @Id
@@ -12,42 +20,4 @@ public class DoctorList {
     @ManyToOne
     private Patient patient;
 
-    public DoctorList(){
-
-    }
-
-    public DoctorList(int doctorListId, Doctor doctor, Patient patient) {
-        this.doctorListId = doctorListId;
-        this.doctor = doctor;
-        this.patient = patient;
-    }
-
-    public int getDoctorListId() {
-        return doctorListId;
-    }
-
-    public void setDoctorListId(int doctorListId) {
-        this.doctorListId = doctorListId;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    @Override
-    public String toString() {
-        return " " + doctor;
-    }
 }

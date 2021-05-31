@@ -8,9 +8,8 @@ public interface IDoctorService {
     List<Doctor> getAllDoctors();
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
-    List<DoctorSchedule> getCurrentDoctorSchedule(int doctorId);
     boolean addDoctor(Doctor doctor, User user);
     void deleteDoctor(Doctor doctor);
     void updateDoctor(Doctor doctor);
-    List<DoctorList> getPatientsByDoctor(Doctor doctor);
+
 }
