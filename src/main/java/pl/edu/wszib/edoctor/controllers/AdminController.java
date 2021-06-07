@@ -6,9 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.edoctor.model.User;
-import pl.edu.wszib.edoctor.services.IDoctorService;
-import pl.edu.wszib.edoctor.services.IPatientService;
-import pl.edu.wszib.edoctor.services.ISpecialityService;
 import pl.edu.wszib.edoctor.services.IUserService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 

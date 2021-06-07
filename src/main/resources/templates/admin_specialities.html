@@ -9,23 +9,25 @@
     <link rel="stylesheet" href="/panelA.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
     <div class="admin">
-        <div class="row header">
-            <div class="id">Id</div>
-            <div class="speciality">Specjalizacja</div>
+        <div class="rowheader">
+            <div class="info">Id</div>
+            <div class="info">Specjalizacja</div>
         </div>
         <th:block th:each="speciality : ${specialities}">
             <div class="row">
-            <div class="id" th:text="${speciality.specialityId}"></div>
-            <div class="speciality" th:text="${speciality.specialityName}"></div>
+            <div class="info" th:text="${speciality.specialityId}"></div>
+            <div class="info" th:text="${speciality.specialityName}"></div>
                 <a th:if="${role == 'ADMIN'}" th:href="@{/admin_editspeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Edytuj</a>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin_deletespeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="delete-button">Usuń</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin_deletespeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Usuń</a>
             </div>
         </th:block>
     </div>
+</div>
 </div>
 </body>
 </html>

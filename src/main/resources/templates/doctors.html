@@ -9,30 +9,22 @@
     <link rel="stylesheet" href="/panelA.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
-</div>
-
-
 <div id="content">
-    <div class="admin">
-        <div class="row header">
-            <div class="name">Imię</div>
-            <div class="surname">Nazwisko</div>
-            <div class="phone">Numer telefonu</div>
-            <div class="speciality">Specjalizacja</div>
+
+    <th:block th:each="doctor : ${allDoctors}">
+        <div class="doctors">
+            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            <h2 th:text="'dr. ' + ${doctor.name} + ' ' + ${doctor.surname}"></h2>
+            <h3 th:text="${doctor.speciality.specialityName}"></h3>
+            <h3 th:text="'Telefon: ' + ' ' + ${doctor.phone}"></h3>
+            <p><a th:if="${isLogged}" th:href="@{/doctorschedule/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a></p>
+            <p><a th:if="${role == 'Pacjent'}" th:href="@{/patient_doctorConfirm/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Zapisz się do lekarza</a></p>
         </div>
-        <th:block th:each="doctor : ${allDoctors}">
-            <div class="row">
-                <div class="name" th:text="${doctor.name}"></div>
-                <div class="surname" th:text="${doctor.surname}"></div>
-                <div class="phone" th:text="${doctor.phone}"></div>
-                <div class="speciality" th:text="${doctor.speciality.specialityName}"></div>
-                <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a>
-                <a th:if="${role == 'Pacjent'}" th:href="@{/patient_doctorConfirm/{doctorId}(doctorId=${doctor.doctorId})}">Zapisz się do lekarza</a>
-            </div>
-        </th:block>
-    </div>
+    </th:block>
+</div>
 </div>
 </body>
 </html>

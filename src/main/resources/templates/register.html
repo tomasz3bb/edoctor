@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/panelA.css">
+    <style>
+        #page{
+            min-height: 50vh;
+            width: 50%;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+<div id="page">
+<form id="login-form" method="post">
+    <p th:if="${info}" th:text="${info}" style="text-align: center"></p>
+    <h2>Wypełnij formularz rejestracyjny, by utworzyć konto pacjenta.</h2>
+    <input type="text" placeholder="Login" th:field="*{registrationModel.login}">
+    <input type="password" placeholder="Hasło" th:field="*{registrationModel.pass}">
+    <input type="password" placeholder="Powtórz hasło" th:field="*{registrationModel.pass2}">
+    <input type="submit" value="Zarejestruj">
+    <input type="button" onclick="history.back();" value="Wróć">
+</form>
+</div>
+</body>
+</html>

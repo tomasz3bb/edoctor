@@ -33,8 +33,8 @@ public class DoctorServiceImpl implements IDoctorService {
     IDoctorScheduleDAO doctorScheduleDAO;
 
     @Override
-    public List<Doctor> getAllDoctors() {
-        return this.doctorDAO.getAllDoctors();
+    public List<Doctor> getAll() {
+        return this.doctorDAO.getAll();
     }
 
     @Override
@@ -48,24 +48,24 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
-    public boolean addDoctor(Doctor doctor, User user) {
+    public boolean save(Doctor doctor, User user) {
         User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Lekarz);
         Doctor newDoctor = new Doctor(0, newUser, doctor.getName(), doctor.getSurname(),
                 doctor.getPhone(), doctor.getSpeciality(), doctor.getPWZNumber());
-        this.userDAO.addUser(newUser);
-        return this.doctorDAO.addDoctor(newDoctor);
+        this.userDAO.save(newUser);
+        return this.doctorDAO.save(newDoctor);
     }
 
     @Override
-    public void deleteDoctor(Doctor doctor) {
+    public void delete(Doctor doctor) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
         User userFromDB = this.userDAO.getUserById(doctorFromDB.getUser().getUserId());
-        this.userDAO.deleteUser(userFromDB);
-        this.doctorDAO.deleteDoctor(doctorFromDB);
+        this.userDAO.delete(userFromDB);
+        this.doctorDAO.delete(doctorFromDB);
     }
 
     @Override
-    public void updateDoctor(Doctor doctor) {
+    public void update(Doctor doctor) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
         doctorFromDB.setUser(doctor.getUser());
         doctorFromDB.setName(doctor.getName());
@@ -73,7 +73,7 @@ public class DoctorServiceImpl implements IDoctorService {
         doctorFromDB.setPhone(doctor.getPhone());
         doctorFromDB.setSpeciality(doctor.getSpeciality());
 
-        this.doctorDAO.updateDoctor(doctorFromDB);
+        this.doctorDAO.update(doctorFromDB);
     }
 
 }

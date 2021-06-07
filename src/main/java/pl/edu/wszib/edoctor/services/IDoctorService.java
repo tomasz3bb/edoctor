@@ -5,11 +5,11 @@ import pl.edu.wszib.edoctor.model.*;
 import java.util.List;
 
 public interface IDoctorService {
-    List<Doctor> getAllDoctors();
+    List<Doctor> getAll();
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
-    boolean addDoctor(Doctor doctor, User user);
-    void deleteDoctor(Doctor doctor);
-    void updateDoctor(Doctor doctor);
+    boolean save(Doctor doctor, User user);
+    void delete(Doctor doctor);
+    void update(Doctor doctor);
 
 }

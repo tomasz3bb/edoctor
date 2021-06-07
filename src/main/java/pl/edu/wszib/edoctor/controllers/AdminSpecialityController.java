@@ -37,7 +37,7 @@ public class AdminSpecialityController {
         }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("specialities", this.specialityService.getAllSpecialities());
+        model.addAttribute("specialities", this.specialityService.getAll());
         return "admin_specialities";
     }
 
@@ -56,7 +56,7 @@ public class AdminSpecialityController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        if(this.specialityService.addSpeciality(speciality)) {
+        if(this.specialityService.save(speciality)) {
             return "redirect:/panel";
         } else {
             return "redirect:/admin_addspeciality";
@@ -79,7 +79,7 @@ public class AdminSpecialityController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        this.specialityService.deleteSpeciality(speciality);
+        this.specialityService.delete(speciality);
         return "redirect:/panel";
     }
 
@@ -100,7 +100,7 @@ public class AdminSpecialityController {
             return "redirect:/login";
         }
 
-        this.specialityService.updateSpeciality(speciality);
+        this.specialityService.update(speciality);
 
         return "redirect:/panel";
     }

@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="/menu.css">
 </head>
 <body>
+
+<div id="page">
     <div id="logo" th:replace="fragments.html :: logo"></div>
     <div id="menu" th:replace="fragments.html :: menu" ></div>
     <div id="content">
         <h2 style="text-align: center">Witaj w aplikacji eDoctor</h2>
+            <img src="/logo.jpg" class="imglogo" alt="">
     </div>
-<div id="footer" th:replace="fragments.html :: footer"></div>
+    <div id="footer" th:replace="fragments.html :: footer" ></div>
+</div>
+
 </body>
 </html>

@@ -10,22 +10,30 @@
 <body>
 <div id="menu" th:fragment="menu">
     <ul>
-        <a href="/main" class="menu-button">Strona główna</a>
-        <a href="/about" class="menu-button">O aplikacji</a>
-        <a href="/contact" class="menu-button">Kontakt</a>
-        <a href="/login" class="menu-button" th:if="${!isLogged}">Zaloguj</a>
-        <a href="/logout" class="menu-button" th:if="${isLogged}">Wyloguj</a>
-        <a href="/panel" class="menu-button" th:if="${role == 'ADMIN'}" style="color:red;">Panel admina</a>
-        <br><br>
-        <a href="/doctors" class="menu-button" th:if="${isLogged}">Nasi lekarze</a>
-        <a href="/doctor_account" class="menu-button" th:if="${role == 'Lekarz'}">Moje konto</a>
-        <a href="/patient_account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a>
-        <a href="/patient_doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a>
-        <a href="/doctor_patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a>
-        <a href="/patient_app" th:if="${role == 'Pacjent'}">Historia leczenia</a>
+        <li><a href="/main" class="menu-button">Strona główna</a></li>
+        <li><a href="/about" class="menu-button">O aplikacji</a></li>
+        <li><a href="/doctors" class="menu-button" th:if="${isLogged}">Nasi lekarze</a></li>
+        <li><a href="/contact" class="menu-button">Kontakt</a></li>
+        <li><a href="/login" class="menu-button" th:if="${!isLogged}">Zaloguj</a></li>
+        <li><a href="/logout" class="menu-button" th:if="${isLogged}">Wyloguj</a></li>
+        <li><a href="/panel" class="menu-button" th:if="${role == 'ADMIN'}" style="color:red;">Panel admina</a></li>
+        <li><a href="/doctor_account" class="menu-button" th:if="${role == 'Lekarz'}">Moje konto</a></li>
+        <li><a href="/patient_account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a></li>
+        <li><a href="/patient_doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a></li>
+        <li><a href="/doctor_patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a></li>
+        <li><a href="/patient_app" th:if="${role == 'Pacjent'}">Moje wizyty</a></li>
     </ul>
 </div>
-<div id="logo" th:fragment="logo"></div>
+<div id="logo" th:fragment="logo">
+    <h1>eDoctor
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        12 300 00 00
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        info@mail.com
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        Poniedziałek - Piątek 7:00 - 20:00
+    </h1>
+</div>
 <div id="footer" th:fragment="footer">
     <p>Aplikacja eDoctor</p>
     <script type="text/javascript">

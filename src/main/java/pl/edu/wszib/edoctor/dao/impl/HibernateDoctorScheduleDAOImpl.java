@@ -20,7 +20,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public List<DoctorSchedule> getDoctorScheduleByDoctorId(int doctorId) {
+    public List<DoctorSchedule> getAllByDoctorId(int doctorId) {
         Session session = this.sessionFactory.openSession();
         Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId order by dayOfWeek.dayOfWeek");
         query.setParameter("doctorId", doctorId);
@@ -30,7 +30,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     }
 
     @Override
-    public List<DoctorSchedule> getDoctorScheduleByDoctor(Doctor doctor) {
+    public List<DoctorSchedule> getAllByDoctor(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor  = : doctor order by dayOfWeek.dayOfWeek");
         query.setParameter("doctor", doctor);
@@ -55,7 +55,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     }
 
     @Override
-    public void addDoctorSchedule(DoctorSchedule doctorSchedule) {
+    public void save(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -72,7 +72,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     }
 
     @Override
-    public void updateDoctorSchedule(DoctorSchedule doctorSchedule) {
+    public void update(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -89,7 +89,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     }
 
     @Override
-    public void deleteDoctorSchedule(DoctorSchedule doctorSchedule) {
+    public void delete(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {

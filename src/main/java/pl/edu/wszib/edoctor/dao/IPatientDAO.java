@@ -10,8 +10,8 @@ import java.util.List;
 public interface IPatientDAO {
     Patient getPatientByPatientId(int patientId);
     Patient getPatientByUserId(int userId);
-    List<Patient> getAllPatients();
-    void deletePatient(Patient patient);
-    void updatePatient(Patient patient);
-    boolean addPatient(Patient patient);
+    List<Patient> getAll();
+    void delete(Patient patient);
+    void update(Patient patient);
+    boolean save(Patient patient);
 }

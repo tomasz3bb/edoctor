@@ -49,16 +49,16 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public List<Doctor> getAllDoctors() {
+    public List<Doctor> getAll() {
         Session session = this.sessionFactory.openSession();
-        Query<Doctor> doctorQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Doctor");
+        Query<Doctor> doctorQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Doctor order by speciality.specialityName");
         List<Doctor> doctors = doctorQuery.getResultList();
         session.close();
         return doctors;
     }
 
     @Override
-    public List<Doctor> getAllDoctorsBySpeciality(Speciality speciality) {
+    public List<Doctor> getAllBySpeciality(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Query<Doctor> doctorQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Doctor where speciality = : speciality");
         doctorQuery.setParameter("speciality", speciality);
@@ -68,7 +68,7 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public void deleteDoctor(Doctor doctor) {
+    public void delete(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -85,7 +85,7 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public void updateDoctor(Doctor doctor) {
+    public void update(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -102,7 +102,7 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public boolean addDoctor(Doctor doctor) {
+    public boolean save(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {

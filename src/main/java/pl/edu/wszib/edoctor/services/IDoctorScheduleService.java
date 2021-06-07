@@ -6,10 +6,10 @@ import pl.edu.wszib.edoctor.model.DoctorSchedule;
 import java.util.List;
 
 public interface IDoctorScheduleService {
-    List<DoctorSchedule> getDoctorScheduleByDoctorId(int doctorId);
-    List<DoctorSchedule> getDoctorScheduleByDoctor(Doctor doctor);
+    List<DoctorSchedule> getAllByDoctorId(int doctorId);
+    List<DoctorSchedule> getAllByDoctor(Doctor doctor);
     DoctorSchedule getDoctorScheduleById(int doctorScheduleId);
-    void deleteDoctorSchedule(DoctorSchedule doctorSchedule);
-    void addDoctorSchedule(DoctorSchedule doctorSchedule);
-    void updateDoctorSchedule(DoctorSchedule doctorSchedule);
+    void delete(DoctorSchedule doctorSchedule);
+    void save(DoctorSchedule doctorSchedule);
+    void update(DoctorSchedule doctorSchedule);
 }

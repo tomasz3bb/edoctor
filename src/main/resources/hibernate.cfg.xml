@@ -28,7 +28,7 @@
             true
         </property>
 
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- List of XML mapping files -->
         <mapping class="pl.edu.wszib.edoctor.model.User"/>

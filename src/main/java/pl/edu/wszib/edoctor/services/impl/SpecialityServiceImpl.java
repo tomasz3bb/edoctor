@@ -21,8 +21,8 @@ public class SpecialityServiceImpl implements ISpecialityService {
 
 
     @Override
-    public List<Speciality> getAllSpecialities() {
-        return this.specialityDAO.getAllSpecialities();
+    public List<Speciality> getAll() {
+        return this.specialityDAO.getAll();
     }
 
     @Override
@@ -31,21 +31,21 @@ public class SpecialityServiceImpl implements ISpecialityService {
     }
 
     @Override
-    public boolean addSpeciality(Speciality speciality) {
+    public boolean save(Speciality speciality) {
         Speciality newSpeciality = new Speciality(0, speciality.getSpecialityName());
-        return this.specialityDAO.addSpeciality(newSpeciality);
+        return this.specialityDAO.save(newSpeciality);
     }
 
     @Override
-    public void deleteSpeciality(Speciality speciality) {
+    public void delete(Speciality speciality) {
         Speciality specialityFromDB = this.specialityDAO.getSpecialityById(speciality.getSpecialityId());
-        this.specialityDAO.deleteSpeciality(specialityFromDB);
+        this.specialityDAO.delete(specialityFromDB);
     }
 
     @Override
-    public void updateSpeciality(Speciality speciality) {
+    public void update(Speciality speciality) {
         Speciality specialityFromDB = this.specialityDAO.getSpecialityById(speciality.getSpecialityId());
         specialityFromDB.setSpecialityName(speciality.getSpecialityName());
-        this.specialityDAO.updateSpeciality(specialityFromDB);
+        this.specialityDAO.update(specialityFromDB);
     }
 }

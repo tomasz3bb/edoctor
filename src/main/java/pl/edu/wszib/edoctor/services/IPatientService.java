@@ -5,11 +5,11 @@ import pl.edu.wszib.edoctor.model.*;
 import java.util.List;
 
 public interface IPatientService {
-    List<Patient> getAllPatients();
+    List<Patient> getAll();
     Patient getPatientByPatientId(int patientId);
     Patient getPatientByUserId(int userId);
-    boolean addPatient(Patient patient, User user);
-    void deletePatient(Patient patient);
-    void updatePatient(Patient patient);
+    boolean save(Patient patient, User user);
+    void delete(Patient patient);
+    void update(Patient patient);
 
 }

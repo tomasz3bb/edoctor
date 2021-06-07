@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ISpecialityDAO {
     Speciality getSpecialityById(int id);
-    List<Speciality> getAllSpecialities();
-    void deleteSpeciality(Speciality speciality);
-    void updateSpeciality(Speciality speciality);
-    boolean addSpeciality(Speciality speciality);
+    List<Speciality> getAll();
+    void delete(Speciality speciality);
+    void update(Speciality speciality);
+    boolean save(Speciality speciality);
 }

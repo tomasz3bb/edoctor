@@ -9,30 +9,23 @@
     <link rel="stylesheet" href="/panelA.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
-</div>
-
-
 <div id="content">
-    <div class="admin">
-        <div class="row header">
-            <div class="name">Imię</div>
-            <div class="surname">Nazwisko</div>
-            <div class="phone">Numer telefonu</div>
-            <div class="speciality">Specjalizacja</div>
+    <p th:if="${info}" th:text="${info}" class="error"></p>
+    <th:block th:each="mydoctor : ${doctorsList}">
+        <div class="doctors">
+            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            <h2 th:text="'dr. ' + ${mydoctor.doctor.name} + ' ' + ${mydoctor.doctor.surname}"></h2>
+            <h3 th:text="${mydoctor.doctor.speciality.specialityName}"></h3>
+            <h3 th:text="'Telefon: ' + ' ' + ${mydoctor.doctor.phone}"></h3>
+            <p><a th:if="${isLogged}" th:href="@{/doctorschedule/{doctorId}(doctorId=${mydoctor.doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a></p>
+            <p><a th:if="${role == 'Pacjent'}" th:href="@{/patient_makeapp/{doctorId}(doctorId=${mydoctor.doctor.doctorId})}" class="edit-button">Umów wizytę</a></p>
         </div>
-        <th:block th:each="doctor : ${doctorsList}">
-            <div class="row">
-                <div class="name" th:text="${doctor.doctor.name}"></div>
-                <div class="surname" th:text="${doctor.doctor.surname}"></div>
-                <div class="phone" th:text="${doctor.doctor.phone}"></div>
-                <div class="speciality" th:text="${doctor.doctor.speciality.specialityName}"></div>
-                <a th:if="${isLogged}" th:href="@{/currentdoctorschedule/{doctorId}(doctorId=${doctor.doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a>
-                <a th:if="${isLogged}" href="/patient_app" class="edit-button">Szukaj terminów wizyt</a>
-            </div>
-        </th:block>
+    </th:block>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/menu.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
@@ -26,7 +27,7 @@
         <p></p>
     </ul>
 </div>
-<div id="footer" th:replace="fragments.html :: footer"></div>
-
+    <div id="footer" th:replace="fragments.html :: footer" ></div>
+</div>
 </body>
 </html>

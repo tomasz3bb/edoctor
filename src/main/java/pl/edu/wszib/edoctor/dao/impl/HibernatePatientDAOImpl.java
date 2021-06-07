@@ -52,7 +52,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public List<Patient> getAllPatients() {
+    public List<Patient> getAll() {
         Session session = this.sessionFactory.openSession();
         Query<Patient> patientQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Patient");
         List<Patient> patients = patientQuery.getResultList();
@@ -61,7 +61,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public void deletePatient(Patient patient) {
+    public void delete(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -78,7 +78,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public void updatePatient(Patient patient) {
+    public void update(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -95,7 +95,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public boolean addPatient(Patient patient) {
+    public boolean save(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {

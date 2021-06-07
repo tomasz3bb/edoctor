@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IDoctorScheduleDAO {
     DoctorSchedule getDoctorScheduleById(int doctorScheduleId);
-    List<DoctorSchedule> getDoctorScheduleByDoctorId(int doctorId);
-    List<DoctorSchedule> getDoctorScheduleByDoctor(Doctor doctor);
-    void addDoctorSchedule(DoctorSchedule doctorSchedule);
-    void deleteDoctorSchedule(DoctorSchedule doctorSchedule);
-    void updateDoctorSchedule(DoctorSchedule doctorSchedule);
+    List<DoctorSchedule> getAllByDoctorId(int doctorId);
+    List<DoctorSchedule> getAllByDoctor(Doctor doctor);
+    void save(DoctorSchedule doctorSchedule);
+    void delete(DoctorSchedule doctorSchedule);
+    void update(DoctorSchedule doctorSchedule);
 }

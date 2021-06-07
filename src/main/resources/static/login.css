@@ -1,35 +1,50 @@
 #login-form {
-    width: 800px;
-    margin: 70px auto;
+    width: 60%;
+    margin: 100px auto;
+    padding: 20px;
+    justify-content: center;
+    background: white;
+    min-height: 50vh;
+    display: table;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+body{
+    background: #0250c5;
+    position: relative;
+}
+p, h1, h2, h3{
+    text-align: center;
+    margin: 5px auto;
+    padding: 5px;
+}
+p{
+    font-size: 18px;
 }
 .login-info, .id-info, .role-info {
     margin: 5px auto;
     display: block;
-    font-size: 24px;
+    font-size: 21px;
     text-align: justify;
 }
 
-#login-form input[type="text"] {
-    width: 80%;
+#login-form input[type="text"], input[type="password"], input[type="date"] {
+    width: 100%;
     margin: 10px auto;
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     padding: 5px;
     text-align: center;
 }
-#login-form input[type="password"] {
-    width: 80%;
-    margin: 10px auto;
-    display: block;
-    font-size: 24px;
-    padding: 5px;
-    text-align: center;
-}
-#login-form input[type="submit"] {
+
+#login-form input[type="submit"], input[type="button"] {
     width: 200px;
     margin: 10px auto;
+    padding: 5px;
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     border: 2px solid black;
     color: black;
     background-color: white;
@@ -37,7 +52,7 @@
     cursor: pointer;
     transition: color 0.5s, background-color 0.5s;
 }
-#login-form input[type="submit"]:hover {
+#login-form input[type="submit"]:hover, input[type="button"]:hover {
     color: white;
     background-color: black;
 }
@@ -45,8 +60,5 @@
     display: block;
     margin: 10px 0;
     font-size: 24px;
-    text-align: center;
-}
-p{
     text-align: center;
 }

@@ -10,23 +10,16 @@ import pl.edu.wszib.edoctor.model.User;
 @SessionScope
 public class SessionObject {
     private User loggedUser = null;
-    private Doctor loggedDoctor = null;
-    private Patient loggedPatient = null;
+    private String info = null;
 
-    public Doctor getLoggedDoctor() {
-        return loggedDoctor;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public void setLoggedDoctor(Doctor loggedDoctor) {
-        this.loggedDoctor = loggedDoctor;
-    }
-
-    public Patient getLoggedPatient() {
-        return loggedPatient;
-    }
-
-    public void setLoggedPatient(Patient loggedPatient) {
-        this.loggedPatient = loggedPatient;
+    public String getInfo() {
+        String temp = this.info;
+        this.info = null;
+        return temp;
     }
 
     public User getLoggedUser() {
@@ -41,12 +34,5 @@ public class SessionObject {
         return this.loggedUser != null;
     }
 
-    public boolean isDoctorLogged(){
-        return this.loggedDoctor != null;
-    }
-
-    public boolean isPatientLogged(){
-        return this.loggedPatient != null;
-    }
 
 }

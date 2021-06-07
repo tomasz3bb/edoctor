@@ -26,15 +26,42 @@ public class AppointmentServiceImpl implements IAppointmentService {
     SessionObject sessionObject;
 
     @Override
-    public List<Appointment> getAppointmentByPatient(int userId) {
+    public List<Appointment> getAllAppointmentByPatient(int userId) {
         Patient patient = this.patientDAO.getPatientByUserId(userId);
         return this.appointmentDAO.getAppointmentByPatient(patient);
     }
 
     @Override
-    public List<Appointment> getAppointmentByDoctor(Doctor doctor, Patient patient) {
-        Doctor loggedDoctor = this.doctorDAO.getDoctorByDoctorId(this.sessionObject.getLoggedUser().getUserId());
-        Patient patientFromDB = this.patientDAO.getPatientByPatientId(patient.getPatientId());
-        return this.appointmentDAO.getAppointmentByDoctor(loggedDoctor, patientFromDB);
+    public List<Appointment> getAllAppointmentByDoctor(Doctor doctor) {
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
+        return this.appointmentDAO.getAppointmentByDoctor(doctorFromDB);
+    }
+
+    @Override
+    public List<Appointment> getAllPatientAppointmentByDoctor(Doctor doctor, int patientId) {
+        Patient patientFromDB = this.patientDAO.getPatientByPatientId(patientId);
+        Doctor loggedDoctor = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
+        return this.appointmentDAO.getPatientAppointmentByDoctor(loggedDoctor, patientFromDB);
+    }
+
+    @Override
+    public List<Appointment> getCurrentAppByPatient(int userId, Appointment.Status status) {
+        Patient patient = this.patientDAO.getPatientByUserId(userId);
+        return this.appointmentDAO.getAppByStatus(patient, Appointment.Status.Zaplanowana);
+    }
+
+    @Override
+    public List<Appointment> getHistAppByPatient(int userId, Appointment.Status status) {
+        Patient patient = this.patientDAO.getPatientByUserId(userId);
+        return this.appointmentDAO.getAppByStatus(patient, Appointment.Status.Zakończona);
+    }
+
+    @Override
+    public boolean addAppointment(Appointment appointment, int doctorId) {
+        Patient patient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
+        Appointment newApp = new Appointment(0, patient, doctor, appointment.getAppointmentDate(),
+                appointment.getAppointmentTimeStart(), Appointment.Status.Zaplanowana);
+        return this.appointmentDAO.save(newApp);
     }
 }

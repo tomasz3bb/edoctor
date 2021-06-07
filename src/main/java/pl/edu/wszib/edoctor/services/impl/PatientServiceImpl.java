@@ -27,8 +27,8 @@ public class PatientServiceImpl implements IPatientService {
     IDoctorListDAO doctorListDAO;
 
     @Override
-    public List<Patient> getAllPatients() {
-        return this.patientDAO.getAllPatients();
+    public List<Patient> getAll() {
+        return this.patientDAO.getAll();
     }
 
     @Override
@@ -42,24 +42,24 @@ public class PatientServiceImpl implements IPatientService {
     }
 
     @Override
-    public boolean addPatient(Patient patient, User user) {
+    public boolean save(Patient patient, User user) {
         User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Pacjent);
         Patient newPatient = new Patient(0, newUser, patient.getName(), patient.getSurname(),
                 patient.getPhone(), patient.getDateOfBirth(), patient.getPESEL());
-        this.userDAO.addUser(newUser);
-        return this.patientDAO.addPatient(newPatient);
+        this.userDAO.save(newUser);
+        return this.patientDAO.save(newPatient);
     }
 
     @Override
-    public void deletePatient(Patient patient) {
+    public void delete(Patient patient) {
         Patient patientFromDB = this.patientDAO.getPatientByPatientId(patient.getPatientId());
         User userFromDB = this.userDAO.getUserById(patientFromDB.getUser().getUserId());
-        this.userDAO.deleteUser(userFromDB);
-        this.patientDAO.deletePatient(patientFromDB);
+        this.userDAO.delete(userFromDB);
+        this.patientDAO.delete(patientFromDB);
     }
 
     @Override
-    public void updatePatient(Patient patient) {
+    public void update(Patient patient) {
         Patient patientFromDB = this.patientDAO.getPatientByPatientId(patient.getPatientId());
         patientFromDB.setName(patient.getName());
         patientFromDB.setSurname(patient.getSurname());
@@ -67,6 +67,6 @@ public class PatientServiceImpl implements IPatientService {
         patientFromDB.setDateOfBirth(patient.getDateOfBirth());
         patientFromDB.setPESEL(patient.getPESEL());
 
-        this.patientDAO.updatePatient(patientFromDB);
+        this.patientDAO.update(patientFromDB);
     }
 }

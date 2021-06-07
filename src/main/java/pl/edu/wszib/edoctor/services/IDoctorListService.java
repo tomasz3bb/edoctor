@@ -11,5 +11,5 @@ public interface IDoctorListService {
     List<DoctorList> getDoctorsByPatient(Patient patient);
     List<DoctorList> getPatientsByDoctor(Doctor doctor);
 
-    boolean savePatientToDoctor(Patient patient, Doctor doctor);
+    boolean savePatientToDoctor(DoctorList doctorList, int doctorId);
 }

@@ -36,7 +36,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public List<Speciality> getAllSpecialities() {
+    public List<Speciality> getAll() {
         Session session = this.sessionFactory.openSession();
         Query<Speciality> specialityQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Speciality");
         List<Speciality> specialities = specialityQuery.getResultList();
@@ -45,7 +45,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public void deleteSpeciality(Speciality speciality) {
+    public void delete(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -62,7 +62,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public void updateSpeciality(Speciality speciality) {
+    public void update(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -79,7 +79,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public boolean addSpeciality(Speciality speciality) {
+    public boolean save(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {

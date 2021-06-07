@@ -39,7 +39,7 @@ public class AdminDoctorsController {
         }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("doctors", this.doctorService.getAllDoctors());
+        model.addAttribute("doctors", this.doctorService.getAll());
         return "admin_doctors";
     }
 
@@ -59,7 +59,7 @@ public class AdminDoctorsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        if(this.doctorService.addDoctor(doctor, user)) {
+        if(this.doctorService.save(doctor, user)) {
             return "redirect:/admin_adddoctor";
         } else {
             return "redirect:/admin_adddoctor";
@@ -82,7 +82,7 @@ public class AdminDoctorsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        this.doctorService.deleteDoctor(doctor);
+        this.doctorService.delete(doctor);
         return "redirect:/panel";
     }
 
@@ -103,7 +103,7 @@ public class AdminDoctorsController {
             return "redirect:/login";
         }
 
-        this.doctorService.updateDoctor(doctor);
+        this.doctorService.update(doctor);
 
         return "redirect:/panel";
     }

@@ -42,10 +42,10 @@ public class DoctorListServiceImpl implements IDoctorListService {
     }
 
     @Override
-    public boolean savePatientToDoctor(Patient patient, Doctor doctor) {
-        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
+    public boolean savePatientToDoctor(DoctorList doctorList, int doctorId) {
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctorId);
         Patient loggedPatient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
-        DoctorList doctorList = new DoctorList(0, doctorFromDB, loggedPatient);
-        return this.doctorListDAO.savePatientToDoctor(doctorList);
+        DoctorList newDocList = new DoctorList(0, doctorFromDB, loggedPatient);
+        return this.doctorListDAO.savePatientToDoctor(newDocList);
     }
 }

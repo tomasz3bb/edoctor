@@ -1,53 +1,37 @@
-.admin a:link, a:visited {
-    background-color: #393636;
-    color: #d2cbcb;
-    border: 1px solid green;
-    padding: 5px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-.admin a:hover, a:active {
-    background-color: green;
-    color: white;
-}
 .row {
     border-collapse: collapse;
-    width: 95%;
-    padding: 8px;
+    width: 90%;
+    padding: 10px;
     margin: 10px auto;
     font-size: 16px;
 }
+.row:nth-child(2n){
+    background: #d6e4e5;
+}
+.rowheader{
+    border-collapse: collapse;
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 16px;
+    font-weight: bold;
+}
 
-.userinfo{
-    display: inline-block;
-    width: 20%;
-}
-.name{
-    display: inline-block;
-    width: 10%;
-}
-.surname{
-    display: inline-block;
-    width: 10%;
-}
-.phone{
-    display: inline-block;
-    width: 10%;
-}
-.id{
-    display: inline-block;
-    width: 5%;
-}
-.speciality{
+.info{
     display: inline-block;
     width: 12%;
 }
-.dateOfBirth{
+.doctors{
+    border-collapse: collapse;
+    width: 20%;
+    padding: 10px;
+    margin: 10px auto;
+    margin-left: 10px;
+    font-size: 16px;
     display: inline-block;
-    width: 15%;
+    text-align: center;
+    background-color: rgba(222, 231, 239, 0.19);
+    border-radius: 10px;
+    border: 1px solid #f5c4c4;
 }
-.number{
-    display: inline-block;
-    width: 10%;
-}
+

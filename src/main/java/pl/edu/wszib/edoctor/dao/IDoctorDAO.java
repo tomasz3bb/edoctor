@@ -7,9 +7,9 @@ import java.util.List;
 public interface IDoctorDAO{
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
-    List<Doctor> getAllDoctors();
-    List<Doctor> getAllDoctorsBySpeciality(Speciality speciality);
-    void deleteDoctor(Doctor doctor);
-    void updateDoctor(Doctor doctor);
-    boolean addDoctor(Doctor doctor);
+    List<Doctor> getAll();
+    List<Doctor> getAllBySpeciality(Speciality speciality);
+    void delete(Doctor doctor);
+    void update(Doctor doctor);
+    boolean save(Doctor doctor);
 }

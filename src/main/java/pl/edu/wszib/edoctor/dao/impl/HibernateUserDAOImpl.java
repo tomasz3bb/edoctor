@@ -19,7 +19,7 @@ public class HibernateUserDAOImpl implements IUserDAO {
     SessionFactory sessionFactory;
 
     @Override
-    public boolean addUser(User user) {
+    public boolean save(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -67,7 +67,7 @@ public class HibernateUserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void delete(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -84,7 +84,7 @@ public class HibernateUserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -101,7 +101,25 @@ public class HibernateUserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public boolean persist(User user) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(user);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if(tx != null)
+                tx.rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
+    public List<User> getAll() {
         Session session = this.sessionFactory.openSession();
         Query<User> userQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.User");
         List<User> users = userQuery.getResultList();

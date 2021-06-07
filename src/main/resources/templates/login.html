@@ -7,14 +7,24 @@
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/login.css">
+    <style>
+        #page{
+            min-height: 50vh;
+            width: 50%;
+            border-radius: 12px;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
-<div th:replace="fragments.html :: logo"></div>
 <form id="login-form" method="post">
-    <input type="text" placeholder="Podaj login" th:field="*{userModel.login}">
-    <input type="password" placeholder="Podaj hasło" th:field="*{userModel.password}">
+    <h1>Logowanie do systemu</h1>
+    <p>Login:<input type="text" placeholder="Podaj login" th:field="*{userModel.login}"></p>
+    <p>Hasło:<input type="password" placeholder="Podaj hasło" th:field="*{userModel.password}"></p>
+    <p th:if="${info}" th:text="${info}" class="error"></p>
     <input type="submit" value="Zaloguj">
+    <h2>Nie masz jeszcze konta pacjenta w naszym systemie?</h2>
+    <h2><a href="/register" class="edit-button">Zarejestruj konto pacjenta</a></h2>
 </form>
 </div>
 </body>

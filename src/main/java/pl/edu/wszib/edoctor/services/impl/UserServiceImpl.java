@@ -3,14 +3,15 @@ package pl.edu.wszib.edoctor.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.edoctor.dao.IDoctorDAO;
+import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.dao.IUserDAO;
-import pl.edu.wszib.edoctor.model.Doctor;
+import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
+import pl.edu.wszib.edoctor.model.view.RegistrationModel;
 import pl.edu.wszib.edoctor.services.IUserService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
-import javax.print.Doc;
 import java.util.List;
 
 @Service
@@ -25,35 +26,51 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     IDoctorDAO doctorDAO;
 
+    @Autowired
+    IPatientDAO patientDAO;
+
     @Override
-    public boolean addUser(User user) {
+    public boolean save(User user) {
         User newUser = new User(0, user.getLogin(), user.getPassword(), user.getRole());
-        return this.userDAO.addUser(newUser);
+        return this.userDAO.save(newUser);
     }
 
     @Override
-    public void deleteUser(User user) {
-        this.userDAO.deleteUser(user);
+    public void delete(User user) {
+        this.userDAO.delete(user);
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         User userFromDB = this.userDAO.getUserById(user.getUserId());
         userFromDB.setLogin(user.getLogin());
         userFromDB.setPassword(user.getPassword());
         userFromDB.setRole(user.getRole());
-        this.userDAO.updateUser(userFromDB);
+        this.userDAO.update(userFromDB);
     }
 
     @Override
-    public void authenticate(User user) {
+    public boolean authenticate(User user) {
         User userFromDatabase = this.userDAO.getUserByLogin(user.getLogin());
         if (userFromDatabase == null){
-            return;
+            return false;
         }
         if (user.getPassword().equals(userFromDatabase.getPassword())){
             this.sessionObject.setLoggedUser(userFromDatabase);
         }
+        return true;
+    }
+
+    @Override
+    public boolean register(RegistrationModel registrationModel, Patient patient) {
+        if (this.userDAO.getUserByLogin(registrationModel.getLogin()) != null) {
+            return false;
+        }
+        User newUser = new User(0, registrationModel.getLogin(), registrationModel.getPass(), User.Role.Pacjent);
+        Patient newPatient = new Patient(0, newUser, patient.getName(), patient.getSurname(),
+                patient.getPhone(), patient.getDateOfBirth(), patient.getPESEL());
+        this.userDAO.save(newUser);
+        return this.patientDAO.save(newPatient);
     }
 
     @Override
@@ -67,8 +84,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return this.userDAO.getAllUsers();
+    public List<User> getAll() {
+        return this.userDAO.getAll();
     }
+
+
 
 }

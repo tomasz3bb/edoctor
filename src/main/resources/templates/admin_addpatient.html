@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/form.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
@@ -22,10 +23,11 @@
             <input type="text" th:field="*{patient.phone}"  placeholder="Numer telefonu">
             <input type="date" th:field="*{patient.dateOfBirth}"  placeholder="Data urodzenia">
             <input type="text" th:field="*{patient.PESEL}"  placeholder="PESEL">
-            <input type="submit">
+            <input type="submit" value="Dodaj">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>
     </div>
+</div>
 </div>
 </body>
 </html>

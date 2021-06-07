@@ -6,7 +6,12 @@ import pl.edu.wszib.edoctor.model.Patient;
 
 import java.util.List;
 
-public interface IAppointmentDAO {
+public interface IAppointmentDAO{
     List<Appointment> getAppointmentByPatient(Patient patient);
-    List<Appointment> getAppointmentByDoctor(Doctor doctor, Patient patient);
+    List<Appointment> getAppointmentByDoctor(Doctor doctor);
+    List<Appointment> getPatientAppointmentByDoctor(Doctor doctor, Patient patient);
+    List<Appointment> getAppByStatus(Patient patient, Appointment.Status status);
+    boolean save(Appointment appointment);
+    void update(Appointment appointment);
+    void delete(Appointment appointment);
 }

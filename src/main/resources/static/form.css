@@ -1,45 +1,22 @@
 #form {
     width: 60%;
     margin: 10px auto;
-    padding: 8px;
+    padding: 10px;
     text-align: center;
 }
-#form input[type="text"] {
-    width: 30%;
-    margin: 5px auto;
-    display: block;
-    font-size: 16px;
-    padding: 8px;
-    text-align: center;
-}
-#form input[type="date"] {
-    width: 30%;
-    margin: 5px auto;
-    display: block;
-    font-size: 16px;
-    padding: 8px;
-    text-align: center;
-}
-#form input[type="time"] {
-    width: 30%;
-    margin: 5px auto;
-    display: block;
-    font-size: 16px;
-    padding: 8px;
-    text-align: center;
-}
-#form input[type="password"] {
-    width: 30%;
-    margin: 5px auto;
-    display: block;
-    font-size: 16px;
-    padding: 8px;
-    text-align: center;
-}
-#form input[type="submit"] {
-    width: 30%;
+#form input[type="text"], input[type="date"], input[type="time"], input[type="password"] {
+    width: 60%;
     margin: 10px auto;
-    padding: 5px;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+}
+
+#form input[type="submit"], input[type="button"] {
+    width: 60%;
+    margin: 10px auto;
+    padding: 10px;
     display: block;
     font-size: 20px;
     border: 2px solid black;
@@ -50,26 +27,7 @@
     transition: color 0.5s, background-color 0.5s;
 }
 
-#form input[type="submit"]:hover {
-    color: white;
-    background-color: black;
-}
-
-#form input[type="button"] {
-    width: 30%;
-    margin: 10px auto;
-    padding: 5px;
-    display: block;
-    font-size: 20px;
-    border: 2px solid black;
-    color: black;
-    background-color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: color 0.5s, background-color 0.5s;
-}
-
-#form input[type="button"]:hover {
+#form input[type="submit"]:hover, input[type="button"]:hover {
     color: white;
     background-color: black;
 }

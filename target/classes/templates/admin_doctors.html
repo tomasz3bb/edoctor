@@ -9,29 +9,31 @@
     <link rel="stylesheet" href="/panelA.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
     <div class="admin">
-        <div class="row header">
-            <div class="name">Imię</div>
-            <div class="surname">Nazwisko</div>
-            <div class="phone">Numer telefonu</div>
-            <div class="speciality">Specjalizacja</div>
-            <div class="number">Numer PWZ</div>
+        <div class="rowheader">
+            <div class="info">Imię</div>
+            <div class="info">Nazwisko</div>
+            <div class="info">Numer telefonu</div>
+            <div class="info">Specjalizacja</div>
+            <div class="info">Numer PWZ</div>
         </div>
         <th:block th:each="doctor : ${doctors}">
             <div class="row">
-            <div class="name" th:text="${doctor.name}"></div>
-            <div class="surname" th:text="${doctor.surname}"></div>
-            <div class="phone" th:text="${doctor.phone}"></div>
-                <div class="speciality" th:text="${doctor.speciality.specialityName}"></div>
-                <div class="number" th:text="${doctor.PWZNumber}"></div>
+            <div class="info" th:text="${doctor.name}"></div>
+            <div class="info" th:text="${doctor.surname}"></div>
+            <div class="info" th:text="${doctor.phone}"></div>
+                <div class="info" th:text="${doctor.speciality.specialityName}"></div>
+                <div class="info" th:text="${doctor.PWZNumber}"></div>
                 <a th:if="${role == 'ADMIN'}" th:href="@{/admin_editdoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Edytuj</a>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin_deletedoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="delete-button">Usuń</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin_deletedoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Usuń</a>
             </div>
         </th:block>
     </div>
+</div>
 </div>
 </body>
 </html>

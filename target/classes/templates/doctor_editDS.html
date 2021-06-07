@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/form.css">
 </head>
 <body>
+<div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
@@ -18,10 +19,11 @@
             <input type="text" th:field="*{doctorDS.dayOfWeek.dayOfWeek}" class="name" readonly>
             <input type="time" th:field="*{doctorDS.startOfWork}" class="dateOfBirth" placeholder="Godzina rozpoczęcia pracy">
             <input type="time" th:field="*{doctorDS.endOfWork}" class="dateOfBirth" placeholder="Godzina zakończenia pracy">
-            <input type="submit">
+            <input type="submit" value="Zapisz">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>
     </div>
+</div>
 </div>
 </body>
 </html>

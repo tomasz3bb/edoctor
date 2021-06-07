@@ -37,7 +37,7 @@ public class AdminPatientsController {
         }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("patients", this.patientService.getAllPatients());
+        model.addAttribute("patients", this.patientService.getAll());
         return "admin_patients";
     }
 
@@ -57,7 +57,7 @@ public class AdminPatientsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        if(this.patientService.addPatient(patient, user)) {
+        if(this.patientService.save(patient, user)) {
             return "redirect:/panel";
         } else {
             return "redirect:/admin_addpatient";
@@ -80,7 +80,7 @@ public class AdminPatientsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        this.patientService.deletePatient(patient);
+        this.patientService.delete(patient);
         return "redirect:/panel";
     }
 
@@ -101,7 +101,7 @@ public class AdminPatientsController {
             return "redirect:/login";
         }
 
-        this.patientService.updatePatient(patient);
+        this.patientService.update(patient);
 
         return "redirect:/panel";
     }
