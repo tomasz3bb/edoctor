@@ -8,7 +8,6 @@ import pl.edu.wszib.edoctor.services.IDoctorService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
-import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -57,15 +56,15 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
-    public void delete(Doctor doctor) {
+    public boolean delete(Doctor doctor) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
         User userFromDB = this.userDAO.getUserById(doctorFromDB.getUser().getUserId());
         this.userDAO.delete(userFromDB);
-        this.doctorDAO.delete(doctorFromDB);
+        return this.doctorDAO.delete(doctorFromDB);
     }
 
     @Override
-    public void update(Doctor doctor) {
+    public boolean update(Doctor doctor) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
         doctorFromDB.setUser(doctor.getUser());
         doctorFromDB.setName(doctor.getName());
@@ -73,7 +72,7 @@ public class DoctorServiceImpl implements IDoctorService {
         doctorFromDB.setPhone(doctor.getPhone());
         doctorFromDB.setSpeciality(doctor.getSpeciality());
 
-        this.doctorDAO.update(doctorFromDB);
+        return this.doctorDAO.update(doctorFromDB);
     }
 
 }

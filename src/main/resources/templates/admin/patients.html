@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="page">
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <p th:if="${info}" th:text="${info}" class="error"></p>
+    <div class="admin">
+        <div class="rowheader">
+            <div class="info">Imię</div>
+            <div class="info">Nazwisko</div>
+            <div class="info">Numer telefonu</div>
+            <div class="info">Data urodzenia</div>
+            <div class="info">PESEL</div>
+        </div>
+        <th:block th:each="patient : ${patients}">
+            <div class="row">
+            <div class="info" th:text="${patient.name}"></div>
+            <div class="info" th:text="${patient.surname}"></div>
+            <div class="info" th:text="${patient.phone}"></div>
+            <div class="info" th:text="${patient.dateOfBirth}"></div>
+                <div class="info" th:text="${patient.PESEL}">PESEL</div>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editpatient/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletepatient/{patientId}(patientId=${patient.patientId})}" class="edit-button">Usuń</a>
+            </div>
+        </th:block>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -9,7 +9,7 @@ public interface IPatientService {
     Patient getPatientByPatientId(int patientId);
     Patient getPatientByUserId(int userId);
     boolean save(Patient patient, User user);
-    void delete(Patient patient);
-    void update(Patient patient);
+    boolean delete(Patient patient);
+    boolean update(Patient patient);
 
 }

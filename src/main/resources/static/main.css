@@ -85,5 +85,12 @@ body {
 }
 .error{
     text-align: center;
-    color: #3dce10;
+    font-size: 20px;
+    color: red;
+}
+.success{
+    text-align: center;
+    font-size: 20px;
+    color: #1fa709;
+
 }

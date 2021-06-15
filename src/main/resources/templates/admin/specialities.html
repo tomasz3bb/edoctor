@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="page">
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <p th:if="${info}" th:text="${info}" class="error"></p>
+    <div class="admin">
+        <div class="rowheader">
+            <div class="info">Id</div>
+            <div class="info">Specjalizacja</div>
+        </div>
+        <th:block th:each="speciality : ${specialities}">
+            <div class="row">
+            <div class="info" th:text="${speciality.specialityId}"></div>
+            <div class="info" th:text="${speciality.specialityName}"></div>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editspeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Edytuj</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletespeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Usuń</a>
+            </div>
+        </th:block>
+    </div>
+</div>
+</div>
+</body>
+</html>

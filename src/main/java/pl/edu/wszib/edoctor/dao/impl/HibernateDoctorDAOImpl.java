@@ -68,7 +68,7 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
-    public void delete(Doctor doctor) {
+    public boolean delete(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -82,10 +82,11 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void update(Doctor doctor) {
+    public boolean update(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -99,6 +100,7 @@ public class HibernateDoctorDAOImpl implements IDoctorDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override

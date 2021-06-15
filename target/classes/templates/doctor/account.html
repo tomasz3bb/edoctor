@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/account.css">
+    <link rel="stylesheet" href="/form.css">
+</head>
+<body>
+<div id="page">
+<div th:replace="fragments.html :: logo"></div>
+    <div th:replace="fragments.html :: menu"></div>
+    <div id="content">
+        <h3>Twój profil</h3>
+        <div class="photo-profile">
+            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+        </div>
+        <div class="account-info">
+            <p style="font-weight: bold" th:text="${doctor.name} + ' ' + ${doctor.surname} + ' ' + '(' + ${user.role} + ')'"></p>
+            <p th:text="'Numer telefonu: ' + ${doctor.phone}"></p>
+            <p th:text="'Specjalizacja: ' + ${doctor.speciality.specialityName}"></p>
+            <p th:text="'Numer prawa wykonywania zawodu: ' + ${doctor.PWZNumber}"></p>
+            <p>
+                <a th:if="${role == 'Lekarz'}"  href="/doctor/myschedule" class="edit-button">Mój harmonogram pracy</a>
+            </p>
+        </div>
+        <h3>Zmień hasło do konta</h3>
+        <form id="form" >
+            <input type="password" placeholder="Stare hasło">
+            <input type="password" placeholder="Nowe hasło">
+            <input type="password" placeholder="Powtórz hasło">
+            <input type="submit" value="Zmień hasło">
+        </form>
+    </div>
+</div>
+</body>
+</html>

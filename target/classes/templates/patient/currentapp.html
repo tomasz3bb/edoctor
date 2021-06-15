@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="page">
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu" ></div>
+<div id="content">
+    <p th:if="${info}" th:text="${info}" class="error"></p>
+        <div class="rowheader">
+            <div class="info">Imię i nazwisko</div>
+            <div class="info">Specjalizacja</div>
+            <div class="info">Data wizyty</div>
+            <div class="info">Godzina rozpoczęcia wizyty</div>
+            <div class="info">Godzina zakończnia wizyty</div>
+            <div class="info">Status wizyty</div>
+        </div>
+        <th:block th:each="appointment : ${currentapp}">
+            <div class="row">
+            <div class="info" th:text="${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}"></div>
+                <div class="info" th:text="${appointment.doctor.speciality.specialityName}"></div>
+                <div class="info" th:text="${appointment.appointmentDate} + ' (' + ${appointment.dayOfWeek} + ')'"></div>
+                <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
+                <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
+                <div class="info" th:text="${appointment.status}"></div>
+                <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appId}(appId=${appointment.appointmentId})}" class="edit-button">Zmień termin wizyty</a>
+                <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appId}(appId=${appointment.appointmentId})}" class="edit-button">Anuluj wizytę</a>
+            </div>
+        </th:block>
+</div>
+</div>
+</body>
+</html>

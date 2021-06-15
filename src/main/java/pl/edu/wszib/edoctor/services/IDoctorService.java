@@ -9,7 +9,7 @@ public interface IDoctorService {
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
     boolean save(Doctor doctor, User user);
-    void delete(Doctor doctor);
-    void update(Doctor doctor);
+    boolean delete(Doctor doctor);
+    boolean update(Doctor doctor);
 
 }

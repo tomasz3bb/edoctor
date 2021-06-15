@@ -45,6 +45,12 @@ public class DoctorListServiceImpl implements IDoctorListService {
     public boolean savePatientToDoctor(DoctorList doctorList, int doctorId) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctorId);
         Patient loggedPatient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        List<DoctorList> mydoctorList = this.doctorListDAO.getDoctorsByPatient(loggedPatient);
+        for (DoctorList doctorList1: mydoctorList) {
+            if (doctorList1.getDoctor().getDoctorId() == doctorFromDB.getDoctorId()){
+                return false;
+            }
+        }
         DoctorList newDocList = new DoctorList(0, doctorFromDB, loggedPatient);
         return this.doctorListDAO.savePatientToDoctor(newDocList);
     }

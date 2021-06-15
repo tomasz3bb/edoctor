@@ -9,7 +9,7 @@ public interface IDoctorDAO{
     Doctor getDoctorByUserId(int userId);
     List<Doctor> getAll();
     List<Doctor> getAllBySpeciality(Speciality speciality);
-    void delete(Doctor doctor);
-    void update(Doctor doctor);
+    boolean delete(Doctor doctor);
+    boolean update(Doctor doctor);
     boolean save(Doctor doctor);
 }

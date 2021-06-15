@@ -16,12 +16,12 @@
         <li><a href="/contact" class="menu-button">Kontakt</a></li>
         <li><a href="/login" class="menu-button" th:if="${!isLogged}">Zaloguj</a></li>
         <li><a href="/logout" class="menu-button" th:if="${isLogged}">Wyloguj</a></li>
-        <li><a href="/panel" class="menu-button" th:if="${role == 'ADMIN'}" style="color:red;">Panel admina</a></li>
-        <li><a href="/doctor_account" class="menu-button" th:if="${role == 'Lekarz'}">Moje konto</a></li>
-        <li><a href="/patient_account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a></li>
-        <li><a href="/patient_doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a></li>
-        <li><a href="/doctor_patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a></li>
-        <li><a href="/patient_app" th:if="${role == 'Pacjent'}">Moje wizyty</a></li>
+        <li><a href="/admin/panel" class="menu-button" th:if="${role == 'ADMIN'}" style="color:red;">Panel admina</a></li>
+        <li><a href="/doctor/account" class="menu-button" th:if="${role == 'Lekarz'}">Moje konto</a></li>
+        <li><a href="/patient/account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a></li>
+        <li><a href="/patient/doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a></li>
+        <li><a href="/doctor/patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a></li>
+        <li><a href="/patient/app" th:if="${role == 'Pacjent'}">Moje wizyty</a></li>
     </ul>
 </div>
 <div id="logo" th:fragment="logo">

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/panelA.css">
+</head>
+<body>
+<div id="page">
+<div id="logo" th:replace="fragments.html :: logo"></div>
+<div id="menu" th:replace="fragments.html :: menu"></div>
+<div id="content">
+    <ul style="background: #157fda; display: flex">
+        <li><a href="/admin/patients">Przeglądaj pacjentów</a></li>
+        <li><a href="/admin/doctors">Przeglądaj lekarzy</a></li>
+        <li><a href="/admin/specialities">Przeglądaj specjalizacje</a></li>
+        <br>
+        <li><a href="/admin/addpatient">Dodaj nowego pacjenta</a></li>
+        <li><a href="/admin/adddoctor">Dodaj nowego lekarza</a></li>
+        <li><a href="/admin/addspeciality">Dodaj nową specjalizację</a></li>
+    </ul>
+</div>
+    <div id="footer" th:replace="fragments.html :: footer" ></div>
+</div>
+</body>
+</html>

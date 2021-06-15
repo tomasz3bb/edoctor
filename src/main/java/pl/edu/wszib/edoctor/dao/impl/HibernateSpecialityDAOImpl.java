@@ -7,8 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.edoctor.dao.ISpecialityDAO;
-import pl.edu.wszib.edoctor.model.Doctor;
-import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.Speciality;
 
 import javax.persistence.NoResultException;
@@ -45,7 +43,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public void delete(Speciality speciality) {
+    public boolean delete(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -59,10 +57,11 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void update(Speciality speciality) {
+    public boolean update(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -76,6 +75,7 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
         } finally {
             session.close();
         }
+        return true;
     }
 
     @Override

@@ -11,6 +11,7 @@ import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 @Repository
 public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
@@ -61,6 +62,21 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
     }
 
     @Override
+    public Appointment getById(int appId) {
+        Session session = this.sessionFactory.openSession();
+        Query<Appointment> query = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where appointmentId =:appId");
+        query.setParameter("appId", appId);
+        Appointment appointment = null;
+        try {
+            appointment = query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+        }
+        session.close();
+        return appointment;
+    }
+
+    @Override
     public boolean save(Appointment appointment) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
@@ -79,7 +95,7 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
     }
 
     @Override
-    public void update(Appointment appointment) {
+    public boolean update(Appointment appointment) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -93,10 +109,11 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
         }finally {
             session.close();
         }
+        return false;
     }
 
     @Override
-    public void delete(Appointment appointment) {
+    public boolean delete(Appointment appointment) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -110,5 +127,6 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
         }finally {
             session.close();
         }
+        return false;
     }
 }

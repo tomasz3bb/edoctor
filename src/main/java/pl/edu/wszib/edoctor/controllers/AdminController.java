@@ -12,6 +12,7 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 import javax.annotation.Resource;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Resource
@@ -27,7 +28,8 @@ public class AdminController {
         }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "panel";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/panel";
     }
 
 }

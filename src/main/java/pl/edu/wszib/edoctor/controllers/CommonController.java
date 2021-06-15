@@ -44,4 +44,16 @@ public class CommonController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "contact";
     }
+
+
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET)
+    public String showAllDoctors(Model model){
+        if (!this.sessionObject.isLogged()){
+            return "redirect:/login";
+        }
+        model.addAttribute("allDoctors", this.doctorService.getAll());
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        return "doctors";
+    }
 }

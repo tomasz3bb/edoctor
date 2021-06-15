@@ -17,6 +17,7 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 import javax.annotation.Resource;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminSpecialityController {
 
     @Resource
@@ -30,7 +31,7 @@ public class AdminSpecialityController {
 
     @Autowired
     ISpecialityService specialityService;
-    @RequestMapping(value = "/admin_specialities", method = RequestMethod.GET)
+    @RequestMapping(value = "/specialities", method = RequestMethod.GET)
     public String showAllSpecialities(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -38,10 +39,11 @@ public class AdminSpecialityController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("specialities", this.specialityService.getAll());
-        return "admin_specialities";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/specialities";
     }
 
-    @RequestMapping(value = "/admin_addspeciality", method = RequestMethod.GET)
+    @RequestMapping(value = "/addspeciality", method = RequestMethod.GET)
     public String addSpeciality(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -49,20 +51,20 @@ public class AdminSpecialityController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("speciality", new Speciality());
-        return "admin_addspeciality";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/addspeciality";
     }
-    @RequestMapping(value = "/admin_addspeciality", method = RequestMethod.POST)
+    @RequestMapping(value = "/addspeciality", method = RequestMethod.POST)
     public String addSpeciality(@ModelAttribute Speciality speciality){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
         if(this.specialityService.save(speciality)) {
-            return "redirect:/panel";
-        } else {
-            return "redirect:/admin_addspeciality";
+            this.sessionObject.setInfo("Dodano nową specjalizację.");
         }
+        return "redirect:/admin/specialities";
     }
-    @RequestMapping(value = "/admin_deletespeciality/{specialityId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deletespeciality/{specialityId}", method = RequestMethod.GET)
     public String deleteSpeciality(@PathVariable int specialityId, Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -71,19 +73,22 @@ public class AdminSpecialityController {
         model.addAttribute("speciality", speciality);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "admin_deletespeciality";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/deletespeciality";
     }
 
-    @RequestMapping(value = "/admin_deletespeciality/{specialityId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/deletespeciality/{specialityId}", method = RequestMethod.POST)
     public String deleteSpeciality(@ModelAttribute Speciality speciality){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        this.specialityService.delete(speciality);
-        return "redirect:/panel";
+        if (this.specialityService.delete(speciality)){
+            this.sessionObject.setInfo("Usunięto specjalizację.");
+        }
+        return "redirect:/admin/specialities";
     }
 
-    @RequestMapping(value = "/admin_editspeciality/{specialityId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/editspeciality/{specialityId}", method = RequestMethod.GET)
     public String editSpeciality(@PathVariable int specialityId, Model model) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -92,16 +97,18 @@ public class AdminSpecialityController {
         model.addAttribute("speciality", speciality);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "admin_editspeciality";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/editspeciality";
     }
-    @RequestMapping(value = "/admin_editspeciality/{specialityId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/editspeciality/{specialityId}", method = RequestMethod.POST)
     public String editSpeciality(@ModelAttribute Speciality speciality) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
+        if (this.specialityService.update(speciality)){
+            this.sessionObject.setInfo("Zapisano zmiany.");
+        }
 
-        this.specialityService.update(speciality);
-
-        return "redirect:/panel";
+        return "redirect:/admin/specialities";
     }
 }

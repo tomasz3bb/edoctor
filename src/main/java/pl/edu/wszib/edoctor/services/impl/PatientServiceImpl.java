@@ -51,22 +51,22 @@ public class PatientServiceImpl implements IPatientService {
     }
 
     @Override
-    public void delete(Patient patient) {
+    public boolean delete(Patient patient) {
         Patient patientFromDB = this.patientDAO.getPatientByPatientId(patient.getPatientId());
         User userFromDB = this.userDAO.getUserById(patientFromDB.getUser().getUserId());
         this.userDAO.delete(userFromDB);
-        this.patientDAO.delete(patientFromDB);
+        return this.patientDAO.delete(patientFromDB);
     }
 
     @Override
-    public void update(Patient patient) {
+    public boolean update(Patient patient) {
         Patient patientFromDB = this.patientDAO.getPatientByPatientId(patient.getPatientId());
         patientFromDB.setName(patient.getName());
         patientFromDB.setSurname(patient.getSurname());
         patientFromDB.setPhone(patient.getPhone());
         patientFromDB.setDateOfBirth(patient.getDateOfBirth());
         patientFromDB.setPESEL(patient.getPESEL());
+        return this.patientDAO.update(patientFromDB);
 
-        this.patientDAO.update(patientFromDB);
     }
 }

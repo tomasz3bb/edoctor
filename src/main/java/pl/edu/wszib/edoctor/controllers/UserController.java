@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
 import pl.edu.wszib.edoctor.model.view.RegistrationModel;
@@ -67,7 +66,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/patient_account", method = RequestMethod.GET)
+    @RequestMapping(value = "/patient/account", method = RequestMethod.GET)
     public String patientInfo(Model model){
         if(!this.sessionObject.isLogged()) {
             return "redirect:/login";
@@ -76,10 +75,10 @@ public class UserController {
         model.addAttribute("patient", this.patientService.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId()));
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "patient_account";
+        return "patient/account";
     }
 
-    @RequestMapping(value = "/doctor_account", method = RequestMethod.GET)
+    @RequestMapping(value = "/doctor/account", method = RequestMethod.GET)
     public String doctorInfo(Model model){
         if(!this.sessionObject.isLogged()) {
             return "redirect:/login";
@@ -90,7 +89,7 @@ public class UserController {
                         (this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId())));
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "doctor_account";
+        return "doctor/account";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

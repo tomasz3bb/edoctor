@@ -7,9 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.edoctor.dao.IPatientDAO;
-import pl.edu.wszib.edoctor.model.Appointment;
-import pl.edu.wszib.edoctor.model.Doctor;
-import pl.edu.wszib.edoctor.model.DoctorList;
 import pl.edu.wszib.edoctor.model.Patient;
 
 import javax.persistence.NoResultException;
@@ -61,7 +58,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public void delete(Patient patient) {
+    public boolean delete(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -75,10 +72,11 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void update(Patient patient) {
+    public boolean update(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -92,6 +90,7 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
         } finally {
             session.close();
         }
+        return true;
     }
 
     @Override

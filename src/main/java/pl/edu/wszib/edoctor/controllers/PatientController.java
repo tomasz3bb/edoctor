@@ -14,6 +14,7 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 import javax.annotation.Resource;
 
 @Controller
+@RequestMapping("/patient")
 public class PatientController {
 
     @Resource
@@ -34,7 +35,7 @@ public class PatientController {
     @Autowired
     IDoctorService doctorService;
 
-    @RequestMapping(value = "/patient_app", method = RequestMethod.GET)
+    @RequestMapping(value = "/app", method = RequestMethod.GET)
     public String showPatientApp(Model model){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
@@ -43,9 +44,10 @@ public class PatientController {
         model.addAttribute("loggedPatientApp", this.appointmentService.getAllAppointmentByPatient(loggedUser.getUserId()));
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
-        return "patient_app";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "patient/app";
     }
-    @RequestMapping(value = "/patient_currentapp", method = RequestMethod.GET)
+    @RequestMapping(value = "/currentapp", method = RequestMethod.GET)
     public String showCurrentPatientApp(Model model){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
@@ -54,10 +56,11 @@ public class PatientController {
         model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatient(loggedUser.getUserId(), Appointment.Status.Zaplanowana));
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
-        return "patient_currentapp";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "patient/currentapp";
     }
 
-    @RequestMapping(value = "/patient_histapp", method = RequestMethod.GET)
+    @RequestMapping(value = "/histapp", method = RequestMethod.GET)
     public String showHistPatientApp(Model model){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
@@ -66,10 +69,11 @@ public class PatientController {
         model.addAttribute("currentapp", this.appointmentService.getHistAppByPatient(loggedUser.getUserId(), Appointment.Status.Zakończona));
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
-        return "patient_histapp";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "patient/histapp";
     }
 
-    @RequestMapping(value = "/patient_doctors", method = RequestMethod.GET)
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public String showAllDoctorsByPatient(Model model){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
@@ -79,10 +83,10 @@ public class PatientController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("info", this.sessionObject.getInfo());
-        return "patient_doctors";
+        return "patient/doctors";
     }
 
-    @RequestMapping(value = "/patient_editdata/{patientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/editdata/{patientId}", method = RequestMethod.GET)
     public String editPatientData(Model model, @PathVariable int patientId){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
@@ -92,18 +96,18 @@ public class PatientController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("info", this.sessionObject.getInfo());
-        return "patient_editdata";
+        return "patient/editdata";
     }
-    @RequestMapping(value = "/patient_editdata/{patientId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/editdata/{patientId}", method = RequestMethod.POST)
     public String editPatientData(@ModelAttribute Patient patient){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
         this.patientService.update(patient);
-        return "redirect:/patient_account";
+        return "redirect:/patient/account";
     }
 
-    @RequestMapping(value = "/patient_doctorConfirm/{doctorId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/doctorConfirm/{doctorId}", method = RequestMethod.GET)
     public String savePatientToDoctor(Model model, @PathVariable int doctorId){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
@@ -112,18 +116,20 @@ public class PatientController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("doctor", this.doctorService.getDoctorByDoctorId(doctorId));
         model.addAttribute("doctorList", new DoctorList());
-        return "patient_doctorConfirm";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "patient/doctorConfirm";
     }
 
-    @RequestMapping(value = "/patient_doctorConfirm/{doctorId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/doctorConfirm/{doctorId}", method = RequestMethod.POST)
     public String savePatientToDoctor(@ModelAttribute DoctorList doctorList, @PathVariable int doctorId) {
         if (!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        if (this.doctorListService.savePatientToDoctor(doctorList, doctorId)) {
-            return "redirect:/patient_doctors";
-        } else {
-            return "redirect:/patient_doctors";
+        if (!this.doctorListService.savePatientToDoctor(doctorList, doctorId)) {
+            this.sessionObject.setInfo("Błąd, jesteś już zapisany u tego doktora.");
+            return "redirect:/patient/doctors";
         }
+        this.doctorListService.savePatientToDoctor(doctorList, doctorId);
+        return "redirect:/patient/doctors";
     }
 }

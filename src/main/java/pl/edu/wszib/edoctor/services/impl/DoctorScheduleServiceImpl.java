@@ -10,7 +10,6 @@ import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class DoctorScheduleServiceImpl implements IDoctorScheduleService {
@@ -41,9 +40,10 @@ public class DoctorScheduleServiceImpl implements IDoctorScheduleService {
     }
 
     @Override
-    public void delete(DoctorSchedule doctorSchedule) {
+    public boolean delete(DoctorSchedule doctorSchedule) {
         DoctorSchedule doctorScheduleFromDB = this.doctorScheduleDAO.getDoctorScheduleById(doctorSchedule.getDoctorScheduleId());
         this.doctorScheduleDAO.delete(doctorScheduleFromDB);
+        return false;
     }
 
     @Override

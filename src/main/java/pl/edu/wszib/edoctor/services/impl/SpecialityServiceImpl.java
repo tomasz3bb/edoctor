@@ -37,15 +37,15 @@ public class SpecialityServiceImpl implements ISpecialityService {
     }
 
     @Override
-    public void delete(Speciality speciality) {
+    public boolean delete(Speciality speciality) {
         Speciality specialityFromDB = this.specialityDAO.getSpecialityById(speciality.getSpecialityId());
-        this.specialityDAO.delete(specialityFromDB);
+        return this.specialityDAO.delete(specialityFromDB);
     }
 
     @Override
-    public void update(Speciality speciality) {
+    public boolean update(Speciality speciality) {
         Speciality specialityFromDB = this.specialityDAO.getSpecialityById(speciality.getSpecialityId());
         specialityFromDB.setSpecialityName(speciality.getSpecialityName());
-        this.specialityDAO.update(specialityFromDB);
+        return this.specialityDAO.update(specialityFromDB);
     }
 }

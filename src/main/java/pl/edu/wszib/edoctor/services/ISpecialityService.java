@@ -8,6 +8,6 @@ public interface ISpecialityService {
     List<Speciality> getAll();
     Speciality getSpecialityById(int id);
     boolean save(Speciality speciality);
-    void delete(Speciality speciality);
-    void update(Speciality speciality);
+    boolean delete(Speciality speciality);
+    boolean update(Speciality speciality);
 }

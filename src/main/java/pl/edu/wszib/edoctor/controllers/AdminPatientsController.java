@@ -17,6 +17,7 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 import javax.annotation.Resource;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminPatientsController {
     @Resource
     SessionObject sessionObject;
@@ -30,7 +31,7 @@ public class AdminPatientsController {
     @Autowired
     ISpecialityService specialityService;
 
-    @RequestMapping(value = "/admin_patients", method = RequestMethod.GET)
+    @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public String showAllPatients(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -38,10 +39,11 @@ public class AdminPatientsController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("patients", this.patientService.getAll());
-        return "admin_patients";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/patients";
     }
 
-    @RequestMapping(value = "/admin_addpatient", method = RequestMethod.GET)
+    @RequestMapping(value = "/addpatient", method = RequestMethod.GET)
     public String addPatient(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -50,20 +52,20 @@ public class AdminPatientsController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("patient", new Patient());
         model.addAttribute("user", new User());
-        return "admin_addpatient";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/addpatient";
     }
-    @RequestMapping(value = "/admin_addpatient", method = RequestMethod.POST)
+    @RequestMapping(value = "/addpatient", method = RequestMethod.POST)
     public String addPatient(@ModelAttribute Patient patient, @ModelAttribute User user){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
         if(this.patientService.save(patient, user)) {
-            return "redirect:/panel";
-        } else {
-            return "redirect:/admin_addpatient";
+            this.sessionObject.setInfo("Dodano nowego pacjenta.");
         }
+        return "redirect:/admin/patients";
     }
-    @RequestMapping(value = "/admin_deletepatient/{patientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deletepatient/{patientId}", method = RequestMethod.GET)
     public String deletePatient(@PathVariable int patientId, Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -72,19 +74,22 @@ public class AdminPatientsController {
         model.addAttribute("patient", patient);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "admin_deletepatient";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/deletepatient";
     }
 
-    @RequestMapping(value = "/admin_deletepatient/{patientId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/deletepatient/{patientId}", method = RequestMethod.POST)
     public String deletePatient(@ModelAttribute Patient patient){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-        this.patientService.delete(patient);
-        return "redirect:/panel";
+        if(this.patientService.delete(patient)){
+            this.sessionObject.setInfo("Usunięto pacjenta.");
+        }
+        return "redirect:/admin/patients";
     }
 
-    @RequestMapping(value = "/admin_editpatient/{patientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/editpatient/{patientId}", method = RequestMethod.GET)
     public String editPatient(@PathVariable int patientId, Model model) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
@@ -93,16 +98,19 @@ public class AdminPatientsController {
         model.addAttribute("patient", patient);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        return "admin_editpatient";
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "admin/editpatient";
     }
-    @RequestMapping(value = "/admin_editpatient/{patientId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/editpatient/{patientId}", method = RequestMethod.POST)
     public String editPatient(@ModelAttribute Patient patient) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
 
-        this.patientService.update(patient);
+        if(this.patientService.update(patient)){
+            this.sessionObject.setInfo("Zapisano zmiany.");
+        }
 
-        return "redirect:/panel";
+        return "redirect:/admin/patients";
     }
 }

@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.edoctor.dao.IAppointmentDAO;
 import pl.edu.wszib.edoctor.dao.IDoctorDAO;
+import pl.edu.wszib.edoctor.dao.IDoctorScheduleDAO;
 import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
+import pl.edu.wszib.edoctor.model.DoctorSchedule;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.services.IAppointmentService;
+import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     IPatientDAO patientDAO;
     @Autowired
     IDoctorDAO doctorDAO;
+    @Autowired
+    IDoctorScheduleDAO doctorScheduleDAO;
     @Resource
     SessionObject sessionObject;
 
@@ -62,6 +67,36 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
         Appointment newApp = new Appointment(0, patient, doctor, appointment.getAppointmentDate(),
                 appointment.getAppointmentTimeStart(), Appointment.Status.Zaplanowana);
+        /*List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
+        for (DoctorSchedule doctorSchedule : doctorScheduleList) {
+            if (doctorSchedule.getDayOfWeek().getNameOfWeek().equals(newApp.getDayOfWeek())){
+                if (doctorSchedule.getStartOfWork().equals(newApp.getAppointmentTimeStart().toString()));
+            }
+        }
+        //TODO
+         */
         return this.appointmentDAO.save(newApp);
+    }
+
+    @Override
+    public boolean delete(int appId) {
+        Appointment appointment = this.appointmentDAO.getById(appId);
+        return this.appointmentDAO.delete(appointment);
+    }
+
+    @Override
+    public boolean update(int appId) {
+        Appointment appointment = this.appointmentDAO.getById(appId);
+        return this.appointmentDAO.update(appointment);
+    }
+
+    @Override
+    public Appointment getById(int appId) {
+        return this.appointmentDAO.getById(appId);
+    }
+
+    @Override
+    public boolean checkDate() {
+        return false;
     }
 }
