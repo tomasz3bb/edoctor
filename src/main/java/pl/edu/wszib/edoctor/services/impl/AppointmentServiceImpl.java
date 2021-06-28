@@ -87,6 +87,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public boolean update(int appId) {
         Appointment appointment = this.appointmentDAO.getById(appId);
+        appointment.setAppointmentDate(appointment.getAppointmentDate());
+        appointment.setAppointmentTimeStart(appointment.getAppointmentTimeStart());
+        appointment.setDoctor(appointment.getDoctor());
+        appointment.setDayOfWeek(appointment.getDayOfWeek());
+        appointment.setPatient(appointment.getPatient());
+        appointment.setStatus(appointment.getStatus());
         return this.appointmentDAO.update(appointment);
     }
 

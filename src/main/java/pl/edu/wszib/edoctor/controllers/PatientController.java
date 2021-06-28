@@ -103,7 +103,12 @@ public class PatientController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
+        if (!this.patientService.update(patient)){
+            this.sessionObject.setInfo("Wystąpił błąd.");
+            return "redirect:/patient/account";
+        }
         this.patientService.update(patient);
+        this.sessionObject.setInfo("Zmiany zapisane.");
         return "redirect:/patient/account";
     }
 

@@ -64,6 +64,8 @@ public class AdminDoctorsController {
         }
         if(this.doctorService.save(doctor, user)) {
             this.sessionObject.setInfo("Dodano nowego lekarza.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/doctors";
     }
@@ -87,6 +89,8 @@ public class AdminDoctorsController {
         }
         if(this.doctorService.delete(doctor)){
             this.sessionObject.setInfo("Usunięto lekarza.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/doctors";
     }
@@ -108,11 +112,11 @@ public class AdminDoctorsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-
         if(this.doctorService.update(doctor)){
             this.sessionObject.setInfo("Zapisano zmiany");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
-
         return "redirect:/admin/doctors";
     }
 }

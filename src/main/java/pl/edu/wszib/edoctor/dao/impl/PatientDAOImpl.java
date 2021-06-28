@@ -6,49 +6,64 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pl.edu.wszib.edoctor.dao.IOfficeDAO;
-import pl.edu.wszib.edoctor.model.Office;
+import pl.edu.wszib.edoctor.dao.IPatientDAO;
+import pl.edu.wszib.edoctor.model.Patient;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
-public class HibernateOfficeDAOImpl implements IOfficeDAO {
+public class PatientDAOImpl implements IPatientDAO {
 
     @Autowired
     SessionFactory sessionFactory;
 
     @Override
-    public Office getById(int officeId) {
+    public Patient getPatientByPatientId(int patientId) {
         Session session = this.sessionFactory.openSession();
-        Query<Office> officeQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Office where officeId = :officeId");
-        officeQuery.setParameter("officeId", officeId);
-        Office office = null;
+        Query<Patient> patientQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Patient where patientId = :patientId");
+        patientQuery.setParameter("patientId", patientId);
+        Patient patient = null;
         try {
-            office = officeQuery.getSingleResult();
+            patient = patientQuery.getSingleResult();
         } catch (NoResultException e) {
-            System.out.println("Nie znaleziono gabinetu!");
+            System.out.println("Nie znaleziono pacjenta!");
         }
         session.close();
-        return office;
+        return patient;
     }
 
     @Override
-    public List<Office> getAll() {
+    public Patient getPatientByUserId(int userId) {
         Session session = this.sessionFactory.openSession();
-        Query<Office> officeQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Office");
-        List<Office> officeList = officeQuery.getResultList();
+        Query<Patient> patientQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Patient where user.userId = :userId");
+        patientQuery.setParameter("userId", userId);
+        Patient patient = null;
+        try {
+            patient = patientQuery.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Nie znaleziono pacjenta!");
+        }
         session.close();
-        return officeList;
+        return patient;
     }
 
     @Override
-    public void save(Office office) {
+    public List<Patient> getAll() {
+        Session session = this.sessionFactory.openSession();
+        Query<Patient> patientQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Patient");
+        List<Patient> patients = patientQuery.getResultList();
+        session.close();
+        return patients;
+    }
+
+    @Override
+    public boolean delete(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(office);
+            session.delete(patient);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -57,15 +72,34 @@ public class HibernateOfficeDAOImpl implements IOfficeDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void delete(Office office) {
+    public boolean update(Patient patient) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.delete(office);
+            session.update(patient);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean save(Patient patient) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.save(patient);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -74,22 +108,6 @@ public class HibernateOfficeDAOImpl implements IOfficeDAO {
         }finally {
             session.close();
         }
-    }
-
-    @Override
-    public void update(Office office) {
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.update(office);
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-        }finally {
-            session.close();
-        }
+        return true;
     }
 }

@@ -80,8 +80,11 @@ body {
 }
 .photo-profile, .account-info{
     margin: 5px auto;
-    padding: 10px;
+    padding: 5px;
     display: inline-block;
+}
+.photo-profile{
+    background-color: white;
 }
 .error{
     text-align: center;

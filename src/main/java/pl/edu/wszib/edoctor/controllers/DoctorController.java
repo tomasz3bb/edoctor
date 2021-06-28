@@ -89,6 +89,7 @@ public class DoctorController {
         model.addAttribute("doctorSchedule", new DoctorSchedule());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/addday";
     }
     @RequestMapping(value = "/addday", method = RequestMethod.POST)
@@ -96,7 +97,11 @@ public class DoctorController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
-        this.doctorScheduleService.save(doctorSchedule);
+        if(this.doctorScheduleService.save(doctorSchedule)){
+            this.sessionObject.setInfo("Dodano dzień do harmonogramu.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
+        }
         return "redirect:/doctor/myschedule";
     }
 
@@ -109,6 +114,7 @@ public class DoctorController {
         model.addAttribute("doctorDS", doctorSchedule);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/editDS";
     }
     @RequestMapping(value = "/editDS/{doctorScheduleId}", method = RequestMethod.POST)
@@ -116,7 +122,11 @@ public class DoctorController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
-        this.doctorScheduleService.update(doctorSchedule);
+        if(this.doctorScheduleService.update(doctorSchedule)){
+            this.sessionObject.setInfo("Zapisano zmiany");
+        }else {
+            this.sessionObject.setInfo("Błąd");
+        }
         return "redirect:/doctor/myschedule";
     }
 
@@ -129,6 +139,7 @@ public class DoctorController {
         model.addAttribute("doctorDS", doctorSchedule);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/deleteDS";
     }
     @RequestMapping(value = "/deleteDS/{doctorScheduleId}", method = RequestMethod.POST)
@@ -136,7 +147,11 @@ public class DoctorController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
-        this.doctorScheduleService.delete(doctorSchedule);
+        if(this.doctorScheduleService.delete(doctorSchedule)){
+            this.sessionObject.setInfo("Usunięto dzień z harmonogramu.");
+        }else {
+        this.sessionObject.setInfo("Błąd");
+        }
         return "redirect:/doctor/myschedule";
     }
 }

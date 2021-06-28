@@ -13,6 +13,7 @@
 <div th:replace="fragments.html :: logo"></div>
     <div th:replace="fragments.html :: menu"></div>
     <div id="content">
+        <p th:if="${info}" th:text="${info}" class="error"></p>
         <h3>Twój profil</h3>
         <div class="photo-profile">
             <img th:src="@{/images/blob.png}" width="140px" height="140px">
@@ -24,6 +25,7 @@
             <p th:text="'PESEL: ' + ${patient.PESEL}"></p>
             <p>
                 <a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj swoje dane</a>
+                <a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Zmień zdjęcie</a>
             </p>
         </div>
         <h3>Zmień hasło do konta</h3>

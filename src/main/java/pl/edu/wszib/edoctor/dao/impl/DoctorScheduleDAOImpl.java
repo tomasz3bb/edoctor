@@ -14,7 +14,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
-public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
+public class DoctorScheduleDAOImpl implements IDoctorScheduleDAO {
 
     @Autowired
     SessionFactory sessionFactory;
@@ -22,7 +22,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     @Override
     public List<DoctorSchedule> getAllByDoctorId(int doctorId) {
         Session session = this.sessionFactory.openSession();
-        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId order by dayOfWeek.dayOfWeek");
+        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId order by dayOfWeek");
         query.setParameter("doctorId", doctorId);
         List<DoctorSchedule> doctorScheduleList = query.getResultList();
         session.close();
@@ -32,7 +32,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     @Override
     public List<DoctorSchedule> getAllByDoctor(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
-        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor  = : doctor order by dayOfWeek.dayOfWeek");
+        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor  = : doctor order by dayOfWeek");
         query.setParameter("doctor", doctor);
         List<DoctorSchedule> doctorScheduleList = query.getResultList();
         session.close();
@@ -55,7 +55,7 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     }
 
     @Override
-    public void save(DoctorSchedule doctorSchedule) {
+    public boolean save(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -69,10 +69,11 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void update(DoctorSchedule doctorSchedule) {
+    public boolean update(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -86,10 +87,11 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override
-    public void delete(DoctorSchedule doctorSchedule) {
+    public boolean delete(DoctorSchedule doctorSchedule) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -103,5 +105,6 @@ public class HibernateDoctorScheduleDAOImpl implements IDoctorScheduleDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 }

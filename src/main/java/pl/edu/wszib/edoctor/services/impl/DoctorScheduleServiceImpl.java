@@ -42,12 +42,11 @@ public class DoctorScheduleServiceImpl implements IDoctorScheduleService {
     @Override
     public boolean delete(DoctorSchedule doctorSchedule) {
         DoctorSchedule doctorScheduleFromDB = this.doctorScheduleDAO.getDoctorScheduleById(doctorSchedule.getDoctorScheduleId());
-        this.doctorScheduleDAO.delete(doctorScheduleFromDB);
-        return false;
+        return this.doctorScheduleDAO.delete(doctorScheduleFromDB);
     }
 
     @Override
-    public void update(DoctorSchedule doctorSchedule) {
+    public boolean update(DoctorSchedule doctorSchedule) {
         Doctor loggedDoctor = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         DoctorSchedule doctorScheduleFromDB = this.doctorScheduleDAO.getDoctorScheduleById(doctorSchedule.getDoctorScheduleId());
         doctorScheduleFromDB.setDoctor(loggedDoctor);
@@ -55,14 +54,14 @@ public class DoctorScheduleServiceImpl implements IDoctorScheduleService {
         doctorScheduleFromDB.setStartOfWork(doctorSchedule.getStartOfWork());
         doctorScheduleFromDB.setEndOfWork(doctorSchedule.getEndOfWork());
 
-        this.doctorScheduleDAO.update(doctorScheduleFromDB);
+        return this.doctorScheduleDAO.update(doctorScheduleFromDB);
     }
 
     @Override
-    public void save(DoctorSchedule doctorSchedule) {
+    public boolean save(DoctorSchedule doctorSchedule) {
         Doctor loggedDoctor = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         DoctorSchedule newDoctorSchedule = new DoctorSchedule(0, loggedDoctor, doctorSchedule.getDayOfWeek(),
                 doctorSchedule.getStartOfWork(), doctorSchedule.getEndOfWork());
-            this.doctorScheduleDAO.save(newDoctorSchedule);
+        return this.doctorScheduleDAO.save(newDoctorSchedule);
     }
 }

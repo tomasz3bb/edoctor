@@ -9,7 +9,7 @@ public interface IDoctorScheduleDAO {
     DoctorSchedule getDoctorScheduleById(int doctorScheduleId);
     List<DoctorSchedule> getAllByDoctorId(int doctorId);
     List<DoctorSchedule> getAllByDoctor(Doctor doctor);
-    void save(DoctorSchedule doctorSchedule);
-    void delete(DoctorSchedule doctorSchedule);
-    void update(DoctorSchedule doctorSchedule);
+    boolean save(DoctorSchedule doctorSchedule);
+    boolean delete(DoctorSchedule doctorSchedule);
+    boolean update(DoctorSchedule doctorSchedule);
 }

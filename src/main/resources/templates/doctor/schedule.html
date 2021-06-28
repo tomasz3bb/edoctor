@@ -13,15 +13,15 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
-    <div class="admin">
+    <div id="tester" >
         <div class="rowheader">
             <div class="info">Dzień tygodnia</div>
             <div class="info">Godzina rozpoczęcia</div>
             <div class="info">Godzina zakończenia</div>
         </div>
-        <th:block th:each="doctorSchedule : ${currentDS}">
+        <th:block th:each="doctorSchedule : ${currentDS}" >
             <div class="row">
-            <div class="info" th:text="${doctorSchedule.dayOfWeek.nameOfWeek}"></div>
+            <div class="info" th:text="${doctorSchedule.dayOfWeek}" ></div>
             <div class="info" th:text="${doctorSchedule.startOfWork}"></div>
             <div class="info" th:text="${doctorSchedule.endOfWork}"></div>
             </div>

@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.User;
+import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.services.IDoctorService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
 import javax.print.Doc;
+import java.util.List;
 
 
 @Controller
@@ -22,6 +24,9 @@ public class CommonController {
 
     @Autowired
     IDoctorService doctorService;
+
+    @Autowired
+    IDoctorScheduleService doctorScheduleService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String landingPage(){
@@ -44,8 +49,6 @@ public class CommonController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "contact";
     }
-
-
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
     public String showAllDoctors(Model model){
         if (!this.sessionObject.isLogged()){
@@ -54,6 +57,7 @@ public class CommonController {
         model.addAttribute("allDoctors", this.doctorService.getAll());
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+
         return "doctors";
     }
 }

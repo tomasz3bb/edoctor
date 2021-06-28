@@ -6,49 +6,39 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pl.edu.wszib.edoctor.dao.ISpecialityDAO;
-import pl.edu.wszib.edoctor.model.Speciality;
+import pl.edu.wszib.edoctor.dao.IAppointmentDetailDAO;
+import pl.edu.wszib.edoctor.model.AppointmentDetail;
 
 import javax.persistence.NoResultException;
-import java.util.List;
 
 @Repository
-public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
+public class AppointmentDetailDAOImpl implements IAppointmentDetailDAO {
 
     @Autowired
     SessionFactory sessionFactory;
 
     @Override
-    public Speciality getSpecialityById(int id) {
+    public AppointmentDetail getById(int id) {
         Session session = this.sessionFactory.openSession();
-        Query<Speciality> specialityQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Speciality where id = :id");
-        specialityQuery.setParameter("id", id);
-        Speciality speciality = null;
+        Query<AppointmentDetail> query = session.createQuery("from pl.edu.wszib.edoctor.model.AppointmentDetail where appDetailId =:id");
+        query.setParameter("id", id);
+        AppointmentDetail appointmentDetail = null;
         try {
-            speciality = specialityQuery.getSingleResult();
+            appointmentDetail = query.getSingleResult();
         } catch (NoResultException e) {
-            System.out.println("Nie znaleziono doktora!");
+            e.printStackTrace();
         }
         session.close();
-        return speciality;
+        return appointmentDetail;
     }
 
     @Override
-    public List<Speciality> getAll() {
-        Session session = this.sessionFactory.openSession();
-        Query<Speciality> specialityQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Speciality");
-        List<Speciality> specialities = specialityQuery.getResultList();
-        session.close();
-        return specialities;
-    }
-
-    @Override
-    public boolean delete(Speciality speciality) {
+    public boolean save(AppointmentDetail appointmentDetail) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.delete(speciality);
+            session.save(appointmentDetail);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -61,30 +51,30 @@ public class HibernateSpecialityDAOImpl implements ISpecialityDAO {
     }
 
     @Override
-    public boolean update(Speciality speciality) {
+    public boolean update(AppointmentDetail appointmentDetail) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.update(speciality);
+            session.update(appointmentDetail);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
-        } finally {
+        }finally {
             session.close();
         }
         return true;
     }
 
     @Override
-    public boolean save(Speciality speciality) {
+    public boolean delete(AppointmentDetail appointmentDetail) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(speciality);
+            session.delete(appointmentDetail);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {

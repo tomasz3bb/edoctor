@@ -75,6 +75,7 @@ public class UserController {
         model.addAttribute("patient", this.patientService.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId()));
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "patient/account";
     }
 
@@ -89,6 +90,7 @@ public class UserController {
                         (this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId())));
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/account";
     }
 

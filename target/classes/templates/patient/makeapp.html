@@ -18,9 +18,9 @@
     <div id="form">
         <form action="#" method="post" id="add-form">
             <p>Wprowadź datę wizyty:</p>
-            <input type="date" th:field="*{appointment.appointmentDate}"  placeholder="Login">
+            <input type="date" th:field="*{appointment.appointmentDate}">
             <p>Wprowadź godzinę wizyty:</p>
-            <input type="time" th:field="*{appointment.appointmentTimeStart}"  placeholder="Hasło">
+            <input type="time" th:field="*{appointment.appointmentTimeStart}">
             <input type="submit" value="Potwierdź termin">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

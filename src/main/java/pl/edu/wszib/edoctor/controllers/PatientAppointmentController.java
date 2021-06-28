@@ -52,10 +52,6 @@ public class PatientAppointmentController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        if(!this.appointmentService.addAppointment(appointment, doctorId)) {
-            this.sessionObject.setInfo("Błąd, wybrany termin wizyty jest zajęty lub dany lekarz nie pracuje w tym terminie.");
-            return "redirect:/patient/app";
-        }
         this.appointmentService.addAppointment(appointment, doctorId);
         this.sessionObject.setInfo("Sukces, ustalono nowy termin wizyty.");
         return "redirect:/patient/currentapp";
@@ -77,10 +73,6 @@ public class PatientAppointmentController {
     public String deleteAppointment(@ModelAttribute Appointment appointment, @PathVariable int appId){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
-        }
-        if(!this.appointmentService.delete(appId)) {
-            this.sessionObject.setInfo("Wystąpił błąd.");
-            return "redirect:/patient/currentapp";
         }
         this.appointmentService.delete(appId);
         this.sessionObject.setInfo("Pomyślnie usunięto termin wizyty.");
@@ -104,12 +96,12 @@ public class PatientAppointmentController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        if(!this.appointmentService.update(appId)) {
-            this.sessionObject.setInfo("Wystąpił błąd.");
+        if (this.appointmentService.update(appId)){
+            this.sessionObject.setInfo("Zmieniono termin wizyty.");
             return "redirect:/patient/currentapp";
+        }else {
+            this.sessionObject.setInfo("Wystąpił błąd!");
         }
-        this.appointmentService.update(appId);
-        this.sessionObject.setInfo("Zmieniono termin wizyty.");
         return "redirect:/patient/currentapp";
     }
 }

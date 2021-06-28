@@ -7,7 +7,7 @@ import java.util.List;
 public interface IOfficeService {
     List<Office> getAll();
     Office getById(int officeId);
-    void save(Office office);
-    void update(Office office);
-    void delete(Office office);
+    boolean save(Office office);
+    boolean update(Office office);
+    boolean delete(Office office);
 }

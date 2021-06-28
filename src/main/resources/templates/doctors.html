@@ -16,12 +16,16 @@
 
     <th:block th:each="doctor : ${allDoctors}">
         <div class="doctors">
-            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            <div class="photo-profile">
+                <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            </div>
+        <div class="account-info">
             <h2 th:text="'dr. ' + ${doctor.name} + ' ' + ${doctor.surname}"></h2>
             <h3 th:text="${doctor.speciality.specialityName}"></h3>
             <h3 th:text="'Telefon: ' + ' ' + ${doctor.phone}"></h3>
             <p><a th:if="${isLogged}" th:href="@{/doctor/schedule/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Pokaż harmonogram pracy</a></p>
             <p><a th:if="${role == 'Pacjent'}" th:href="@{/patient/doctorConfirm/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Zapisz się do lekarza</a></p>
+        </div>
         </div>
     </th:block>
 </div>

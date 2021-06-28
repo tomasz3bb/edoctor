@@ -12,4 +12,10 @@ public class Office {
     private int officeId;
     private int roomNumber;
     private int floor;
+    private Status status;
+
+    public enum Status{
+        Zajęty,
+        Wolny
+    }
 }

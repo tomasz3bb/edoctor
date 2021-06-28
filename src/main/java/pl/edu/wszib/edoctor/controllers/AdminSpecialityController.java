@@ -61,6 +61,8 @@ public class AdminSpecialityController {
         }
         if(this.specialityService.save(speciality)) {
             this.sessionObject.setInfo("Dodano nową specjalizację.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/specialities";
     }
@@ -84,6 +86,8 @@ public class AdminSpecialityController {
         }
         if (this.specialityService.delete(speciality)){
             this.sessionObject.setInfo("Usunięto specjalizację.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/specialities";
     }
@@ -107,8 +111,9 @@ public class AdminSpecialityController {
         }
         if (this.specialityService.update(speciality)){
             this.sessionObject.setInfo("Zapisano zmiany.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
-
         return "redirect:/admin/specialities";
     }
 }

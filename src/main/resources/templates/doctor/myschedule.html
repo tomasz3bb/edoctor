@@ -21,7 +21,7 @@
         </div>
         <th:block th:each="doctorSchedule : ${myschedule}">
             <div class="row">
-            <div class="info" th:text="${doctorSchedule.dayOfWeek.nameOfWeek}"></div>
+            <div class="info" th:text="${doctorSchedule.dayOfWeek}"></div>
             <div class="info" th:text="${doctorSchedule.startOfWork}"></div>
             <div class="info" th:text="${doctorSchedule.endOfWork}"></div>
                 <a th:if="${role == 'Lekarz'}"  th:href="@{/doctor/editDS/{doctorScheduleId}(doctorScheduleId=${doctorSchedule.doctorScheduleId})}" class="edit-button">Edytuj</a>

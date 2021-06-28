@@ -14,7 +14,7 @@ import pl.edu.wszib.edoctor.model.Patient;
 import javax.persistence.NoResultException;
 import java.util.List;
 @Repository
-public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
+public class AppointmentDAOImpl implements IAppointmentDAO {
 
     @Autowired
     SessionFactory sessionFactory;
@@ -109,7 +109,7 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
         }finally {
             session.close();
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -127,6 +127,6 @@ public class HibernateAppointmentDAOImpl implements IAppointmentDAO {
         }finally {
             session.close();
         }
-        return false;
+        return true;
     }
 }

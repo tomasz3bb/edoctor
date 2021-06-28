@@ -25,17 +25,17 @@ public class OfficeServiceImpl implements IOfficeService {
     }
 
     @Override
-    public void save(Office office) {
-        this.officeDAO.save(office);
+    public boolean save(Office office) {
+        return this.officeDAO.save(office);
     }
 
     @Override
-    public void update(Office office) {
-        this.officeDAO.update(office);
+    public boolean update(Office office) {
+       return this.officeDAO.update(office);
     }
 
     @Override
-    public void delete(Office office) {
-        this.officeDAO.delete(office);
+    public boolean delete(Office office) {
+       return this.officeDAO.delete(office);
     }
 }

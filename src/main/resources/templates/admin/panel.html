@@ -13,15 +13,15 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
-    <ul style="background: #157fda; display: flex">
-        <li><a href="/admin/patients">Przeglądaj pacjentów</a></li>
-        <li><a href="/admin/doctors">Przeglądaj lekarzy</a></li>
-        <li><a href="/admin/specialities">Przeglądaj specjalizacje</a></li>
-        <br>
-        <li><a href="/admin/addpatient">Dodaj nowego pacjenta</a></li>
-        <li><a href="/admin/adddoctor">Dodaj nowego lekarza</a></li>
-        <li><a href="/admin/addspeciality">Dodaj nową specjalizację</a></li>
-    </ul>
+    <a href="/admin/patients" class="edit-button">Przeglądaj pacjentów</a>
+    <a href="/admin/addpatient"class="edit-button">Dodaj nowego pacjenta</a>
+    <br><br>
+    <a href="/admin/doctors" class="edit-button">Przeglądaj lekarzy</a>
+    <a href="/admin/adddoctor"class="edit-button">Dodaj nowego lekarza</a>
+    <br><br>
+    <a href="/admin/specialities"class="edit-button">Przeglądaj specjalizacje</a>
+    <a href="/admin/addspeciality"class="edit-button">Dodaj nową specjalizację</a>
+    <br><br>
 </div>
     <div id="footer" th:replace="fragments.html :: footer" ></div>
 </div>

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +17,20 @@ public class DoctorSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctorScheduleId;
-    @OneToOne (fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     private Doctor doctor;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Day dayOfWeek;
+    @Enumerated
+    private DayOfWeek dayOfWeek;
     private String startOfWork;
     private String endOfWork;
 
+    private enum DayOfWeek {
+        Niedziela,
+        Poniedziałek,
+        Wtorek,
+        Środa,
+        Czwartek,
+        Piątek,
+        Sobota;
+    }
 }

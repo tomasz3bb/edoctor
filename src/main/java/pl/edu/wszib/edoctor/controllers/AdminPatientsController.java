@@ -62,6 +62,8 @@ public class AdminPatientsController {
         }
         if(this.patientService.save(patient, user)) {
             this.sessionObject.setInfo("Dodano nowego pacjenta.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/patients";
     }
@@ -85,6 +87,8 @@ public class AdminPatientsController {
         }
         if(this.patientService.delete(patient)){
             this.sessionObject.setInfo("Usunięto pacjenta.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/admin/patients";
     }
@@ -106,11 +110,11 @@ public class AdminPatientsController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.ADMIN) {
             return "redirect:/login";
         }
-
         if(this.patientService.update(patient)){
             this.sessionObject.setInfo("Zapisano zmiany.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
         }
-
         return "redirect:/admin/patients";
     }
 }

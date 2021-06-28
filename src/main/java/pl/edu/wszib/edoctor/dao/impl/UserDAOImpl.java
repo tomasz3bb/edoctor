@@ -13,7 +13,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
-public class HibernateUserDAOImpl implements IUserDAO {
+public class UserDAOImpl implements IUserDAO {
 
     @Autowired
     SessionFactory sessionFactory;

@@ -23,15 +23,13 @@
 }
 .doctors{
     border-collapse: collapse;
-    width: 20%;
     padding: 10px;
     margin: 10px auto;
     margin-left: 10px;
-    font-size: 16px;
     display: inline-block;
     text-align: center;
-    background-color: rgba(222, 231, 239, 0.19);
-    border-radius: 10px;
-    border: 1px solid #f5c4c4;
+    background-color: rgba(241, 232, 196, 0.15);
+    border-radius: 15px;
+    border: 2px solid #dc7474;
 }
 

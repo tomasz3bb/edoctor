@@ -10,6 +10,6 @@ public interface IDoctorScheduleService {
     List<DoctorSchedule> getAllByDoctor(Doctor doctor);
     DoctorSchedule getDoctorScheduleById(int doctorScheduleId);
     boolean delete(DoctorSchedule doctorSchedule);
-    void save(DoctorSchedule doctorSchedule);
-    void update(DoctorSchedule doctorSchedule);
+    boolean save(DoctorSchedule doctorSchedule);
+    boolean update(DoctorSchedule doctorSchedule);
 }

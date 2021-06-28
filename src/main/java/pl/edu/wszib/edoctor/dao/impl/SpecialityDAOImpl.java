@@ -6,64 +6,49 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pl.edu.wszib.edoctor.dao.IPatientDAO;
-import pl.edu.wszib.edoctor.model.Patient;
+import pl.edu.wszib.edoctor.dao.ISpecialityDAO;
+import pl.edu.wszib.edoctor.model.Speciality;
 
 import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
-public class HibernatePatientDAOImpl implements IPatientDAO {
+public class SpecialityDAOImpl implements ISpecialityDAO {
 
     @Autowired
     SessionFactory sessionFactory;
 
     @Override
-    public Patient getPatientByPatientId(int patientId) {
+    public Speciality getSpecialityById(int id) {
         Session session = this.sessionFactory.openSession();
-        Query<Patient> patientQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Patient where patientId = :patientId");
-        patientQuery.setParameter("patientId", patientId);
-        Patient patient = null;
+        Query<Speciality> specialityQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Speciality where id = :id");
+        specialityQuery.setParameter("id", id);
+        Speciality speciality = null;
         try {
-            patient = patientQuery.getSingleResult();
+            speciality = specialityQuery.getSingleResult();
         } catch (NoResultException e) {
-            System.out.println("Nie znaleziono pacjenta!");
+            System.out.println("Nie znaleziono doktora!");
         }
         session.close();
-        return patient;
+        return speciality;
     }
 
     @Override
-    public Patient getPatientByUserId(int userId) {
+    public List<Speciality> getAll() {
         Session session = this.sessionFactory.openSession();
-        Query<Patient> patientQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Patient where user.userId = :userId");
-        patientQuery.setParameter("userId", userId);
-        Patient patient = null;
-        try {
-            patient = patientQuery.getSingleResult();
-        } catch (NoResultException e) {
-            System.out.println("Nie znaleziono pacjenta!");
-        }
+        Query<Speciality> specialityQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Speciality");
+        List<Speciality> specialities = specialityQuery.getResultList();
         session.close();
-        return patient;
+        return specialities;
     }
 
     @Override
-    public List<Patient> getAll() {
-        Session session = this.sessionFactory.openSession();
-        Query<Patient> patientQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Patient");
-        List<Patient> patients = patientQuery.getResultList();
-        session.close();
-        return patients;
-    }
-
-    @Override
-    public boolean delete(Patient patient) {
+    public boolean delete(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.delete(patient);
+            session.delete(speciality);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -76,12 +61,12 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public boolean update(Patient patient) {
+    public boolean update(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.update(patient);
+            session.update(speciality);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -94,12 +79,12 @@ public class HibernatePatientDAOImpl implements IPatientDAO {
     }
 
     @Override
-    public boolean save(Patient patient) {
+    public boolean save(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(patient);
+            session.save(speciality);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {

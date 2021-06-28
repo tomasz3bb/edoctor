@@ -14,7 +14,7 @@ import pl.edu.wszib.edoctor.model.Patient;
 import java.util.List;
 
 @Repository
-public class HibernateDoctorListDAOImpl implements IDoctorListDAO {
+public class DoctorListDAOImpl implements IDoctorListDAO {
 
     @Autowired
     SessionFactory sessionFactory;
