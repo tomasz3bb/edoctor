@@ -12,6 +12,7 @@ import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
 
 import javax.persistence.NoResultException;
+import java.sql.Date;
 import java.util.List;
 @Repository
 public class AppointmentDAOImpl implements IAppointmentDAO {
@@ -53,10 +54,21 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     @Override
     public List<Appointment> getAppByStatus(Patient patient, Appointment.Status status) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status ");
+        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status order by appointmentDate");
         appointmentQuery.setParameter("patient", patient);
         appointmentQuery.setParameter("status", status);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
+        session.close();
+        return appointmentList;
+    }
+
+    @Override
+    public List<Appointment> getAppByDoctorAndDate(Doctor doctor, Date date) {
+        Session session = this.sessionFactory.openSession();
+        Query<Appointment> appointment = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where doctor = : doctor and appointmentDate =: date");
+        appointment.setParameter("doctor", doctor);
+        appointment.setParameter("date", date);
+        List<Appointment> appointmentList = appointment.getResultList();
         session.close();
         return appointmentList;
     }

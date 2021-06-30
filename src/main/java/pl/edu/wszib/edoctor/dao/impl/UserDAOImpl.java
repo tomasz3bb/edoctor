@@ -84,7 +84,7 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public void update(User user) {
+    public boolean update(User user) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
@@ -98,6 +98,7 @@ public class UserDAOImpl implements IUserDAO {
         }finally {
             session.close();
         }
+        return true;
     }
 
     @Override

@@ -14,8 +14,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class AppointmentDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int appDetailId;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
     private Appointment appointment;
     private String description;

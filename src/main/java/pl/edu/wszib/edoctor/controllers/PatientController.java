@@ -12,6 +12,7 @@ import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping("/patient")
@@ -31,6 +32,9 @@ public class PatientController {
 
     @Autowired
     IAppointmentService appointmentService;
+
+    @Autowired
+    IAppointmentDetailService appointmentDetailService;
 
     @Autowired
     IDoctorService doctorService;
@@ -66,7 +70,8 @@ public class PatientController {
             return "redirect:/login";
         }
         User loggedUser = this.sessionObject.getLoggedUser();
-        model.addAttribute("currentapp", this.appointmentService.getHistAppByPatient(loggedUser.getUserId(), Appointment.Status.Zakończona));
+        List<Appointment> appointmentList = this.appointmentService.getHistAppByPatient(loggedUser.getUserId(), Appointment.Status.Zakończona);
+        model.addAttribute("currentapp", appointmentList);
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("info", this.sessionObject.getInfo());

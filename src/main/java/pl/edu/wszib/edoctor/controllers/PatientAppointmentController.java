@@ -33,6 +33,9 @@ public class PatientAppointmentController {
     IAppointmentService appointmentService;
 
     @Autowired
+    IAppointmentDetailService appointmentDetailService;
+
+    @Autowired
     IDoctorService doctorService;
 
     @RequestMapping(value = "/makeapp/{doctorId}", method = RequestMethod.GET)
@@ -52,6 +55,10 @@ public class PatientAppointmentController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
+        if(!this.appointmentService.addAppointment(appointment, doctorId)){
+            this.sessionObject.setInfo("Błąd, temin zajęty lub dany lekarz nie pracuje o tej porze.");
+            return "redirect:/patient/currentapp";
+        }
         this.appointmentService.addAppointment(appointment, doctorId);
         this.sessionObject.setInfo("Sukces, ustalono nowy termin wizyty.");
         return "redirect:/patient/currentapp";
@@ -70,11 +77,11 @@ public class PatientAppointmentController {
     }
 
     @RequestMapping(value = "/deleteapp/{appId}", method = RequestMethod.POST)
-    public String deleteAppointment(@ModelAttribute Appointment appointment, @PathVariable int appId){
+    public String deleteAppointment(@ModelAttribute Appointment appointment){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        this.appointmentService.delete(appId);
+        this.appointmentService.delete(appointment);
         this.sessionObject.setInfo("Pomyślnie usunięto termin wizyty.");
         return "redirect:/patient/currentapp";
     }
@@ -92,16 +99,27 @@ public class PatientAppointmentController {
     }
 
     @RequestMapping(value = "/editapp/{appId}", method = RequestMethod.POST)
-    public String editAppointment(@ModelAttribute Appointment appointment, @PathVariable int appId){
+    public String editAppointment(@ModelAttribute Appointment appointment){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        if (this.appointmentService.update(appId)){
-            this.sessionObject.setInfo("Zmieniono termin wizyty.");
-            return "redirect:/patient/currentapp";
-        }else {
+        if (!this.appointmentService.update(appointment)){
             this.sessionObject.setInfo("Wystąpił błąd!");
+            return "redirect:/patient/currentapp";
         }
+        this.appointmentService.update(appointment);
+        this.sessionObject.setInfo("Zmieniono termin wizyty.");
         return "redirect:/patient/currentapp";
+    }
+    @RequestMapping(value = "/appdetail/{appId}", method = RequestMethod.GET)
+    public String showAppDetail(@PathVariable int appId, Model model){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
+            return "redirect:/login";
+        }
+        model.addAttribute("appdetail", this.appointmentDetailService.getById(appId));
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "patient/appdetail";
     }
 }

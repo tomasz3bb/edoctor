@@ -19,8 +19,8 @@
             <input type="text" th:field="*{patient.name}" placeholder="Imię">
             <input type="text" th:field="*{patient.surname}"placeholder="Nazwisko">
             <input type="text" th:field="*{patient.phone}"placeholder="Numer telefonu">
-            <input type="date" th:field="*{patient.dateOfBirth}"placeholder="Data urodzenia">
-            <input type="text" th:field="*{patient.PESEL}" placeholder="Numer PESEL">
+            <input type="date" th:field="*{patient.dateOfBirth}"placeholder="Data urodzenia" readonly>
+            <input type="text" th:field="*{patient.PESEL}" placeholder="Numer PESEL" readonly>
             <input type="submit" value="Zapisz dane">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

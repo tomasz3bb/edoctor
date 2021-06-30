@@ -9,7 +9,7 @@ public interface IUserDAO {
     User getUserById(int userId);
     boolean save(User user);
     void delete(User user);
-    void update(User user);
+    boolean update(User user);
     List<User> getAll();
     boolean persist(User user);
 }

@@ -36,14 +36,15 @@ public class Appointment {
         Zakończona
     }
 
-    public Appointment(int appointmentId, Patient patient, Doctor doctor, Date appointmentDate, LocalTime appointmentTimeStart, Status status) {
+    public Appointment(int appointmentId, Patient patient, Doctor doctor, Date appointmentDate, String dayOfWeek,
+                       LocalTime appointmentTimeStart, LocalTime appointmentTimeEnd, Status status) {
         this.appointmentId = appointmentId;
         this.patient = patient;
         this.doctor = doctor;
         this.appointmentDate = appointmentDate;
-        this.dayOfWeek = appointmentDate.toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL"));
+        this.dayOfWeek = dayOfWeek;
         this.appointmentTimeStart = appointmentTimeStart;
-        this.appointmentTimeEnd = appointmentTimeStart.plusMinutes(30);
+        this.appointmentTimeEnd = appointmentTimeEnd;
         this.status = status;
     }
 }

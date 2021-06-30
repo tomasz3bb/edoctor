@@ -17,9 +17,6 @@ public class DoctorController {
     SessionObject sessionObject;
 
     @Autowired
-    IPatientService patientService;
-
-    @Autowired
     IUserService userService;
 
     @Autowired
@@ -67,18 +64,6 @@ public class DoctorController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         return "doctor/patients";
-    }
-
-    @RequestMapping(value = "/patienthist/{patientId}", method = RequestMethod.GET)
-    public String showAllPatientAppointmentBy(Model model, @PathVariable int patientId){
-        if (!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz){
-            return "redirect:/login";
-        }
-        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("isLogged", this.sessionObject.isLogged());
-        Doctor doctor = this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
-        model.addAttribute("appList", this.appointmentService.getAllPatientAppointmentByDoctor(doctor, patientId));
-        return "doctor/patienthist";
     }
 
     @RequestMapping(value = "/addday", method = RequestMethod.GET)
@@ -153,5 +138,31 @@ public class DoctorController {
         this.sessionObject.setInfo("Błąd");
         }
         return "redirect:/doctor/myschedule";
+    }
+
+    @RequestMapping(value = "/editdata/{doctorId}", method = RequestMethod.GET)
+    public String editDoctorData(Model model, @PathVariable int doctorId){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        Doctor loggedDoctor = this.doctorService.getDoctorByDoctorId(doctorId);
+        model.addAttribute("doctor", loggedDoctor);
+        model.addAttribute("isLogged", this.sessionObject.isLogged());
+        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
+        model.addAttribute("info", this.sessionObject.getInfo());
+        return "doctor/editdata";
+    }
+    @RequestMapping(value = "/editdata/{doctorId}", method = RequestMethod.POST)
+    public String editDoctorData(@ModelAttribute Doctor doctor){
+        if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
+            return "redirect:/login";
+        }
+        if (!this.doctorService.update(doctor)){
+            this.sessionObject.setInfo("Wystąpił błąd.");
+            return "redirect:/doctor/account";
+        }
+        this.doctorService.update(doctor);
+        this.sessionObject.setInfo("Zmiany zapisane.");
+        return "redirect:/doctor/account";
     }
 }

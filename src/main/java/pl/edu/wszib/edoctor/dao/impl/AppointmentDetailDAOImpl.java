@@ -20,7 +20,7 @@ public class AppointmentDetailDAOImpl implements IAppointmentDetailDAO {
     @Override
     public AppointmentDetail getById(int id) {
         Session session = this.sessionFactory.openSession();
-        Query<AppointmentDetail> query = session.createQuery("from pl.edu.wszib.edoctor.model.AppointmentDetail where appDetailId =:id");
+        Query<AppointmentDetail> query = session.createQuery("from pl.edu.wszib.edoctor.model.AppointmentDetail where appointment.appointmentId =:id");
         query.setParameter("id", id);
         AppointmentDetail appointmentDetail = null;
         try {

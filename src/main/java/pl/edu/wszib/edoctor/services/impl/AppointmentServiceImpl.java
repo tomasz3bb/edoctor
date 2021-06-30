@@ -15,7 +15,10 @@ import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
@@ -66,43 +69,48 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Patient patient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
         Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
         Appointment newApp = new Appointment(0, patient, doctor, appointment.getAppointmentDate(),
-                appointment.getAppointmentTimeStart(), Appointment.Status.Zaplanowana);
-        /*List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
-        for (DoctorSchedule doctorSchedule : doctorScheduleList) {
-            if (doctorSchedule.getDayOfWeek().getNameOfWeek().equals(newApp.getDayOfWeek())){
-                if (doctorSchedule.getStartOfWork().equals(newApp.getAppointmentTimeStart().toString()));
+                appointment.getAppointmentDate().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL")),
+                appointment.getAppointmentTimeStart(), appointment.getAppointmentTimeStart().plusMinutes(30), Appointment.Status.Zaplanowana);
+        List<Appointment> appointmentListByDoctor = this.appointmentDAO.getAppByDoctorAndDate(doctor, newApp.getAppointmentDate());
+        List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
+        for (Appointment app: appointmentListByDoctor) {
+            for (DoctorSchedule schedule: doctorScheduleList) {
+                if (newApp.getDayOfWeek().equals(schedule.getDayOfWeek())){
+                    if (newApp.getAppointmentTimeStart().equals(app.getAppointmentTimeStart()) ||
+                            newApp.getAppointmentTimeStart().isAfter(schedule.getStartOfWork()) ||
+                            newApp.getAppointmentTimeStart().isBefore(schedule.getStartOfWork()) ||
+                            newApp.getAppointmentTimeStart().isBefore(app.getAppointmentTimeEnd()) ||
+                            newApp.getAppointmentTimeEnd().isBefore(app.getAppointmentTimeEnd())
+                    ){
+                        return false;
+                    }
+                }
             }
         }
-        //TODO
-         */
         return this.appointmentDAO.save(newApp);
     }
 
     @Override
-    public boolean delete(int appId) {
-        Appointment appointment = this.appointmentDAO.getById(appId);
-        return this.appointmentDAO.delete(appointment);
+    public boolean delete(Appointment appointment) {
+        Appointment appointmentFromDB = this.appointmentDAO.getById(appointment.getAppointmentId());
+        return this.appointmentDAO.delete(appointmentFromDB);
     }
 
     @Override
-    public boolean update(int appId) {
-        Appointment appointment = this.appointmentDAO.getById(appId);
-        appointment.setAppointmentDate(appointment.getAppointmentDate());
-        appointment.setAppointmentTimeStart(appointment.getAppointmentTimeStart());
-        appointment.setDoctor(appointment.getDoctor());
-        appointment.setDayOfWeek(appointment.getDayOfWeek());
-        appointment.setPatient(appointment.getPatient());
-        appointment.setStatus(appointment.getStatus());
-        return this.appointmentDAO.update(appointment);
+    public boolean update(Appointment appointment) {
+        Appointment appointmentFromDB = this.appointmentDAO.getById(appointment.getAppointmentId());
+        appointmentFromDB.setAppointmentDate(appointmentFromDB.getAppointmentDate());
+        appointmentFromDB.setAppointmentTimeStart(appointmentFromDB.getAppointmentTimeStart());
+        appointmentFromDB.setAppointmentTimeEnd(appointmentFromDB.getAppointmentTimeEnd());
+        appointmentFromDB.setPatient(appointmentFromDB.getPatient());
+        appointmentFromDB.setDoctor(appointmentFromDB.getDoctor());
+        appointmentFromDB.setDayOfWeek(appointmentFromDB.getDayOfWeek());
+        appointmentFromDB.setStatus(appointmentFromDB.getStatus());
+        return this.appointmentDAO.update(appointmentFromDB);
     }
 
     @Override
     public Appointment getById(int appId) {
         return this.appointmentDAO.getById(appId);
-    }
-
-    @Override
-    public boolean checkDate() {
-        return false;
     }
 }

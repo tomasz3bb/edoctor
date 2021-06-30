@@ -14,7 +14,7 @@
 }
 
 #form input[type="submit"], input[type="button"] {
-    width: 60%;
+    width: 30%;
     margin: 10px auto;
     padding: 10px;
     display: block;
@@ -30,5 +30,14 @@
 #form input[type="submit"]:hover, input[type="button"]:hover {
     color: white;
     background-color: black;
+}
+
+.selectbutton{
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 13px 15px 11px;
+    font-weight: 600;
+    width: 30%;
 }
 

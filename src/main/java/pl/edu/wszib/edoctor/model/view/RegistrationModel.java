@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Lob;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,4 +15,6 @@ public class RegistrationModel {
     private String login;
     private String pass;
     private String pass2;
+    @Lob
+    private Byte[] image;
 }

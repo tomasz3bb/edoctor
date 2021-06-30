@@ -12,9 +12,8 @@ public interface IAppointmentService {
     List<Appointment> getCurrentAppByPatient(int userId, Appointment.Status status);
     List<Appointment> getHistAppByPatient(int userId,  Appointment.Status status);
     boolean addAppointment(Appointment appointment, int doctorId);
-    boolean checkDate();
-    boolean update(int appId);
-    boolean delete(int appId);
+    boolean update(Appointment appointment);
+    boolean delete(Appointment appointment);
 
     Appointment getById(int appId);
 

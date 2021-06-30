@@ -4,6 +4,7 @@ import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IAppointmentDAO{
@@ -11,9 +12,9 @@ public interface IAppointmentDAO{
     List<Appointment> getAppointmentByDoctor(Doctor doctor);
     List<Appointment> getPatientAppointmentByDoctor(Doctor doctor, Patient patient);
     List<Appointment> getAppByStatus(Patient patient, Appointment.Status status);
+    List<Appointment> getAppByDoctorAndDate(Doctor doctor, Date date);
     boolean save(Appointment appointment);
     boolean update(Appointment appointment);
     boolean delete(Appointment appointment);
-
     Appointment getById(int appId);
 }

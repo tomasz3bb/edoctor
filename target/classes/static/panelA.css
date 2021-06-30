@@ -32,4 +32,13 @@
     border-radius: 15px;
     border: 2px solid #dc7474;
 }
+.appdetail{
+    display: block;
+    width: auto;
+    margin: 2% 25% auto;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(208, 203, 196, 0.15);
+    border: 2px solid black;
+}
 

@@ -26,12 +26,17 @@ public class OfficeServiceImpl implements IOfficeService {
 
     @Override
     public boolean save(Office office) {
-        return this.officeDAO.save(office);
+        Office newOffice = new Office(0, office.getRoomNumber(), office.getFloor(), office.getDescription());
+        return this.officeDAO.save(newOffice);
     }
 
     @Override
     public boolean update(Office office) {
-       return this.officeDAO.update(office);
+        Office officeFromDB = this.officeDAO.getById(office.getOfficeId());
+        officeFromDB.setRoomNumber(office.getRoomNumber());
+        officeFromDB.setFloor(office.getFloor());
+        officeFromDB.setDescription(office.getDescription());
+        return this.officeDAO.update(officeFromDB);
     }
 
     @Override

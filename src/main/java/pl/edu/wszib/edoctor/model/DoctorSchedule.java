@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,18 +20,9 @@ public class DoctorSchedule {
     private int doctorScheduleId;
     @OneToOne(fetch = FetchType.EAGER)
     private Doctor doctor;
-    @Enumerated
-    private DayOfWeek dayOfWeek;
-    private String startOfWork;
-    private String endOfWork;
+    private String dayOfWeek;
+    private LocalTime startOfWork;
+    private LocalTime endOfWork;
 
-    private enum DayOfWeek {
-        Niedziela,
-        Poniedziałek,
-        Wtorek,
-        Środa,
-        Czwartek,
-        Piątek,
-        Sobota;
-    }
+
 }

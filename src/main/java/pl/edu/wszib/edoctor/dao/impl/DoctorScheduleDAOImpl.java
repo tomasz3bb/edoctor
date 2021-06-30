@@ -22,7 +22,7 @@ public class DoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     @Override
     public List<DoctorSchedule> getAllByDoctorId(int doctorId) {
         Session session = this.sessionFactory.openSession();
-        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId order by dayOfWeek");
+        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor.doctorId  = : doctorId order by doctorScheduleId");
         query.setParameter("doctorId", doctorId);
         List<DoctorSchedule> doctorScheduleList = query.getResultList();
         session.close();
@@ -32,7 +32,7 @@ public class DoctorScheduleDAOImpl implements IDoctorScheduleDAO {
     @Override
     public List<DoctorSchedule> getAllByDoctor(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
-        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor  = : doctor order by dayOfWeek");
+        Query<DoctorSchedule> query = session.createQuery("FROM pl.edu.wszib.edoctor.model.DoctorSchedule where doctor  = : doctor order by doctorScheduleId ");
         query.setParameter("doctor", doctor);
         List<DoctorSchedule> doctorScheduleList = query.getResultList();
         session.close();

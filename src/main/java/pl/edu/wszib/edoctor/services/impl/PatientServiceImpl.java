@@ -43,7 +43,7 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public boolean save(Patient patient, User user) {
-        User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Pacjent);
+        User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Pacjent, user.getImage());
         Patient newPatient = new Patient(0, newUser, patient.getName(), patient.getSurname(),
                 patient.getPhone(), patient.getDateOfBirth(), patient.getPESEL());
         this.userDAO.save(newUser);

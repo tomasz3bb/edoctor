@@ -32,6 +32,7 @@
                 <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
                 <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
+                <a th:href="@{/doctor/appdetail/{appId}(appId=${appointment.appointmentId})}" th:if="${isLogged}" class="edit-button">Szczegóły wizyty</a>
             </div>
         </th:block>
     </div>

@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/panelA.css">
+    <script>
+        function show() {
+            var x = document.getElementById("appDetail");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
 <div id="page">
@@ -14,7 +24,7 @@
 <div id="menu" th:replace="fragments.html :: menu" ></div>
 <div id="content">
         <div class="rowheader">
-            <div class="info">Imię i nazwisko</div>
+            <div class="info">Imię i nazwisko doktora</div>
             <div class="info">Specjalizacja</div>
             <div class="info">Data wizyty</div>
             <div class="info">Godzina rozpoczęcia wizyty</div>
@@ -23,14 +33,16 @@
         </div>
         <th:block th:each="appointment : ${currentapp}">
             <div class="row">
-            <div class="info" th:text="${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}"></div>
+            <div class="info" th:text="'dr ' + ${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}" style="font-weight: bold"></div>
                 <div class="info" th:text="${appointment.doctor.speciality.specialityName}"></div>
                 <div class="info" th:text="${appointment.appointmentDate} + ' (' + ${appointment.dayOfWeek} + ')'"></div>
                 <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
                 <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
+                <a th:href="@{/patient/appdetail/{appId}(appId=${appointment.appointmentId})}" th:if="${isLogged}" class="edit-button">Szczegóły wizyty</a>
             </div>
         </th:block>
+    </div>
 </div>
 </div>
 </body>

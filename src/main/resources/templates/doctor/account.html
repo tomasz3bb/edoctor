@@ -23,17 +23,11 @@
             <p th:text="'Numer telefonu: ' + ${doctor.phone}"></p>
             <p th:text="'Specjalizacja: ' + ${doctor.speciality.specialityName}"></p>
             <p th:text="'Numer prawa wykonywania zawodu: ' + ${doctor.PWZNumber}"></p>
-            <p>
-                <a th:if="${role == 'Lekarz'}"  href="/doctor/myschedule" class="edit-button">Mój harmonogram pracy</a>
-            </p>
         </div>
-        <h3>Zmień hasło do konta</h3>
-        <form id="form" >
-            <input type="password" placeholder="Stare hasło">
-            <input type="password" placeholder="Nowe hasło">
-            <input type="password" placeholder="Powtórz hasło">
-            <input type="submit" value="Zmień hasło">
-        </form>
+        <p><a th:if="${role == 'Lekarz'}"  href="/doctor/myschedule" class="edit-button">Mój harmonogram pracy</a>
+        <a th:if="${role == 'Lekarz'}" th:href="@{/doctor/editdata/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Edytuj swoje dane</a>
+        <a th:if="${role == 'Lekarz'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
+        <a th:href="@{/changepass/{userId}(userId=${user.userId})}" class="edit-button">Zmień hasło do konta</a></p>
     </div>
 </div>
 </body>
