@@ -16,11 +16,16 @@
 <div id="content">
     <div id="form">
         <form action="#" method="post" id="edit-form">
-            <input type="text" th:field="*{patient.name}" placeholder="Imię">
-            <input type="text" th:field="*{patient.surname}"placeholder="Nazwisko">
-            <input type="text" th:field="*{patient.phone}"placeholder="Numer telefonu">
-            <input type="date" th:field="*{patient.dateOfBirth}"placeholder="Data urodzenia" readonly>
-            <input type="text" th:field="*{patient.PESEL}" placeholder="Numer PESEL" readonly>
+            <label>Imię pacjenta: </label>
+            <input type="text" th:field="*{patient.name}" class="name" placeholder="Imię">
+            <label>Nazwisko pacjenta: </label>
+            <input type="text" th:field="*{patient.surname}"  placeholder="Nazwisko">
+            <label>Numer telefonu: </label>
+            <input type="text" th:field="*{patient.phone}"  placeholder="Numer telefonu">
+            <label>Data urodzenia: </label>
+            <input type="date" th:field="*{patient.dateOfBirth}"  placeholder="Data urodzenia" readonly>
+            <label>Numer PESEL: </label>
+            <input type="text" th:field="*{patient.PESEL}"  placeholder="PESEL" readonly>
             <input type="submit" value="Zapisz dane">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

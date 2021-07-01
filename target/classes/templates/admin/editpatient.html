@@ -17,10 +17,15 @@
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <div id="form">
         <form action="#" method="post" id="edit-form">
+            <label>Imię pacjenta: </label>
             <input type="text" th:field="*{patient.name}" class="name" placeholder="Imię">
+            <label>Nazwisko pacjenta: </label>
             <input type="text" th:field="*{patient.surname}"  placeholder="Nazwisko">
+            <label>Numer telefonu: </label>
             <input type="text" th:field="*{patient.phone}"  placeholder="Numer telefonu">
+            <label>Data urodzenia: </label>
             <input type="date" th:field="*{patient.dateOfBirth}"  placeholder="Data urodzenia">
+            <label>Numer PESEL: </label>
             <input type="text" th:field="*{patient.PESEL}"  placeholder="PESEL">
             <input type="submit" value="Zapisz">
             <input type="button" onclick="history.back();" value="Wróć">

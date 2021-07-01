@@ -40,5 +40,6 @@
     text-align: center;
     background-color: rgba(208, 203, 196, 0.15);
     border: 2px solid black;
+    min-height: 10vh;
 }
 

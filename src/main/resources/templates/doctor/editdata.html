@@ -16,11 +16,16 @@
 <div id="content">
     <div id="form">
         <form action="#" method="post" id="edit-form">
-            <input type="text" th:field="*{doctor.name}" placeholder="Imię">
-            <input type="text" th:field="*{doctor.surname}"placeholder="Nazwisko">
-            <input type="text" th:field="*{doctor.phone}"placeholder="Numer telefonu">
+            <label>Imię doktora: </label>
+            <input type="text" th:field="*{doctor.name}" class="name" placeholder="Imię">
+            <label>Nazwisko doktora: </label>
+            <input type="text" th:field="*{doctor.surname}"  placeholder="Nazwisko">
+            <label>Numer telefonu: </label>
+            <input type="text" th:field="*{doctor.phone}"  placeholder="Numer telefonu">
+            <label>Id specjalizacji: </label>
             <input type="text" th:field="*{doctor.speciality.specialityId}" placeholder="Specjalizacja">
-            <input type="text" th:field="*{doctor.PWZNumber}"placeholder="Numer pozwolenia">
+            <label>Numer pozwolenia PWZ: </label>
+            <input type="text" th:field="*{doctor.PWZNumber}"  placeholder="Numer pozwolenia">
             <input type="submit" value="Zapisz dane">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

@@ -43,6 +43,15 @@ public class OfficeDAOImpl implements IOfficeDAO {
     }
 
     @Override
+    public List<Office> getAllAvailable() {
+        Session session = this.sessionFactory.openSession();
+        Query<Office> officeQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Office where isAvailable = true ");
+        List<Office> officeList = officeQuery.getResultList();
+        session.close();
+        return officeList;
+    }
+
+    @Override
     public boolean save(Office office) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;

@@ -10,4 +10,5 @@ public interface IOfficeDAO {
     boolean save(Office office);
     boolean delete(Office office);
     boolean update(Office office);
+    List<Office> getAllAvailable();
 }

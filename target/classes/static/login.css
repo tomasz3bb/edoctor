@@ -1,11 +1,11 @@
 #login-form {
     width: 60%;
     margin: 100px auto;
-    padding: 20px;
+    padding: 15px;
     justify-content: center;
     background: white;
     min-height: 50vh;
-    display: table;
+    display: grid;
     flex-wrap: wrap;
     align-items: center;
     border-radius: 20px;
@@ -26,25 +26,25 @@ p{
 .login-info, .id-info, .role-info {
     margin: 5px auto;
     display: block;
-    font-size: 21px;
+    font-size: 1.2em;
     text-align: justify;
 }
 
 #login-form input[type="text"], input[type="password"], input[type="date"] {
     width: 100%;
-    margin: 10px auto;
-    display: block;
-    font-size: 20px;
+    margin: 0 auto;
+    display: inline-block;
+    font-size: 1.4em;
     padding: 5px;
     text-align: center;
 }
 
 #login-form input[type="submit"], input[type="button"] {
     width: 200px;
-    margin: 10px auto;
+    margin: 0 auto;
     padding: 5px;
     display: block;
-    font-size: 20px;
+    font-size: 1.2em;
     border: 2px solid black;
     color: black;
     background-color: white;

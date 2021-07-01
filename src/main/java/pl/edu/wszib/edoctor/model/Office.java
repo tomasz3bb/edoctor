@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "toffice")
 @NoArgsConstructor
@@ -22,4 +19,5 @@ public class Office {
     private int roomNumber;
     private int floor;
     private String description;
+    private boolean isAvailable;
 }

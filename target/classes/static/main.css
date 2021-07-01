@@ -95,5 +95,12 @@ body {
     text-align: center;
     font-size: 20px;
     color: #1fa709;
-
+}
+.schedule{
+    display: inline-block;
+    float: right;
+}
+label {
+    display: inline-block;
+    width: 25%;
 }

@@ -17,13 +17,20 @@
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <div id="form">
         <form action="#" method="post" id="add-form">
-            <input type="text" th:field="*{user.login}"  placeholder="Login">
-            <input type="password" th:field="*{user.password}"  placeholder="Hasło">
-            <input type="text" th:field="*{patient.name}" class="name" placeholder="Imię">
-            <input type="text" th:field="*{patient.surname}"  placeholder="Nazwisko">
-            <input type="text" th:field="*{patient.phone}"  placeholder="Numer telefonu">
-            <input type="date" th:field="*{patient.dateOfBirth}"  placeholder="Data urodzenia">
-            <input type="text" th:field="*{patient.PESEL}"  placeholder="PESEL">
+            <label>Login: </label>
+            <input type="text" th:field="*{user.login}"  placeholder="Login"><br>
+            <label>Hasło: </label>
+            <input type="password" th:field="*{user.password}"  placeholder="Hasło"><br>
+            <label>Imię pacjenta: </label>
+            <input type="text" th:field="*{patient.name}" class="name" placeholder="Imię"><br>
+            <label>Nazwisko pacjenta: </label>
+            <input type="text" th:field="*{patient.surname}"  placeholder="Nazwisko"><br>
+            <label>Numer telefonu: </label>
+            <input type="text" th:field="*{patient.phone}"  placeholder="Numer telefonu"><br>
+            <label>Data urodzenia: </label>
+            <input type="date" th:field="*{patient.dateOfBirth}"  placeholder="Data urodzenia"><br>
+            <label>Numer PESEL: </label>
+            <input type="text" th:field="*{patient.PESEL}"  placeholder="PESEL"><br>
             <input type="submit" value="Dodaj">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

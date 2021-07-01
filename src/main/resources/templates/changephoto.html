@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/form.css">
     <link rel="stylesheet" href="/panelA.css">
+    <style>
+        #form input[type="submit"], input[type="button"] {
+            margin-right: auto;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
@@ -18,7 +23,7 @@
     <form method="post" id="edit-form" enctype="multipart/form-data">
         <p th:if="${info}" th:text="${info}" id="error"></p>
         <input type="file" th:field="*{changePhotoModel.newImage}">
-        <input type="submit">
+        <input type="submit" value="Zmień zdjęcie">
         <input type="button" onclick="history.back();" value="Wróć">
     </form>
     </div>

@@ -17,13 +17,20 @@
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <div id="form">
         <form action="#" method="post" id="add-form">
+            <label>Login: </label>
             <input type="text" th:field="*{user.login}"  placeholder="Login">
+            <label>Hasło: </label>
             <input type="password" th:field="*{user.password}"  placeholder="Hasło">
-            <input type="text" th:field="*{doctor.name}" class="name" placeholder="Imię">
-            <input type="text" th:field="*{doctor.surname}"  placeholder="Nazwisko">
-            <input type="text" th:field="*{doctor.phone}"  placeholder="Numer telefonu">
-            <input type="text" th:field="*{doctor.speciality.specialityId}" placeholder="Specjalizacja">
-            <input type="text" th:field="*{doctor.PWZNumber}"  placeholder="Numer pozwolenia">
+            <label>Imię doktora: </label>
+            <input type="text" th:field="*{doctor.name}" class="name" placeholder="Imię"><br>
+            <label>Nazwisko doktora: </label>
+            <input type="text" th:field="*{doctor.surname}"  placeholder="Nazwisko"><br>
+            <label>Numer telefonu: </label>
+            <input type="text" th:field="*{doctor.phone}"  placeholder="Numer telefonu"><br>
+            <label>Id specjalizacji: </label>
+            <input type="text" th:field="*{doctor.speciality.specialityId}" placeholder="Specjalizacja"><br>
+            <label>Numer pozwolenia PWZ: </label>
+            <input type="text" th:field="*{doctor.PWZNumber}"  placeholder="Numer pozwolenia"><br>
             <input type="submit" value="Dodaj">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

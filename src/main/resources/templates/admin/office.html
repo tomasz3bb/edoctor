@@ -25,8 +25,8 @@
             <div class="info" th:text="${office.roomNumber}"></div>
             <div class="info" th:text="${office.floor}"></div>
             <div class="info" th:text="${office.description}"></div>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editoffice/{officeId}(officeId=${office.officeId})}" class="edit-button">Edytuj</a>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deleteoffice/{officeId}(officeId=${office.officeId})}" class="edit-button">Usuń</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editoffice/{officeId}(officeId=${office.officeId})}" class="edit-button">Edytuj gabinet</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deleteoffice/{officeId}(officeId=${office.officeId})}" class="edit-button">Usuń gabinet</a>
             </div>
         </th:block>
     </div>

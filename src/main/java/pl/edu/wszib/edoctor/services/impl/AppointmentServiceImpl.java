@@ -16,7 +16,10 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,19 +71,21 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public boolean addAppointment(Appointment appointment, int doctorId) {
         Patient patient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
         Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
+        List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
         Appointment newApp = new Appointment(0, patient, doctor, appointment.getAppointmentDate(),
                 appointment.getAppointmentDate().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL")),
                 appointment.getAppointmentTimeStart(), appointment.getAppointmentTimeStart().plusMinutes(30), Appointment.Status.Zaplanowana);
         List<Appointment> appointmentListByDoctor = this.appointmentDAO.getAppByDoctorAndDate(doctor, newApp.getAppointmentDate());
-        List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
         for (Appointment app: appointmentListByDoctor) {
             for (DoctorSchedule schedule: doctorScheduleList) {
+                Date today = new Date();
                 if (newApp.getDayOfWeek().equals(schedule.getDayOfWeek())){
                     if (newApp.getAppointmentTimeStart().equals(app.getAppointmentTimeStart()) ||
                             newApp.getAppointmentTimeStart().isAfter(schedule.getStartOfWork()) ||
                             newApp.getAppointmentTimeStart().isBefore(schedule.getStartOfWork()) ||
                             newApp.getAppointmentTimeStart().isBefore(app.getAppointmentTimeEnd()) ||
-                            newApp.getAppointmentTimeEnd().isBefore(app.getAppointmentTimeEnd())
+                            newApp.getAppointmentTimeEnd().isBefore(app.getAppointmentTimeEnd()) ||
+                            newApp.getAppointmentDate().before(today)
                     ){
                         return false;
                     }

@@ -61,7 +61,7 @@ public class DoctorScheduleServiceImpl implements IDoctorScheduleService {
     public boolean save(DoctorSchedule doctorSchedule) {
         Doctor loggedDoctor = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         DoctorSchedule newDoctorSchedule = new DoctorSchedule(0, loggedDoctor, doctorSchedule.getDayOfWeek(),
-                doctorSchedule.getStartOfWork(), doctorSchedule.getEndOfWork());
+                doctorSchedule.getStartOfWork(), doctorSchedule.getEndOfWork(), doctorSchedule.getOffice());
         return this.doctorScheduleDAO.save(newDoctorSchedule);
     }
 }

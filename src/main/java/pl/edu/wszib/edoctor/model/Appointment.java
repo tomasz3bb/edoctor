@@ -1,5 +1,6 @@
 package pl.edu.wszib.edoctor.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity(name = "tappointment")
@@ -36,15 +38,4 @@ public class Appointment {
         Zakończona
     }
 
-    public Appointment(int appointmentId, Patient patient, Doctor doctor, Date appointmentDate, String dayOfWeek,
-                       LocalTime appointmentTimeStart, LocalTime appointmentTimeEnd, Status status) {
-        this.appointmentId = appointmentId;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.appointmentDate = appointmentDate;
-        this.dayOfWeek = dayOfWeek;
-        this.appointmentTimeStart = appointmentTimeStart;
-        this.appointmentTimeEnd = appointmentTimeEnd;
-        this.status = status;
-    }
 }

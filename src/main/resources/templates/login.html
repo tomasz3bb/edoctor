@@ -19,8 +19,8 @@
 <div id="page">
 <form id="login-form" method="post">
     <h1>Logowanie do systemu</h1>
-    <p>Login:<input type="text" placeholder="Podaj login" th:field="*{userModel.login}"></p>
-    <p>Hasło:<input type="password" placeholder="Podaj hasło" th:field="*{userModel.password}"></p>
+    <input type="text" placeholder="Podaj login" th:field="*{userModel.login}">
+    <input type="password" placeholder="Podaj hasło" th:field="*{userModel.password}">
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <input type="submit" value="Zaloguj">
     <h2>Nie masz jeszcze konta pacjenta w naszym systemie?</h2>

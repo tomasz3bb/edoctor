@@ -23,8 +23,8 @@
             <div class="row">
             <div class="info" th:text="${speciality.specialityId}"></div>
             <div class="info" th:text="${speciality.specialityName}"></div>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editspeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Edytuj</a>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletespeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Usuń</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editspeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Edytuj specjalizację</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletespeciality/{specialityId}(specialityId=${speciality.specialityId})}" class="edit-button">Usuń specjalizację</a>
             </div>
         </th:block>
     </div>

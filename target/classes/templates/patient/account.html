@@ -24,9 +24,11 @@
             <p th:text="'Data urodzenia: ' + ${patient.dateOfBirth}"></p>
             <p th:text="'PESEL: ' + ${patient.PESEL}"></p>
         </div>
-        <p><a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj swoje dane</a>
-        <a th:if="${role == 'Pacjent'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
-            a th:href="@{/changepass/{userId}(userId=${user.userId})}" class="edit-button">Zmień hasło do konta</a></p>
+        <p>
+            <a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj swoje dane</a>
+            <a th:if="${role == 'Pacjent'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
+            <a th:href="@{/changepass/{userId}(userId=${user.userId})}" class="edit-button">Zmień hasło do konta</a>
+        </p>
     </div>
 </div>
 </body>

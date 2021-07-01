@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/panelA.css">
     <link rel="stylesheet" href="/form.css">
+    <style>
+        #form input[type="submit"], input[type="button"] {
+            margin-right: auto;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
@@ -16,7 +21,7 @@
 <div id="content">
     <h2 style="text-align: center">Sczegóły wizyty</h2>
     <div class="appdetail" th:text="${appdetail.description}"></div>
-    <input type="button" onclick="history.back();" value="Wróć" style="width: 20%;">
+    <input type="button" onclick="history.back();" value="Wróć" style="width: 15%;">
 </div>
 </div>
 </body>

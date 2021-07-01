@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/panelA.css">
     <link rel="stylesheet" href="/form.css">
+    <style>
+        #form input[type="text"], input[type="date"], input[type="time"], input[type="password"], input[type="file"], input[type="number"] {
+            width: 29%;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
@@ -16,6 +21,7 @@
 <div id="content">
     <div id="form">
         <form action="#" method="post" id="edit-form">
+            <label>Wybierz dzień tygodnia: </label>
             <select th:field="${doctorSchedule.dayOfWeek}" class="selectbutton">
                 <option th:value="'Poniedziałek'" th:text="Poniedziałek"></option>
                 <option th:value="'Wtorek'" th:text="Wtorek"></option>
@@ -25,8 +31,11 @@
                 <option th:value="'Sobota'" th:text="Sobota"></option>
                 <option th:value="'Niedziela'" th:text="Niedziela"></option>
             </select>
-            <input type="time" th:field="*{doctorSchedule.startOfWork}" class="dateOfBirth" placeholder="Godzina rozpoczęcia pracy">
-            <input type="time" th:field="*{doctorSchedule.endOfWork}" class="dateOfBirth" placeholder="Godzina zakończenia pracy">
+            <br>
+            <label>Godzina rozpoczęcia pracy: </label>
+            <input type="time" th:field="*{doctorSchedule.startOfWork}" class="dateOfBirth" placeholder="Godzina rozpoczęcia pracy"><br>
+            <label>Godzina zakończenia pracy: </label>
+            <input type="time" th:field="*{doctorSchedule.endOfWork}" class="dateOfBirth" placeholder="Godzina zakończenia pracy"><br>
             <input type="submit" value="Dodaj">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

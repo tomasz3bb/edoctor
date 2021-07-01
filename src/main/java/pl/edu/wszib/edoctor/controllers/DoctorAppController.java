@@ -49,6 +49,7 @@ public class DoctorAppController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("appList", this.appointmentService.getHistAppByPatient(patient.getUser().getUserId(), Appointment.Status.Zakończona));
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/patienthist";
     }
 
@@ -61,7 +62,7 @@ public class DoctorAppController {
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("info", this.sessionObject.getInfo());
-        return "patient/appdetail";
+        return "doctor/appdetail";
     }
 
     @RequestMapping(value = "/patientcurrent/{patientId}", method = RequestMethod.GET)

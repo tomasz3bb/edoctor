@@ -17,7 +17,8 @@
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <div id="form">
         <form action="#" method="post" id="edit-form">
-            <label>Nazwa specjalizacji:</label><input type="text" th:field="*{speciality.specialityName}"  placeholder="Nazwa specjalizacji">
+            <label>Nazwa specjalizacji:</label>
+            <input type="text" th:field="*{speciality.specialityName}"  placeholder="Nazwa specjalizacji">
             <input type="submit" value="Zapisz">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

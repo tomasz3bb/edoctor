@@ -39,18 +39,7 @@ public class PatientController {
     @Autowired
     IDoctorService doctorService;
 
-    @RequestMapping(value = "/app", method = RequestMethod.GET)
-    public String showPatientApp(Model model){
-        if (!this.sessionObject.isLogged()){
-            return "redirect:/login";
-        }
-        User loggedUser = this.sessionObject.getLoggedUser();
-        model.addAttribute("loggedPatientApp", this.appointmentService.getAllAppointmentByPatient(loggedUser.getUserId()));
-        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("isLogged", this.sessionObject.isLogged());
-        model.addAttribute("info", this.sessionObject.getInfo());
-        return "patient/app";
-    }
+
     @RequestMapping(value = "/currentapp", method = RequestMethod.GET)
     public String showCurrentPatientApp(Model model){
         if (!this.sessionObject.isLogged()){

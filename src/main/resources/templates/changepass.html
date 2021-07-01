@@ -17,10 +17,13 @@
     <div id="form">
     <form method="post" id="edit-form">
         <p th:if="${info}" th:text="${info}" id="error"></p>
+        <label>Aktualne hasło: </label>
         <input type="password" th:field="*{changePasswordModel.oldPass}" placeholder="Stare hasło">
+        <label>Nowe hasło: </label>
         <input type="password" th:field="*{changePasswordModel.newPass}" placeholder="Nowe hasło">
+        <label>Powtórz nowe hasło: </label>
         <input type="password" th:field="*{changePasswordModel.confirmPass}" placeholder="Powtórz nowe hasło">
-        <input type="submit">
+        <input type="submit" value="Zmień hasło">
         <input type="button" onclick="history.back();" value="Wróć">
     </form>
     </div>

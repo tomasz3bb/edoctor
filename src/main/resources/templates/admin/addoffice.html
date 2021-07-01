@@ -17,9 +17,12 @@
     <p th:if="${info}" th:text="${info}" class="error"></p>
     <div id="form">
         <form action="#" method="post" id="add-form">
-            <input type="number" th:field="*{office.roomNumber}"  placeholder="Numer pokoju">
-            <input type="number" th:field="*{office.floor}"  placeholder="Piętro">
-            <input type="text" th:field="*{office.description}"  placeholder="Opis gabinetu">
+            <label>Numer pokoju: </label>
+            <input type="number" th:field="*{office.roomNumber}"  placeholder="Numer pokoju"><br>
+            <label>Piętro: </label>
+            <input type="number" th:field="*{office.floor}"  placeholder="Piętro"><br>
+            <label>Opis gabinetu: </label>
+            <input type="text" th:field="*{office.description}"  placeholder="Opis gabinetu"><br>
             <input type="submit" value="Dodaj">
             <input type="button" onclick="history.back();" value="Wróć">
         </form>

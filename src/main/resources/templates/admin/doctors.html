@@ -29,8 +29,8 @@
             <div class="info" th:text="${doctor.phone}"></div>
                 <div class="info" th:text="${doctor.speciality.specialityName}"></div>
                 <div class="info" th:text="${doctor.PWZNumber}"></div>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editdoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Edytuj</a>
-                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletedoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Usuń</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/editdoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Edytuj doktora</a>
+                <a th:if="${role == 'ADMIN'}" th:href="@{/admin/deletedoctor/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Usuń doktora</a>
             </div>
         </th:block>
     </div>

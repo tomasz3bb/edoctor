@@ -30,9 +30,6 @@
                 <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
                 <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
-                <!--
-     <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/editapp/{appId}(appId=${appointment.appointmentId})}" class="edit-button">Zmień termin wizyty</a>
-                -->
                 <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appId}(appId=${appointment.appointmentId})}" class="edit-button">Anuluj wizytę</a>
             </div>
         </th:block>

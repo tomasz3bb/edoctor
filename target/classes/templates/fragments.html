@@ -21,7 +21,8 @@
         <li><a href="/patient/account" class="menu-button" th:if="${role == 'Pacjent'}">Moje konto</a></li>
         <li><a href="/patient/doctors" th:if="${role == 'Pacjent'}">Moja lista lekarzy</a></li>
         <li><a href="/doctor/patients" th:if="${role == 'Lekarz'}">Moja lista pacjentów</a></li>
-        <li><a href="/patient/app" th:if="${role == 'Pacjent'}">Moje wizyty</a></li>
+        <li><a href="/patient/currentapp" th:if="${role == 'Pacjent'}">Moje wizyty</a></li>
+        <li><a href="/patient/histapp" th:if="${role == 'Pacjent'}">Historia wizyt</a></li>
     </ul>
 </div>
 <div id="logo" th:fragment="logo">

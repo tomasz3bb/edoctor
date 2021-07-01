@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/panelA.css">
     <link rel="stylesheet" href="/form.css">
+    <style>
+        #form input[type="submit"], input[type="button"] {
+            margin-right: auto;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
@@ -17,7 +22,7 @@
 <div id="content">
     <form method="post" id="form">
         <div style="text-align: center;"><h2>Czy potwierdzasz wybór lekarza?</h2></div>
-        <input type="submit" value="Potwierdź wybór lekarza">
+        <input type="submit" value="Potwierdź">
         <input type="button" onclick="history.back();" value="Wróć">
     </form>
 </div>

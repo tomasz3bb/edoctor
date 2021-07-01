@@ -18,7 +18,8 @@
     <div id="form">
         <div class="row">
             <form action="#" method="post" id="add-form">
-                <input type="text" th:field="*{speciality.specialityName}" id="title" placeholder="Nazwa specjalizacji">
+                <label>Nazwa specjalizacji: </label>
+                <input type="text" th:field="*{speciality.specialityName}" id="title" placeholder="Nazwa specjalizacji"><br>
                 <input type="submit" value="Dodaj">
                 <input type="button" onclick="history.back();" value="Wróć">
             </form>

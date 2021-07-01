@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,6 @@ public class DoctorSchedule {
     private String dayOfWeek;
     private LocalTime startOfWork;
     private LocalTime endOfWork;
-
-
+    @OneToOne(fetch = FetchType.EAGER)
+    private Office office;
 }
