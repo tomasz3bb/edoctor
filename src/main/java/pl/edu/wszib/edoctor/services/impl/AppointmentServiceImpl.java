@@ -15,11 +15,12 @@ import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -78,21 +79,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
         List<Appointment> appointmentListByDoctor = this.appointmentDAO.getAppByDoctorAndDate(doctor, newApp.getAppointmentDate());
         for (Appointment app: appointmentListByDoctor) {
             for (DoctorSchedule schedule: doctorScheduleList) {
-                Date today = new Date();
-                if (newApp.getDayOfWeek().equals(schedule.getDayOfWeek())){
-                    if (newApp.getAppointmentTimeStart().equals(app.getAppointmentTimeStart()) ||
-                            newApp.getAppointmentTimeStart().isAfter(schedule.getStartOfWork()) ||
-                            newApp.getAppointmentTimeStart().isBefore(schedule.getStartOfWork()) ||
-                            newApp.getAppointmentTimeStart().isBefore(app.getAppointmentTimeEnd()) ||
-                            newApp.getAppointmentTimeEnd().isBefore(app.getAppointmentTimeEnd()) ||
-                            newApp.getAppointmentDate().before(today)
-                    ){
+                if (!newApp.getDayOfWeek().equals(schedule.getDayOfWeek())) {
                         return false;
-                    }
                 }
             }
         }
-        return this.appointmentDAO.save(newApp);
+        this.appointmentDAO.save(newApp);
+        return true;
     }
 
     @Override

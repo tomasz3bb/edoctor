@@ -30,6 +30,9 @@ public class PatientAppointmentController {
     IDoctorListService doctorListService;
 
     @Autowired
+    IDoctorScheduleService doctorScheduleService;
+
+    @Autowired
     IAppointmentService appointmentService;
 
     @Autowired
@@ -48,6 +51,7 @@ public class PatientAppointmentController {
         model.addAttribute("doctor", this.doctorService.getDoctorByDoctorId(doctorId));
         model.addAttribute("appointment", new Appointment());
         model.addAttribute("info", this.sessionObject.getInfo());
+        model.addAttribute("currentDS", this.doctorScheduleService.getAllByDoctorId(doctorId));
         return "patient/makeapp";
     }
     @RequestMapping(value = "/makeapp/{doctorId}", method = RequestMethod.POST)
@@ -55,12 +59,11 @@ public class PatientAppointmentController {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        if(!this.appointmentService.addAppointment(appointment, doctorId)){
+        if(this.appointmentService.addAppointment(appointment, doctorId)){
+            this.sessionObject.setInfo("Sukces, ustalono nowy termin wizyty.");
+        }else {
             this.sessionObject.setInfo("Błąd, temin zajęty lub dany lekarz nie pracuje o tej porze.");
-            return "redirect:/patient/currentapp";
         }
-        this.appointmentService.addAppointment(appointment, doctorId);
-        this.sessionObject.setInfo("Sukces, ustalono nowy termin wizyty.");
         return "redirect:/patient/currentapp";
     }
 

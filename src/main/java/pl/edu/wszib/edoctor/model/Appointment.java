@@ -6,12 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.format.TextStyle;
-import java.util.Locale;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +28,7 @@ public class Appointment {
     private LocalTime appointmentTimeEnd;
     @Enumerated(EnumType.STRING)
     private Status status;
+
 
     public enum Status{
         Zaplanowana,
