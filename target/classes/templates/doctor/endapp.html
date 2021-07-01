@@ -15,9 +15,9 @@
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
     <div id="form">
-        <form action="#" method="post" id="edit-form">
+        <form method="post" id="edit-form">
             <h2 style="text-align: center">Opisz i zakończ wizytę</h2>
-                <div contenteditable="true" th:field="${appDetail.description}" class="appdetail"></div>
+                <input type="text"  th:field="${appDetail.description}" class="appdetail">
             <input type="submit" value="Zakończ wizytę">
         </form>
     </div>
