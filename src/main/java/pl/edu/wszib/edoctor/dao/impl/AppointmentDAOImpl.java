@@ -10,6 +10,7 @@ import pl.edu.wszib.edoctor.dao.IAppointmentDAO;
 import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
+import pl.edu.wszib.edoctor.model.Speciality;
 
 import javax.persistence.NoResultException;
 import java.sql.Date;
@@ -74,13 +75,13 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     }
 
     @Override
-    public Appointment getById(int appId) {
+    public Appointment getById(int appointmentId) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> query = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where appointmentId =:appId");
-        query.setParameter("appId", appId);
+        Query<Appointment> appointmentQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where appointmentId =: appointmentId");
+        appointmentQuery.setParameter("appointmentId", appointmentId);
         Appointment appointment = null;
         try {
-            appointment = query.getSingleResult();
+            appointment = appointmentQuery.getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
         }

@@ -16,5 +16,5 @@ public interface IAppointmentDAO{
     boolean save(Appointment appointment);
     boolean update(Appointment appointment);
     boolean delete(Appointment appointment);
-    Appointment getById(int appId);
+    Appointment getById(int appointmentId);
 }

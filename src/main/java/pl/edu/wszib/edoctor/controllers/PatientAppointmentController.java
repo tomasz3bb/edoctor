@@ -64,25 +64,29 @@ public class PatientAppointmentController {
         return "redirect:/patient/currentapp";
     }
 
-    @RequestMapping(value = "/deleteapp/{appId}", method = RequestMethod.GET)
-    public String deleteAppointment(Model model, @PathVariable int appId){
+    @RequestMapping(value = "/deleteapp/{appointmentId}", method = RequestMethod.GET)
+    public String deleteAppointment(Model model, @PathVariable int appointmentId){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
+        Appointment appointment = this.appointmentService.getById(appointmentId);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("appointment", this.appointmentService.getById(appId));
+        model.addAttribute("appointment", appointment);
         model.addAttribute("info", this.sessionObject.getInfo());
         return "patient/deleteapp";
     }
 
-    @RequestMapping(value = "/deleteapp/{appId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteapp/{appointmentId}", method = RequestMethod.POST)
     public String deleteAppointment(@ModelAttribute Appointment appointment){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Pacjent) {
             return "redirect:/login";
         }
-        this.appointmentService.delete(appointment);
-        this.sessionObject.setInfo("Pomyślnie usunięto termin wizyty.");
+        if (this.appointmentService.delete(appointment)){
+            this.sessionObject.setInfo("Pomyślnie usunięto termin wizyty.");
+        }else {
+            this.sessionObject.setInfo("Błąd");
+        }
         return "redirect:/patient/currentapp";
     }
 

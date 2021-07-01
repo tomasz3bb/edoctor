@@ -15,6 +15,6 @@ public interface IAppointmentService {
     boolean update(Appointment appointment);
     boolean delete(Appointment appointment);
 
-    Appointment getById(int appId);
+    Appointment getById(int appointmentId);
 
 }

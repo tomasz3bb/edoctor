@@ -115,7 +115,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
-    public Appointment getById(int appId) {
-        return this.appointmentDAO.getById(appId);
+    public Appointment getById(int appointmentId) {
+        return this.appointmentDAO.getById(appointmentId);
     }
 }
