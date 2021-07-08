@@ -45,6 +45,7 @@ public class DoctorScheduleController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("currentDS", this.doctorScheduleService.getAllByDoctorId(doctorId));
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/schedule";
     }
 
@@ -57,6 +58,7 @@ public class DoctorScheduleController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("myschedule", this.doctorScheduleService.getAllByDoctor(doctor));
+        model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/myschedule";
     }
 

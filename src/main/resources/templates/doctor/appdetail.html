@@ -19,6 +19,7 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu" ></div>
 <div id="content">
+    <p th:if="${info}" th:text="${info}" class="error"></p>
     <div class="appdetail" th:text="${appdetail.description}"></div>
     <input type="button" onclick="history.back();" value="Wróć" style="width: 15%;">
 </div>

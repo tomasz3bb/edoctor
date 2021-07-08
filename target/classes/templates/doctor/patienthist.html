@@ -13,6 +13,7 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
+    <p th:if="${info}" th:text="${info}" class="error"></p>
     <div class="admin">
         <div class="rowheader">
             <div class="info">Imię</div>

@@ -85,8 +85,22 @@ public class UserController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("info", this.sessionObject.getInfo());
-
+        model.addAttribute("changePasswordModel", new ChangePasswordModel());
         return "patient/account";
+    }
+
+    @RequestMapping(value = "/patient/account", method = RequestMethod.POST)
+    public String changePatientPass(@ModelAttribute User user, @ModelAttribute ChangePasswordModel changePasswordModel){
+        if(!this.sessionObject.isLogged()) {
+            return "redirect:/login";
+        }
+        if (!this.userService.updatePassword(this.sessionObject.getLoggedUser(), changePasswordModel)){
+            this.sessionObject.setInfo("Wystąpił błąd.");
+            return "redirect:/patient/account";
+        }
+        this.userService.updatePassword(this.sessionObject.getLoggedUser(), changePasswordModel);
+        this.sessionObject.setInfo("Zmiany zapisane.");
+        return "redirect:/patient/account";
     }
 
     @RequestMapping(value = "/doctor/account", method = RequestMethod.GET)
@@ -101,7 +115,22 @@ public class UserController {
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("info", this.sessionObject.getInfo());
+        model.addAttribute("changePasswordModel", new ChangePasswordModel());
         return "doctor/account";
+    }
+
+    @RequestMapping(value = "/doctor/account", method = RequestMethod.POST)
+    public String changeDoctorPass(@ModelAttribute User user, @ModelAttribute ChangePasswordModel changePasswordModel){
+        if(!this.sessionObject.isLogged()) {
+            return "redirect:/login";
+        }
+        if (!this.userService.updatePassword(this.sessionObject.getLoggedUser(), changePasswordModel)){
+            this.sessionObject.setInfo("Wystąpił błąd.");
+            return "redirect:/doctor/account";
+        }
+        this.userService.updatePassword(this.sessionObject.getLoggedUser(), changePasswordModel);
+        this.sessionObject.setInfo("Zmiany zapisane.");
+        return "redirect:/doctor/account";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -130,33 +159,6 @@ public class UserController {
             this.sessionObject.setInfo("Login zajęty.");
             return "redirect:/register";
         }
-    }
-
-    @RequestMapping(value = "/changepass/{userId}", method = RequestMethod.GET)
-    public String changePass(Model model, @PathVariable int userId){
-        if(!this.sessionObject.isLogged()){
-            return "redirect:/login";
-        }
-        User user = this.userService.getUserById(userId);
-        model.addAttribute("user", user);
-        model.addAttribute("changePasswordModel", new ChangePasswordModel());
-        model.addAttribute("isLogged", this.sessionObject.isLogged());
-        model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
-        model.addAttribute("info", this.sessionObject.getInfo());
-        return "changepass";
-    }
-    @RequestMapping(value = "/changepass/{userId}", method = RequestMethod.POST)
-    public String changePass(@ModelAttribute User user, @ModelAttribute ChangePasswordModel changePasswordModel){
-        if(!this.sessionObject.isLogged()) {
-            return "redirect:/login";
-        }
-        if (!this.userService.updatePassword(user, changePasswordModel)){
-            this.sessionObject.setInfo("Wystąpił błąd.");
-            return "redirect:/changepass/{userId}";
-        }
-        this.userService.updatePassword(user, changePasswordModel);
-        this.sessionObject.setInfo("Zmiany zapisane.");
-        return "redirect:/changepass/{userId}";
     }
 
     @RequestMapping(value = "/changephoto/{userId}", method = RequestMethod.GET)

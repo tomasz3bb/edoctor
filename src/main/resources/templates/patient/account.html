@@ -27,8 +27,20 @@
         <p>
             <a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj swoje dane</a>
             <a th:if="${role == 'Pacjent'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
-            <a th:href="@{/changepass/{userId}(userId=${user.userId})}" class="edit-button">Zmień hasło do konta</a>
         </p>
+        <h2>Zmień hasło do konta</h2>
+        <div id="form">
+            <form method="post" id="edit-form">
+                <label>Aktualne hasło: </label>
+                <input type="password" th:field="*{changePasswordModel.oldPass}" placeholder="Stare hasło">
+                <label>Nowe hasło: </label>
+                <input type="password" th:field="*{changePasswordModel.newPass}" placeholder="Nowe hasło">
+                <label>Powtórz nowe hasło: </label>
+                <input type="password" th:field="*{changePasswordModel.confirmPass}" placeholder="Powtórz nowe hasło">
+                <input type="submit" value="Zmień hasło">
+                <input type="button" onclick="history.back();" value="Wróć">
+            </form>
+        </div>
     </div>
 </div>
 </body>
