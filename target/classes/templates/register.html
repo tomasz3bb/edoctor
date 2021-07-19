@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/login.css">
     <link rel="stylesheet" href="/panelA.css">
+    <script src="registerValidator.js"></script>
     <style>
         #page{
             min-height: 50vh;
@@ -18,12 +19,12 @@
 </head>
 <body>
 <div id="page">
-<form id="login-form" method="post">
+<form id="login-form" method="post" onsubmit="return validate()">
     <p th:if="${info}" th:text="${info}" style="text-align: center"></p>
     <h2>Wypełnij formularz rejestracyjny, by utworzyć konto pacjenta.</h2>
-    <input type="text" placeholder="Login" th:field="*{registrationModel.login}">
-    <input type="password" placeholder="Hasło" th:field="*{registrationModel.pass}">
-    <input type="password" placeholder="Powtórz hasło" th:field="*{registrationModel.pass2}">
+    <input type="text" id="login" placeholder="Login" th:field="*{registrationModel.login}">
+    <input type="password" id="pass" placeholder="Hasło" th:field="*{registrationModel.pass}">
+    <input type="password" id="pass2" placeholder="Powtórz hasło" th:field="*{registrationModel.pass2}">
     <input type="submit" value="Zarejestruj">
     <input type="button" onclick="history.back();" value="Wróć">
 </form>

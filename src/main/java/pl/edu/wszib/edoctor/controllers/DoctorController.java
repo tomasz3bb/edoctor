@@ -49,19 +49,19 @@ public class DoctorController {
         return "doctor/patients";
     }
 
-    @RequestMapping(value = "/editdata/{doctorId}", method = RequestMethod.GET)
-    public String editDoctorData(Model model, @PathVariable int doctorId){
+    @RequestMapping(value = "/editdata", method = RequestMethod.GET)
+    public String editDoctorData(Model model){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";
         }
-        Doctor loggedDoctor = this.doctorService.getDoctorByDoctorId(doctorId);
+        Doctor loggedDoctor = this.doctorService.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         model.addAttribute("doctor", loggedDoctor);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/editdata";
     }
-    @RequestMapping(value = "/editdata/{doctorId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/editdata", method = RequestMethod.POST)
     public String editDoctorData(@ModelAttribute Doctor doctor){
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
             return "redirect:/login";

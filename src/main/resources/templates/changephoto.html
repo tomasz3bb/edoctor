@@ -22,7 +22,7 @@
     <div id="form">
     <form method="post" id="edit-form" enctype="multipart/form-data">
         <p th:if="${info}" th:text="${info}" id="error"></p>
-        <input type="file" th:field="*{changePhotoModel.newImage}">
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
         <input type="submit" value="Zmień zdjęcie">
         <input type="button" onclick="history.back();" value="Wróć">
     </form>

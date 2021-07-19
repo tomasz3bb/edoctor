@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
 
@@ -15,6 +16,5 @@ public class RegistrationModel {
     private String login;
     private String pass;
     private String pass2;
-    @Lob
-    private Byte[] image;
+    private Byte[] photo;
 }

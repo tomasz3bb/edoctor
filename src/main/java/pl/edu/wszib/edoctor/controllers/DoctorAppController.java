@@ -95,7 +95,7 @@ public class DoctorAppController {
         }
         Appointment appointment = this.appointmentService.getById(appId);
         if(this.appointmentDetailService.add(appointment, appointmentDetail)){
-            this.sessionObject.setInfo("Zakończono wizytę i dodano szczegóły.");
+            this.sessionObject.setInfo("Zakończono wizytę i dodano szczegóły wizyty.");
         }else {
             this.sessionObject.setInfo("Błąd");
         }

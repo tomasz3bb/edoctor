@@ -54,4 +54,5 @@ public class DoctorListServiceImpl implements IDoctorListService {
         DoctorList newDocList = new DoctorList(0, doctorFromDB, loggedPatient);
         return this.doctorListDAO.savePatientToDoctor(newDocList);
     }
+
 }

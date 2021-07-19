@@ -1,9 +1,9 @@
 package pl.edu.wszib.edoctor.services;
 
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
 import pl.edu.wszib.edoctor.model.view.ChangePasswordModel;
-import pl.edu.wszib.edoctor.model.view.ChangePhotoModel;
 import pl.edu.wszib.edoctor.model.view.RegistrationModel;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface IUserService {
     List<User> getAll();
     boolean register(RegistrationModel registrationModel, Patient patient);
     boolean updatePassword(User user, ChangePasswordModel changePasswordModel);
-    boolean updatePhoto(User user, ChangePhotoModel changePhotoModel);
+    boolean uploadPhoto(User user, MultipartFile image);
 }

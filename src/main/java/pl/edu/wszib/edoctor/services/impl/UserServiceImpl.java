@@ -2,20 +2,20 @@ package pl.edu.wszib.edoctor.services.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.wszib.edoctor.dao.IDoctorDAO;
 import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.dao.IUserDAO;
 import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.model.User;
 import pl.edu.wszib.edoctor.model.view.ChangePasswordModel;
-import pl.edu.wszib.edoctor.model.view.ChangePhotoModel;
 import pl.edu.wszib.edoctor.model.view.RegistrationModel;
 import pl.edu.wszib.edoctor.services.IUserService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -33,13 +33,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     IPatientDAO patientDAO;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
     @Override
     public boolean save(User user) {
-        User newUser = new User(0, user.getLogin(), user.getPassword(), user.getRole(), user.getImage());
+        User newUser = new User(0, user.getLogin(), user.getPassword(), user.getRole(), user.getPhoto());
         return this.userDAO.save(newUser);
     }
 
@@ -52,9 +48,9 @@ public class UserServiceImpl implements IUserService {
     public void update(User user) {
         User userFromDB = this.userDAO.getUserById(user.getUserId());
         userFromDB.setLogin(user.getLogin());
-        String encryptedPassword = this.bCryptPasswordEncoder.encode(user.getPassword());
-        userFromDB.setPassword(encryptedPassword);
+        userFromDB.setPassword(user.getPassword());
         userFromDB.setRole(user.getRole());
+        user.setPhoto(user.getPhoto());
         this.userDAO.update(userFromDB);
     }
 
@@ -64,10 +60,6 @@ public class UserServiceImpl implements IUserService {
         if (userFromDatabase == null){
             return false;
         }
-       /* if (bCryptPasswordEncoder.matches(user.getPassword(), userFromDatabase.getPassword())){
-            this.sessionObject.setLoggedUser(userFromDatabase);
-        }
-        */
         if (userFromDatabase.getPassword().equals(user.getPassword())) {
             this.sessionObject.setLoggedUser(userFromDatabase);
         }
@@ -79,7 +71,7 @@ public class UserServiceImpl implements IUserService {
         if (this.userDAO.getUserByLogin(registrationModel.getLogin()) != null) {
             return false;
         }
-        User newUser = new User(0, registrationModel.getLogin(), registrationModel.getPass(), User.Role.Pacjent, registrationModel.getImage());
+        User newUser = new User(0, registrationModel.getLogin(), registrationModel.getPass(), User.Role.Pacjent, registrationModel.getPhoto());
         Patient newPatient = new Patient(0, newUser, patient.getName(), patient.getSurname(),
                 patient.getPhone(), patient.getDateOfBirth(), patient.getPESEL());
         this.userDAO.save(newUser);
@@ -114,7 +106,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean updatePhoto(User user, ChangePhotoModel changePhotoModel) {
-        return false;
+    public boolean uploadPhoto(User user, MultipartFile image) {
+        User userFromDB = this.sessionObject.getLoggedUser();
+        try {
+            Byte[] byteObjects = new Byte[image.getBytes().length];
+            int i = 0;
+            for (byte b : image.getBytes()){
+                byteObjects[i++] = b;
+            }
+            userFromDB.setPhoto(byteObjects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.userDAO.update(userFromDB);
     }
 }

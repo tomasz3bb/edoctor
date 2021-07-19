@@ -48,7 +48,7 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     public boolean save(Doctor doctor, User user) {
-        User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Lekarz, user.getImage());
+        User newUser = new User(0, user.getLogin(), user.getPassword(), User.Role.Lekarz, user.getPhoto());
         Doctor newDoctor = new Doctor(0, newUser, doctor.getName(), doctor.getSurname(),
                 doctor.getPhone(), doctor.getSpeciality(), doctor.getPWZNumber());
         this.userDAO.save(newUser);
@@ -65,12 +65,12 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     public boolean update(Doctor doctor) {
-        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         doctorFromDB.setName(doctor.getName());
         doctorFromDB.setSurname(doctor.getSurname());
         doctorFromDB.setPhone(doctor.getPhone());
         doctorFromDB.setSpeciality(doctor.getSpeciality());
-
+        doctorFromDB.setPWZNumber(doctor.getPWZNumber());
         return this.doctorDAO.update(doctorFromDB);
     }
 

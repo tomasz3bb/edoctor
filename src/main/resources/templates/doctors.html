@@ -17,7 +17,7 @@
     <th:block th:each="doctor : ${allDoctors}">
         <div class="doctors">
             <div class="photo-profile">
-                <img th:src="@{/images/blob.png}" width="140px" height="140px">
+                <img th:if="*{doctor.user.photo != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(doctor.user.photo)}}" width="140px" height="140px">
             </div>
         <div class="account-info">
             <h2 th:text="'dr ' + ${doctor.name} + ' ' + ${doctor.surname}"></h2>

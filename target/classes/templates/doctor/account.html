@@ -14,9 +14,10 @@
 <div th:replace="fragments.html :: logo"></div>
     <div th:replace="fragments.html :: menu"></div>
     <div id="content">
+        <p th:if="${info}" th:text="${info}" class="error"></p>
         <h3>Twój profil</h3>
         <div class="photo-profile">
-            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.photo)}}" width="140px" height="140px">
         </div>
         <div class="account-info">
             <p style="font-weight: bold" th:text="${doctor.name} + ' ' + ${doctor.surname} + ' ' + '(' + ${user.role} + ')'"></p>
@@ -25,8 +26,8 @@
             <p th:text="'Numer prawa wykonywania zawodu: ' + ${doctor.PWZNumber}"></p>
         </div>
         <p><a th:if="${role == 'Lekarz'}"  href="/doctor/myschedule" class="edit-button">Mój harmonogram pracy</a>
-        <a th:if="${role == 'Lekarz'}" th:href="@{/doctor/editdata/{doctorId}(doctorId=${doctor.doctorId})}" class="edit-button">Edytuj swoje dane</a>
-        <a th:if="${role == 'Lekarz'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
+        <a th:if="${role == 'Lekarz'}" href="/doctor/editdata" class="edit-button">Edytuj swoje dane</a>
+        <a th:if="${role == 'Lekarz'}" href="/changephoto" class="edit-button">Zmień zdjęcie</a>
         <h2>Zmień hasło do konta</h2>
         <div id="form">
             <form method="post" id="edit-form">

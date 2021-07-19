@@ -16,7 +16,7 @@
         <p th:if="${info}" th:text="${info}" class="error"></p>
         <h3>Twój profil</h3>
         <div class="photo-profile">
-            <img th:src="@{/images/blob.png}" width="140px" height="140px">
+            <img th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.photo)}}" width="140px" height="140px">
         </div>
         <div class="account-info">
             <p style="font-weight: bold" th:text="${patient.name} + ' ' + ${patient.surname} + ' ' + '(' + ${user.role} + ')'"></p>
@@ -25,8 +25,8 @@
             <p th:text="'PESEL: ' + ${patient.PESEL}"></p>
         </div>
         <p>
-            <a th:if="${role == 'Pacjent'}" th:href="@{/patient/editdata/{patientId}(patientId=${patient.patientId})}" class="edit-button">Edytuj swoje dane</a>
-            <a th:if="${role == 'Pacjent'}" th:href="@{/changephoto/{userId}(userId=${user.userId})}" class="edit-button">Zmień zdjęcie</a>
+            <a th:if="${role == 'Pacjent'}" href="/patient/editdata" class="edit-button">Edytuj swoje dane</a>
+            <a th:if="${role == 'Pacjent'}" href="/changephoto" class="edit-button">Zmień zdjęcie</a>
         </p>
         <h2>Zmień hasło do konta</h2>
         <div id="form">

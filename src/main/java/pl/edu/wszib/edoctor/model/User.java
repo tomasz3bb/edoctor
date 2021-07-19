@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -23,7 +24,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Lob
-    private Byte[] image;
+    private Byte[] photo;
 
     public enum Role{
         ADMIN,
