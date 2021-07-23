@@ -64,6 +64,19 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     }
 
     @Override
+    public List<Appointment> getAppByStatusAndDate(Patient patient, Appointment.Status status, Date keyword) {
+        Session session = this.sessionFactory.openSession();
+        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient " +
+                "and status = :status and appointmentDate =: keyword");
+        appointmentQuery.setParameter("patient", patient);
+        appointmentQuery.setParameter("status", status);
+        appointmentQuery.setParameter("keyword", keyword);
+        List<Appointment> appointmentList = appointmentQuery.getResultList();
+        session.close();
+        return appointmentList;
+    }
+
+    @Override
     public List<Appointment> getAppByDoctorAndDate(Doctor doctor, Date date) {
         Session session = this.sessionFactory.openSession();
         Query<Appointment> appointment = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where doctor = : doctor and appointmentDate =: date");

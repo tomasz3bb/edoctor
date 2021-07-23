@@ -37,6 +37,11 @@ public class DoctorServiceImpl implements IDoctorService {
     }
 
     @Override
+    public List<Doctor> findByKeyword(String keyword) {
+        return this.doctorDAO.findByKeyword(keyword);
+    }
+
+    @Override
     public Doctor getDoctorByDoctorId(int doctorId) {
         return this.doctorDAO.getDoctorByDoctorId(doctorId);
     }

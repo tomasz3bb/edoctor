@@ -7,14 +7,28 @@
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/menu.css">
     <link rel="stylesheet" href="/panelA.css">
+    <link rel="stylesheet" href="/form.css">
+    <style>
+        #form input[type="submit"], input[type="button"] {
+            margin-left: auto;
+            margin-right: auto;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 <div id="page">
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
-
-    <th:block th:each="doctor : ${allDoctors}">
+    <div id="form">
+        <h3>Wprowadź imię, nazwisko lub specjalizację, aby wyszukać lekarza.</h3>
+        <form th:action="@{/doctors}" method="get">
+            <input type="text" name="keyword" placeholder="Wyszukaj lekarza">
+            <input type="submit" value="Wyszukaj">
+        </form>
+    </div>
+    <th:block  th:each="doctor : ${allDoctors}">
         <div class="doctors">
             <div class="photo-profile">
                 <img th:if="*{doctor.user.photo != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(doctor.user.photo)}}" width="140px" height="140px">

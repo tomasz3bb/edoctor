@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IDoctorService {
     List<Doctor> getAll();
+    List<Doctor> findByKeyword(String keyword);
     Doctor getDoctorByDoctorId(int doctorId);
     Doctor getDoctorByUserId(int userId);
     boolean save(Doctor doctor, User user);

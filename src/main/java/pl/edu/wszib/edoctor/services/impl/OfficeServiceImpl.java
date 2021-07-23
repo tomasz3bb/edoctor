@@ -54,7 +54,8 @@ public class OfficeServiceImpl implements IOfficeService {
 
     @Override
     public boolean delete(Office office) {
-       return this.officeDAO.delete(office);
+        Office officeFromDB = this.officeDAO.getById(office.getOfficeId());
+       return this.officeDAO.delete(officeFromDB);
     }
 
     @Override

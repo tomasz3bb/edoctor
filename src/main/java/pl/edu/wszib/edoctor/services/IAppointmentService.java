@@ -3,6 +3,7 @@ package pl.edu.wszib.edoctor.services;
 import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IAppointmentService {
@@ -17,4 +18,5 @@ public interface IAppointmentService {
 
     Appointment getById(int appointmentId);
 
+    List<Appointment> getCurrentAppByPatientAndDate(int userId, Appointment.Status status, Date keyword);
 }

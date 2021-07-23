@@ -17,4 +17,6 @@ public interface IAppointmentDAO{
     boolean update(Appointment appointment);
     boolean delete(Appointment appointment);
     Appointment getById(int appointmentId);
+
+    List<Appointment> getAppByStatusAndDate(Patient patient, Appointment.Status status, Date keyword);
 }

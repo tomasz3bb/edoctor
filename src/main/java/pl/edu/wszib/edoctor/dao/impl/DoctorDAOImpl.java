@@ -58,6 +58,16 @@ public class DoctorDAOImpl implements IDoctorDAO {
     }
 
     @Override
+    public List<Doctor> findByKeyword(String keyword) {
+        Session session = this.sessionFactory.openSession();
+        Query<Doctor> doctorQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Doctor where name =: keyword or surname =: keyword or speciality.specialityName =:keyword");
+        doctorQuery.setParameter("keyword", keyword);
+        List<Doctor> doctorList = doctorQuery.getResultList();
+        session.close();
+        return doctorList;
+    }
+
+    @Override
     public List<Doctor> getAllBySpeciality(Speciality speciality) {
         Session session = this.sessionFactory.openSession();
         Query<Doctor> doctorQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Doctor where speciality = : speciality");

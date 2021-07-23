@@ -63,6 +63,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
+    public List<Appointment> getCurrentAppByPatientAndDate(int userId, Appointment.Status status, Date keyword) {
+        Patient patient = this.patientDAO.getPatientByUserId(userId);
+        return this.appointmentDAO.getAppByStatusAndDate(patient, Appointment.Status.Zaplanowana, keyword);
+    }
+
+    @Override
     public List<Appointment> getHistAppByPatient(int userId, Appointment.Status status) {
         Patient patient = this.patientDAO.getPatientByUserId(userId);
         return this.appointmentDAO.getAppByStatus(patient, Appointment.Status.Zakończona);

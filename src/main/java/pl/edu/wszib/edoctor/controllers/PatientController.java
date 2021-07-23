@@ -12,6 +12,7 @@ import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -41,12 +42,16 @@ public class PatientController {
 
 
     @RequestMapping(value = "/currentapp", method = RequestMethod.GET)
-    public String showCurrentPatientApp(Model model){
+    public String showCurrentPatientApp(Model model, Date keyword){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
         }
         User loggedUser = this.sessionObject.getLoggedUser();
-        model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatient(loggedUser.getUserId(), Appointment.Status.Zaplanowana));
+        if(keyword != null){
+            model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatientAndDate(loggedUser.getUserId(), Appointment.Status.Zaplanowana, keyword));
+        }else {
+            model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatient(loggedUser.getUserId(), Appointment.Status.Zaplanowana));
+        }
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("info", this.sessionObject.getInfo());

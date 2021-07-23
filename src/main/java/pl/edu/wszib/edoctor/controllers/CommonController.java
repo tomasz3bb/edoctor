@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.User;
 import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
@@ -50,11 +51,15 @@ public class CommonController {
         return "contact";
     }
     @RequestMapping(value = "/doctors", method = RequestMethod.GET)
-    public String showAllDoctors(Model model){
+    public String showAllDoctors(Model model, String keyword){
         if (!this.sessionObject.isLogged()){
             return "redirect:/login";
         }
-        model.addAttribute("allDoctors", this.doctorService.getAll());
+        if(keyword != null){
+            model.addAttribute("allDoctors", this.doctorService.findByKeyword(keyword));
+        }else {
+            model.addAttribute("allDoctors", this.doctorService.getAll());
+        }
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
 
