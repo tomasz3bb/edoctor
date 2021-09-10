@@ -6,26 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "tappointment")
-public class Appointment {
+@Entity(name = "tappslot")
+public class AppSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int appointmentId;
+    private int appSlotId;
     @OneToOne(fetch = FetchType.EAGER)
-    private Patient patient;
-    @OneToOne(fetch = FetchType.EAGER)
-    private AppSlot appSlot;
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    public enum Status{
-        Zaplanowana,
-        Zakończona
-    }
-
+    private Doctor doctor;
+    private Date appointmentDate;
+    private String dayOfWeek;
+    private LocalTime appointmentTimeStart;
+    private LocalTime appointmentTimeEnd;
+    private boolean isAvailable;
 }

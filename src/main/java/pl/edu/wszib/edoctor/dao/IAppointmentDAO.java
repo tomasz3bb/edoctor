@@ -12,11 +12,9 @@ public interface IAppointmentDAO{
     List<Appointment> getAppointmentByDoctor(Doctor doctor);
     List<Appointment> getPatientAppointmentByDoctor(Doctor doctor, Patient patient);
     List<Appointment> getAppByStatus(Patient patient, Appointment.Status status);
-    List<Appointment> getAppByDoctorAndDate(Doctor doctor, Date date);
     boolean save(Appointment appointment);
     boolean update(Appointment appointment);
     boolean delete(Appointment appointment);
     Appointment getById(int appointmentId);
-
     List<Appointment> getAppByStatusAndDate(Patient patient, Appointment.Status status, Date keyword);
 }

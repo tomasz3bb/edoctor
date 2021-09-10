@@ -21,13 +21,6 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu" ></div>
 <div id="content">
-    <div id="form">
-        <h3>Wprowadź datę, aby wyszukać termin wizyty.</h3>
-        <form th:action="@{/patient/currentapp}" method="get">
-            <input type="date" name="keyword" >
-            <input type="submit" value="Szukaj">
-        </form>
-    </div>
     <p th:if="${info}" th:text="${info}" class="error"></p>
         <div class="rowheader">
             <div class="info">Imię i nazwisko</div>
@@ -39,11 +32,11 @@
         </div>
         <th:block th:each="appointment : ${currentapp}">
             <div class="row">
-            <div class="info" th:text="'dr ' + ${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}" style="font-weight: bold"></div>
-                <div class="info" th:text="${appointment.doctor.speciality.specialityName}"></div>
-                <div class="info" th:text="${appointment.appointmentDate} + ' (' + ${appointment.dayOfWeek} + ')'"></div>
-                <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
-                <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
+            <div class="info" th:text="'dr ' + ${appointment.appSlot.doctor.name} + ' ' + ${appointment.appSlot.doctor.surname}" style="font-weight: bold"></div>
+                <div class="info" th:text="${appointment.appSlot.doctor.speciality.specialityName}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentDate} + ' (' + ${appointment.appSlot.dayOfWeek} + ')'"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeStart}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
                 <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appointmentId}(appointmentId=${appointment.appointmentId})}" class="edit-button">Anuluj wizytę</a>
             </div>

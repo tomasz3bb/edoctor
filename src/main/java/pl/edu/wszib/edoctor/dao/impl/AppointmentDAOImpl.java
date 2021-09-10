@@ -10,7 +10,6 @@ import pl.edu.wszib.edoctor.dao.IAppointmentDAO;
 import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.Patient;
-import pl.edu.wszib.edoctor.model.Speciality;
 
 import javax.persistence.NoResultException;
 import java.sql.Date;
@@ -55,7 +54,7 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     @Override
     public List<Appointment> getAppByStatus(Patient patient, Appointment.Status status) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status order by appointmentDate");
+        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status order by appSlot.appointmentDate");
         appointmentQuery.setParameter("patient", patient);
         appointmentQuery.setParameter("status", status);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
@@ -67,22 +66,11 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     public List<Appointment> getAppByStatusAndDate(Patient patient, Appointment.Status status, Date keyword) {
         Session session = this.sessionFactory.openSession();
         Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient " +
-                "and status = :status and appointmentDate =: keyword");
+                "and status = :status and appSlot.appointmentDate =: keyword");
         appointmentQuery.setParameter("patient", patient);
         appointmentQuery.setParameter("status", status);
         appointmentQuery.setParameter("keyword", keyword);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
-        session.close();
-        return appointmentList;
-    }
-
-    @Override
-    public List<Appointment> getAppByDoctorAndDate(Doctor doctor, Date date) {
-        Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointment = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where doctor = : doctor and appointmentDate =: date");
-        appointment.setParameter("doctor", doctor);
-        appointment.setParameter("date", date);
-        List<Appointment> appointmentList = appointment.getResultList();
         session.close();
         return appointmentList;
     }

@@ -25,9 +25,9 @@
             <div class="row">
             <div class="info" th:text="'dr ' + ${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}" style="font-weight: bold"></div>
                 <div class="info" th:text="${appointment.doctor.speciality.specialityName}"></div>
-                <div class="info" th:text="${appointment.appointmentDate} + ' (' + ${appointment.dayOfWeek} + ')'"></div>
-                <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
-                <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentDate} + ' (' + ${appointment.appSlot.dayOfWeek} + ')'"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeStart}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
                 <a th:href="@{/patient/appdetail/{appId}(appId=${appointment.appointmentId})}" th:if="${isLogged}" class="edit-button">Szczegóły wizyty</a>
             </div>

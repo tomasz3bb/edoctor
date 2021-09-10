@@ -15,36 +15,24 @@
 <div id="menu" th:replace="fragments.html :: menu" ></div>
 <div id="content">
     <p th:if="${info}" th:text="${info}" class="error"></p>
-    <div id="tester" >
-        <div class="rowheader">
-            <div class="info">Dzień tygodnia</div>
-            <div class="info">Godzina rozpoczęcia</div>
-            <div class="info">Godzina zakończenia</div>
-            <div class="info">Numer gabinetu</div>
-            <div class="info">Piętro</div>
-            <div class="info">Opis gabinetu</div>
-        </div>
-        <th:block th:each="doctorSchedule : ${currentDS}" >
-            <div class="row">
-                <div class="info" th:text="${doctorSchedule.dayOfWeek}" ></div>
-                <div class="info" th:text="${doctorSchedule.startOfWork}"></div>
-                <div class="info" th:text="${doctorSchedule.endOfWork}"></div>
-                <div class="info" th:if="${doctorSchedule.office != null && doctorSchedule.office.roomNumber != null}" th:text="${doctorSchedule.office.roomNumber}"></div>
-                <div class="info" th:if="${doctorSchedule.office != null && doctorSchedule.office.floor != null}" th:text="${doctorSchedule.office.floor}"></div>
-                <div class="info" th:if="${doctorSchedule.office != null && doctorSchedule.office.description != null}" th:text="${doctorSchedule.office.description}"></div>
-            </div>
-        </th:block>
-    </div>
     <div id="form">
-        <form action="#" method="post" id="add-form">
-            <label>Wprowadź datę wizyty:</label>
-            <input type="date" th:field="*{appointment.appointmentDate}">
-            <label>Wprowadź godzinę wizyty:</label>
-            <input type="time" th:field="*{appointment.appointmentTimeStart}">
-            <input type="submit" value="Potwierdź termin">
-            <input type="button" onclick="history.back();" value="Wróć">
+        <h3>Wprowadź datę, aby wyszukać termin wizyty.</h3>
+        <form th:action="@{'/patient/makeapp/' + ${doctorId} }" method="get">
+            <input type="date" name="keyword" >
+            <input type="submit" value="Szukaj">
         </form>
     </div>
+    <th:block th:each="slot : ${appSlot}">
+        <div class="row">
+            <div class="info" th:text="${slot.appointmentDate} + ' (' + ${slot.dayOfWeek} + ')'"></div>
+            <div class="info" th:text="${slot.appointmentTimeStart} + ' - ' + ${slot.appointmentTimeEnd}"></div>
+            <div class="info">
+            <form action="#" th:action="@{'/patient/makeapp/' + ${slot.appSlotId}}" th:object="${slot}" method="post">
+                <input type="submit" value="Wybierz termin" class="edit-button">
+            </form>
+            </div>
+        </div>
+    </th:block>
 </div>
 </div>
 </body>

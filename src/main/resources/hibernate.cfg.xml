@@ -34,6 +34,7 @@
         <mapping class="pl.edu.wszib.edoctor.model.User"/>
         <mapping class="pl.edu.wszib.edoctor.model.Doctor"/>
         <mapping class="pl.edu.wszib.edoctor.model.Appointment"/>
+        <mapping class="pl.edu.wszib.edoctor.model.AppSlot"/>
         <mapping class="pl.edu.wszib.edoctor.model.AppointmentDetail"/>
         <mapping class="pl.edu.wszib.edoctor.model.Patient"/>
         <mapping class="pl.edu.wszib.edoctor.model.DoctorList"/>

@@ -39,11 +39,11 @@
         </div>
         <th:block th:each="appointment : ${currentapp}">
             <div class="row">
-            <div class="info" th:text="'dr ' + ${appointment.doctor.name} + ' ' + ${appointment.doctor.surname}" style="font-weight: bold"></div>
-                <div class="info" th:text="${appointment.doctor.speciality.specialityName}"></div>
-                <div class="info" th:text="${appointment.appointmentDate} + ' (' + ${appointment.dayOfWeek} + ')'"></div>
-                <div class="info" th:text="${appointment.appointmentTimeStart}"></div>
-                <div class="info" th:text="${appointment.appointmentTimeEnd}"></div>
+            <div class="info" th:text="'dr ' + ${appointment.appSlot.doctor.name} + ' ' + ${appointment.appSlot.doctor.surname}" style="font-weight: bold"></div>
+                <div class="info" th:text="${appointment.appSlot.doctor.speciality.specialityName}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentDate} + ' (' + ${appointment.appSlot.dayOfWeek} + ')'"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeStart}"></div>
+                <div class="info" th:text="${appointment.appSlot.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
                 <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appointmentId}(appointmentId=${appointment.appointmentId})}" class="edit-button">Anuluj wizytę</a>
             </div>

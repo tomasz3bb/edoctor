@@ -2,14 +2,8 @@ package pl.edu.wszib.edoctor.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.edoctor.dao.IAppointmentDAO;
-import pl.edu.wszib.edoctor.dao.IDoctorDAO;
-import pl.edu.wszib.edoctor.dao.IDoctorScheduleDAO;
-import pl.edu.wszib.edoctor.dao.IPatientDAO;
-import pl.edu.wszib.edoctor.model.Appointment;
-import pl.edu.wszib.edoctor.model.Doctor;
-import pl.edu.wszib.edoctor.model.DoctorSchedule;
-import pl.edu.wszib.edoctor.model.Patient;
+import pl.edu.wszib.edoctor.dao.*;
+import pl.edu.wszib.edoctor.model.*;
 import pl.edu.wszib.edoctor.services.IAppointmentService;
 import pl.edu.wszib.edoctor.services.IDoctorScheduleService;
 import pl.edu.wszib.edoctor.session.SessionObject;
@@ -32,6 +26,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     IPatientDAO patientDAO;
     @Autowired
     IDoctorDAO doctorDAO;
+    @Autowired
+    IAppSlotDAO appSlotDAO;
     @Autowired
     IDoctorScheduleDAO doctorScheduleDAO;
     @Resource
@@ -75,23 +71,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
-    public boolean addAppointment(Appointment appointment, int doctorId) {
+    public boolean addAppointment(int appSlotId) {
         Patient patient = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
-        Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
-        List<DoctorSchedule> doctorScheduleList = this.doctorScheduleDAO.getAllByDoctor(doctor);
-        Appointment newApp = new Appointment(0, patient, doctor, appointment.getAppointmentDate(),
-                appointment.getAppointmentDate().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL")),
-                appointment.getAppointmentTimeStart(), appointment.getAppointmentTimeStart().plusMinutes(30), Appointment.Status.Zaplanowana);
-        List<Appointment> appointmentListByDoctor = this.appointmentDAO.getAppByDoctorAndDate(doctor, newApp.getAppointmentDate());
-        for (Appointment app: appointmentListByDoctor) {
-            for (DoctorSchedule schedule: doctorScheduleList) {
-                if (!newApp.getDayOfWeek().equals(schedule.getDayOfWeek())) {
-                        return false;
-                }
-            }
-        }
-        this.appointmentDAO.save(newApp);
-        return true;
+        AppSlot appSlot = this.appSlotDAO.getById(appSlotId);
+        appSlot.setAvailable(false);
+        Appointment newApp = new Appointment(0, patient, appSlot, Appointment.Status.Zaplanowana);
+        this.appSlotDAO.update(appSlot);
+        return this.appointmentDAO.save(newApp);
     }
 
     @Override
@@ -103,12 +89,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public boolean update(Appointment appointment) {
         Appointment appointmentFromDB = this.appointmentDAO.getById(appointment.getAppointmentId());
-        appointmentFromDB.setAppointmentDate(appointmentFromDB.getAppointmentDate());
-        appointmentFromDB.setAppointmentTimeStart(appointmentFromDB.getAppointmentTimeStart());
-        appointmentFromDB.setAppointmentTimeEnd(appointmentFromDB.getAppointmentTimeEnd());
         appointmentFromDB.setPatient(appointmentFromDB.getPatient());
-        appointmentFromDB.setDoctor(appointmentFromDB.getDoctor());
-        appointmentFromDB.setDayOfWeek(appointmentFromDB.getDayOfWeek());
+        appointmentFromDB.setAppSlot(appointmentFromDB.getAppSlot());
         appointmentFromDB.setStatus(appointmentFromDB.getStatus());
         return this.appointmentDAO.update(appointmentFromDB);
     }
