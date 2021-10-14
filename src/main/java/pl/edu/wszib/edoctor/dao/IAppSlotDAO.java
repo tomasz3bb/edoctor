@@ -11,6 +11,5 @@ public interface IAppSlotDAO {
     boolean update(AppSlot appSlot);
     boolean delete(AppSlot appSlot);
     AppSlot getById(int appSlotId);
-
     List<AppSlot> getAllByDoctorAndDate(Doctor doctor, Date keyword);
 }

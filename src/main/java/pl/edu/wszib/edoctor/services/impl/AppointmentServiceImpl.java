@@ -10,13 +10,7 @@ import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
@@ -83,6 +77,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public boolean delete(Appointment appointment) {
         Appointment appointmentFromDB = this.appointmentDAO.getById(appointment.getAppointmentId());
+        AppSlot appSlot = this.appSlotDAO.getById(appointmentFromDB.getAppSlot().getAppSlotId());
+        appSlot.setAvailable(true);
+        this.appSlotDAO.update(appSlot);
         return this.appointmentDAO.delete(appointmentFromDB);
     }
 

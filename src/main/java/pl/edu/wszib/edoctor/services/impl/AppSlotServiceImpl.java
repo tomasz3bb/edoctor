@@ -2,13 +2,13 @@ package pl.edu.wszib.edoctor.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.edoctor.dao.*;
+import pl.edu.wszib.edoctor.dao.IAppSlotDAO;
+import pl.edu.wszib.edoctor.dao.IDoctorDAO;
+import pl.edu.wszib.edoctor.dao.IDoctorScheduleDAO;
+import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.model.AppSlot;
-import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
-import pl.edu.wszib.edoctor.model.Patient;
 import pl.edu.wszib.edoctor.services.IAppSlotService;
-import pl.edu.wszib.edoctor.services.IAppointmentService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
@@ -35,7 +35,7 @@ public class AppSlotServiceImpl implements IAppSlotService {
         Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
         AppSlot newAppSlot = new AppSlot(0, doctor, appSlot.getAppointmentDate(),
                 appSlot.getAppointmentDate().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL")),
-                appSlot.getAppointmentTimeStart(), appSlot.getAppointmentTimeStart().plusMinutes(30), true);
+                appSlot.getAppointmentTimeStart(), true);
         return this.appSlotDAO.save(newAppSlot);
     }
 
@@ -46,7 +46,6 @@ public class AppSlotServiceImpl implements IAppSlotService {
         appSlotFromDB.setAppointmentDate(appSlotFromDB.getAppointmentDate());
         appSlotFromDB.setDayOfWeek(appSlotFromDB.getDayOfWeek());
         appSlotFromDB.setAppointmentTimeStart(appSlotFromDB.getAppointmentTimeStart());
-        appSlotFromDB.setAppointmentTimeEnd(appSlotFromDB.getAppointmentTimeEnd());
         appSlotFromDB.setAvailable(appSlotFromDB.isAvailable());
         return this.appSlotDAO.update(appSlotFromDB);
     }
@@ -59,7 +58,7 @@ public class AppSlotServiceImpl implements IAppSlotService {
 
     @Override
     public AppSlot getById(int appointmentId) {
-        return null;
+        return this.appSlotDAO.getById(appointmentId);
     }
 
     @Override

@@ -25,7 +25,7 @@
     <th:block th:each="slot : ${appSlot}">
         <div class="row">
             <div class="info" th:text="${slot.appointmentDate} + ' (' + ${slot.dayOfWeek} + ')'"></div>
-            <div class="info" th:text="${slot.appointmentTimeStart} + ' - ' + ${slot.appointmentTimeEnd}"></div>
+            <div class="info" th:text="${slot.appointmentTimeStart}"></div>
             <div class="info">
             <form action="#" th:action="@{'/patient/makeapp/' + ${slot.appSlotId}}" th:object="${slot}" method="post">
                 <input type="submit" value="Wybierz termin" class="edit-button">

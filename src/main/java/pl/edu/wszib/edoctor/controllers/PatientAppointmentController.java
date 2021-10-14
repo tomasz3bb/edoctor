@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.edu.wszib.edoctor.model.AppSlot;
 import pl.edu.wszib.edoctor.model.Appointment;
-import pl.edu.wszib.edoctor.model.Doctor;
 import pl.edu.wszib.edoctor.model.User;
 import pl.edu.wszib.edoctor.services.*;
 import pl.edu.wszib.edoctor.session.SessionObject;
@@ -39,10 +37,10 @@ public class PatientAppointmentController {
     IAppointmentService appointmentService;
 
     @Autowired
-    IAppSlotService appSlotService;
+    IAppointmentDetailService appointmentDetailService;
 
     @Autowired
-    IAppointmentDetailService appointmentDetailService;
+    IAppSlotService appSlotService;
 
     @Autowired
     IDoctorService doctorService;
@@ -54,7 +52,11 @@ public class PatientAppointmentController {
         }
         if(keyword != null) {
             model.addAttribute("appSlot", this.appSlotService.getAllByDoctorAndDate(this.doctorService.getDoctorByDoctorId(doctorId), keyword));
+            if (this.appSlotService.getAllByDoctorAndDate(this.doctorService.getDoctorByDoctorId(doctorId), keyword).isEmpty()){
+                this.sessionObject.setInfo("Błąd, brak wolnych terminów lub dany lekarz nie pracuje w tym dniu.");
+            }
         }
+
         model.addAttribute("isLogged", this.sessionObject.isLogged());
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("info", this.sessionObject.getInfo());

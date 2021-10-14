@@ -21,13 +21,6 @@
 <div id="logo" th:replace="fragments.html :: logo"></div>
 <div id="menu" th:replace="fragments.html :: menu" ></div>
 <div id="content">
-    <div id="form">
-        <h3>Wprowadź datę, aby wyszukać termin wizyty.</h3>
-        <form th:action="@{/patient/currentapp}" method="get">
-            <input type="date" name="keyword" >
-            <input type="submit" value="Szukaj">
-        </form>
-    </div>
     <p th:if="${info}" th:text="${info}" class="error"></p>
         <div class="rowheader">
             <div class="info">Imię i nazwisko</div>

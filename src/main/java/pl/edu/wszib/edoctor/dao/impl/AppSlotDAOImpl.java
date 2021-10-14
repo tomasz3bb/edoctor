@@ -2,13 +2,12 @@ package pl.edu.wszib.edoctor.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.edoctor.dao.IAppSlotDAO;
 import pl.edu.wszib.edoctor.model.AppSlot;
-import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 
 import javax.persistence.NoResultException;
@@ -78,12 +77,12 @@ public class AppSlotDAOImpl implements IAppSlotDAO {
     @Override
     public AppSlot getById(int appSlotId) {
         Session session = this.sessionFactory.openSession();
-        Query<AppSlot> appSlotQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.AppSlot where appSlotId =: appSlotId");
-        appSlotQuery.setParameter("appSlotId", appSlotId);
+        Query<AppSlot> query = session.createQuery("from pl.edu.wszib.edoctor.model.AppSlot where appSlotId =:id");
+        query.setParameter("id", appSlotId);
         AppSlot appSlot = null;
         try {
-            appSlot = appSlotQuery.getSingleResult();
-        }catch (NoResultException e){
+            appSlot = query.getSingleResult();
+        } catch (NoResultException e) {
             e.printStackTrace();
         }
         session.close();

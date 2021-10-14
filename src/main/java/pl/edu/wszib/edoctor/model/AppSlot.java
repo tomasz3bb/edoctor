@@ -23,6 +23,5 @@ public class AppSlot {
     private Date appointmentDate;
     private String dayOfWeek;
     private LocalTime appointmentTimeStart;
-    private LocalTime appointmentTimeEnd;
     private boolean isAvailable;
 }

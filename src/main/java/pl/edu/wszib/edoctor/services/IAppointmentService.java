@@ -1,6 +1,5 @@
 package pl.edu.wszib.edoctor.services;
 
-import pl.edu.wszib.edoctor.model.AppSlot;
 import pl.edu.wszib.edoctor.model.Appointment;
 import pl.edu.wszib.edoctor.model.Doctor;
 
