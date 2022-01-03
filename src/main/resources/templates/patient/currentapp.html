@@ -36,7 +36,6 @@
                 <div class="info" th:text="${appointment.appSlot.doctor.speciality.specialityName}"></div>
                 <div class="info" th:text="${appointment.appSlot.appointmentDate} + ' (' + ${appointment.appSlot.dayOfWeek} + ')'"></div>
                 <div class="info" th:text="${appointment.appSlot.appointmentTimeStart}"></div>
-                <div class="info" th:text="${appointment.appSlot.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
                 <a th:if="${role == 'Pacjent'}"  th:href="@{/patient/deleteapp/{appointmentId}(appointmentId=${appointment.appointmentId})}" class="edit-button">Anuluj wizytę</a>
             </div>

@@ -33,7 +33,7 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     @Override
     public List<Appointment> getAppointmentByDoctor(Doctor doctor) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where doctor = :doctor");
+        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where appSlot.doctor = :doctor");
         appointmentQuery.setParameter("doctor", doctor);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
         session.close();
@@ -43,7 +43,7 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     @Override
     public List<Appointment> getPatientAppointmentByDoctor(Doctor doctor, Patient patient) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointmentQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where doctor = :doctor and patient =:patient");
+        Query<Appointment> appointmentQuery = session.createQuery("from pl.edu.wszib.edoctor.model.Appointment where appSlot.doctor = :doctor and patient =:patient");
         appointmentQuery.setParameter("doctor", doctor);
         appointmentQuery.setParameter("patient", patient);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
@@ -54,7 +54,7 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     @Override
     public List<Appointment> getAppByStatus(Patient patient, Appointment.Status status) {
         Session session = this.sessionFactory.openSession();
-        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status order by appointmentDate");
+        Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient and status = :status order by appSlot.appointmentDate");
         appointmentQuery.setParameter("patient", patient);
         appointmentQuery.setParameter("status", status);
         List<Appointment> appointmentList = appointmentQuery.getResultList();
@@ -66,7 +66,7 @@ public class AppointmentDAOImpl implements IAppointmentDAO {
     public List<Appointment> getAppByStatusAndDate(Patient patient, Appointment.Status status, Date keyword) {
         Session session = this.sessionFactory.openSession();
         Query<Appointment> appointmentQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.Appointment where patient = :patient " +
-                "and status = :status and appointmentDate =: keyword");
+                "and status = :status and appSlot.appointmentDate =: keyword");
         appointmentQuery.setParameter("patient", patient);
         appointmentQuery.setParameter("status", status);
         appointmentQuery.setParameter("keyword", keyword);

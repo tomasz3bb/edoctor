@@ -12,7 +12,10 @@ import pl.edu.wszib.edoctor.model.Doctor;
 
 import javax.persistence.NoResultException;
 import java.sql.Date;
+import java.time.LocalTime;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class AppSlotDAOImpl implements IAppSlotDAO {
@@ -95,6 +98,16 @@ public class AppSlotDAOImpl implements IAppSlotDAO {
         Query<AppSlot> appSlotQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.AppSlot where doctor =: doctor and appointmentDate =: keyword and isAvailable = true ");
         appSlotQuery.setParameter("doctor", doctor);
         appSlotQuery.setParameter("keyword", keyword);
+        List<AppSlot> appSlotList = appSlotQuery.getResultList();
+        session.close();
+        return appSlotList;
+    }
+
+    @Override
+    public List<AppSlot> getAllByDoctor(Doctor doctor) {
+        Session session = this.sessionFactory.openSession();
+        Query<AppSlot> appSlotQuery = session.createQuery("FROM pl.edu.wszib.edoctor.model.AppSlot where doctor =: doctor ");
+        appSlotQuery.setParameter("doctor", doctor);
         List<AppSlot> appSlotList = appSlotQuery.getResultList();
         session.close();
         return appSlotList;

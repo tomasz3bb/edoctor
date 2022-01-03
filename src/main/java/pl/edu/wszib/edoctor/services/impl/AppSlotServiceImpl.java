@@ -8,11 +8,13 @@ import pl.edu.wszib.edoctor.dao.IDoctorScheduleDAO;
 import pl.edu.wszib.edoctor.dao.IPatientDAO;
 import pl.edu.wszib.edoctor.model.AppSlot;
 import pl.edu.wszib.edoctor.model.Doctor;
+import pl.edu.wszib.edoctor.model.DoctorSchedule;
 import pl.edu.wszib.edoctor.services.IAppSlotService;
 import pl.edu.wszib.edoctor.session.SessionObject;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
@@ -31,8 +33,8 @@ public class AppSlotServiceImpl implements IAppSlotService {
     SessionObject sessionObject;
 
     @Override
-    public boolean addAppSlot(AppSlot appSlot, int doctorId) {
-        Doctor doctor = this.doctorDAO.getDoctorByDoctorId(doctorId);
+    public boolean addAppSlot(AppSlot appSlot) {
+        Doctor doctor = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
         AppSlot newAppSlot = new AppSlot(0, doctor, appSlot.getAppointmentDate(),
                 appSlot.getAppointmentDate().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL")),
                 appSlot.getAppointmentTimeStart(), true);
@@ -65,5 +67,11 @@ public class AppSlotServiceImpl implements IAppSlotService {
     public List<AppSlot> getAllByDoctorAndDate(Doctor doctor, Date keyword) {
         Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
         return this.appSlotDAO.getAllByDoctorAndDate(doctorFromDB, keyword);
+    }
+
+    @Override
+    public List<AppSlot> getAllByDoctor(Doctor doctor) {
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByDoctorId(doctor.getDoctorId());
+        return this.appSlotDAO.getAllByDoctor(doctorFromDB);
     }
 }

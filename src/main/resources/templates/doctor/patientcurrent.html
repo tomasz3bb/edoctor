@@ -31,7 +31,6 @@
                 <div class="info" th:text="${appointment.appSlot.appointmentDate}"></div>
                 <div class="info" th:text="${appointment.appSlot.dayOfWeek}"></div>
                 <div class="info" th:text="${appointment.appSlot.appointmentTimeStart}"></div>
-                <div class="info" th:text="${appointment.appSlot.appointmentTimeEnd}"></div>
                 <div class="info" th:text="${appointment.status}"></div>
                 <a th:href="@{/doctor/endapp/{appId}(appId=${appointment.appointmentId})}" class="edit-button" th:if="${role == 'Lekarz'}">Zakończ wizytę</a>
             </div>
