@@ -32,9 +32,7 @@ class SpecialityServiceImplTest {
         SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
         List<Speciality> specialityList = prepareMockData();
         given(specialityService.getAll()).willReturn(specialityList);
-
         List<Speciality> test = specialityService.getAll();
-
         assertThat(test, Matchers.hasSize(2));
     }
 
@@ -43,9 +41,7 @@ class SpecialityServiceImplTest {
         SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
         List<Speciality> specialityList = prepareMockData();
         given(specialityService.getSpecialityById(1)).willReturn(specialityList.get(1));
-
         Speciality test = specialityService.getSpecialityById(1);
-
         Assertions.assertEquals(test, specialityList.get(1));
     }
 
@@ -55,7 +51,6 @@ class SpecialityServiceImplTest {
         List<Speciality> specialityList = prepareMockData();
         Speciality specialityTest = new Speciality();
         given(specialityService.save(specialityTest)).willReturn(specialityList.add(specialityTest));
-
         specialityService.save(specialityTest);
         MatcherAssert.assertThat(specialityList, Matchers.hasSize(3));
     }
@@ -65,7 +60,6 @@ class SpecialityServiceImplTest {
         SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
         List<Speciality> specialityList = prepareMockData();
         Speciality specialityToDelete = specialityList.get(1);
-
         given(specialityService.delete(specialityToDelete)).willReturn(specialityList.remove(specialityToDelete));
         specialityService.delete(specialityToDelete);
         MatcherAssert.assertThat(specialityList, Matchers.hasSize(1));
