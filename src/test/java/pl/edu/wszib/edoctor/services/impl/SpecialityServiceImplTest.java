@@ -79,6 +79,5 @@ class SpecialityServiceImplTest {
         specialityToUpdate.setSpecialityName("Stomatolog");
         specialityService.update(specialityToUpdate);
         Assertions.assertEquals(specialityList.get(1).getSpecialityName(), "Stomatolog");
-
     }
 }
