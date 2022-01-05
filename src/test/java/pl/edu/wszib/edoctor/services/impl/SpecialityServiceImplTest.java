@@ -18,6 +18,9 @@ import static org.mockito.Mockito.when;
 
 class SpecialityServiceImplTest {
 
+    public SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
+    public List<Speciality> specialityList = prepareMockData();
+
     private List<Speciality> prepareMockData(){
         Speciality speciality1 = new Speciality(0, "Kardiolog");
         Speciality speciality2 = new Speciality(1, "Neurolog");
@@ -29,8 +32,6 @@ class SpecialityServiceImplTest {
 
     @Test
     public void getAll() {
-        SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
-        List<Speciality> specialityList = prepareMockData();
         given(specialityService.getAll()).willReturn(specialityList);
         List<Speciality> test = specialityService.getAll();
         assertThat(test, Matchers.hasSize(2));
@@ -38,8 +39,6 @@ class SpecialityServiceImplTest {
 
     @Test
     public void getSpecialityById() {
-        SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
-        List<Speciality> specialityList = prepareMockData();
         given(specialityService.getSpecialityById(1)).willReturn(specialityList.get(1));
         Speciality test = specialityService.getSpecialityById(1);
         Assertions.assertEquals(test, specialityList.get(1));
@@ -47,18 +46,13 @@ class SpecialityServiceImplTest {
 
     @Test
     public void save() {
-        SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
-        List<Speciality> specialityList = prepareMockData();
-        Speciality specialityTest = new Speciality();
-        given(specialityService.save(specialityTest)).willReturn(specialityList.add(specialityTest));
-        specialityService.save(specialityTest);
+        given(specialityService.save(new Speciality())).willReturn(specialityList.add(new Speciality()));
+        specialityService.save(new Speciality());
         MatcherAssert.assertThat(specialityList, Matchers.hasSize(3));
     }
 
     @Test
     public void delete() {
-        SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
-        List<Speciality> specialityList = prepareMockData();
         Speciality specialityToDelete = specialityList.get(1);
         given(specialityService.delete(specialityToDelete)).willReturn(specialityList.remove(specialityToDelete));
         specialityService.delete(specialityToDelete);
@@ -67,11 +61,11 @@ class SpecialityServiceImplTest {
 
     @Test
     public void update(){
-        SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
-        List<Speciality> specialityList = prepareMockData();
         Speciality specialityToUpdate = specialityList.get(1);
         specialityToUpdate.setSpecialityName("Stomatolog");
         specialityService.update(specialityToUpdate);
         Assertions.assertEquals(specialityList.get(1).getSpecialityName(), "Stomatolog");
     }
 }
+
+
