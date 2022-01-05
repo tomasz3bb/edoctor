@@ -21,15 +21,6 @@ class SpecialityServiceImplTest {
     public SpecialityServiceImpl specialityService = mock(SpecialityServiceImpl.class);
     public List<Speciality> specialityList = prepareMockData();
 
-    private List<Speciality> prepareMockData(){
-        Speciality speciality1 = new Speciality(0, "Kardiolog");
-        Speciality speciality2 = new Speciality(1, "Neurolog");
-        List<Speciality> specialities = new ArrayList<>();
-        specialities.add(speciality1);
-        specialities.add(speciality2);
-        return specialities;
-    }
-
     @Test
     public void getAll() {
         given(specialityService.getAll()).willReturn(specialityList);
@@ -65,6 +56,15 @@ class SpecialityServiceImplTest {
         specialityToUpdate.setSpecialityName("Stomatolog");
         specialityService.update(specialityToUpdate);
         Assertions.assertEquals(specialityList.get(1).getSpecialityName(), "Stomatolog");
+    }
+
+    private List<Speciality> prepareMockData(){
+        Speciality speciality1 = new Speciality(0, "Kardiolog");
+        Speciality speciality2 = new Speciality(1, "Neurolog");
+        List<Speciality> specialities = new ArrayList<>();
+        specialities.add(speciality1);
+        specialities.add(speciality2);
+        return specialities;
     }
 }
 
