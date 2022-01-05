@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: pl.edu.wszib.edoctor.services.impl.UserServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in pl.edu.wszib.edoctor.services.impl.UserServiceImplTest
+initializationError  Time elapsed: 0 s  <<< ERROR!
+org.junit.runners.model.InvalidTestClassError: 
+Invalid test class 'pl.edu.wszib.edoctor.services.impl.UserServiceImplTest':
+  1. No runnable methods
+

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,5 +33,16 @@ public class User {
         ADMIN,
         Pacjent,
         Lekarz
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
     }
 }

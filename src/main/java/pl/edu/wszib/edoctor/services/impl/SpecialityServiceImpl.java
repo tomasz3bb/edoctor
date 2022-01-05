@@ -13,9 +13,6 @@ import java.util.List;
 @Service
 public class SpecialityServiceImpl implements ISpecialityService {
 
-    @Resource
-    SessionObject sessionObject;
-
     @Autowired
     ISpecialityDAO specialityDAO;
 
@@ -49,3 +46,4 @@ public class SpecialityServiceImpl implements ISpecialityService {
         return this.specialityDAO.update(specialityFromDB);
     }
 }
+
