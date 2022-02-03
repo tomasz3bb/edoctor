@@ -13,23 +13,11 @@ import java.util.List;
 @Service
 public class DoctorServiceImpl implements IDoctorService {
 
-    @Resource
-    SessionObject sessionObject;
-
     @Autowired
     IDoctorDAO doctorDAO;
 
     @Autowired
     IUserDAO userDAO;
-
-    @Autowired
-    ISpecialityDAO specialityDAO;
-
-    @Autowired
-    IDoctorListDAO doctorListDAO;
-
-    @Autowired
-    IDoctorScheduleDAO doctorScheduleDAO;
 
     @Override
     public List<Doctor> getAll() {
