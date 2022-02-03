@@ -70,7 +70,7 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     public boolean update(Doctor doctor) {
-        Doctor doctorFromDB = this.doctorDAO.getDoctorByUserId(this.sessionObject.getLoggedUser().getUserId());
+        Doctor doctorFromDB = this.doctorDAO.getDoctorByUserId(doctor.getDoctorId());
         doctorFromDB.setName(doctor.getName());
         doctorFromDB.setSurname(doctor.getSurname());
         doctorFromDB.setPhone(doctor.getPhone());

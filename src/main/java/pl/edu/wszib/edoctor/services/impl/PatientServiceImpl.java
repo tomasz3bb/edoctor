@@ -65,7 +65,7 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public boolean update(Patient patient) {
-        Patient patientFromDB = this.patientDAO.getPatientByUserId(this.sessionObject.getLoggedUser().getUserId());
+        Patient patientFromDB = this.patientDAO.getPatientByUserId(patient.getPatientId());
         patientFromDB.setName(patient.getName());
         patientFromDB.setSurname(patient.getSurname());
         patientFromDB.setPhone(patient.getPhone());

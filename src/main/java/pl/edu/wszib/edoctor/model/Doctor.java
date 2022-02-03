@@ -24,7 +24,5 @@ public class Doctor{
     @ManyToOne(fetch = FetchType.EAGER)
     private Speciality speciality;
     private String PWZNumber;
-
-
 }
 
