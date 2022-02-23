@@ -88,6 +88,7 @@ public class DoctorAppController {
         model.addAttribute("info", this.sessionObject.getInfo());
         return "doctor/endapp";
     }
+
     @RequestMapping(value = "/endapp/{appId}", method = RequestMethod.POST)
     public String endApp(@ModelAttribute AppointmentDetail appointmentDetail, @PathVariable int appId) {
         if(!this.sessionObject.isLogged() || this.sessionObject.getLoggedUser().getRole() != User.Role.Lekarz) {
