@@ -13,18 +13,26 @@
 <div id="menu" th:replace="fragments.html :: menu"></div>
 <div id="content">
     <h3>eDoctor - twoja aplikacja do zarządzania wizytami u lekarza</h3>
-    <ul>
+    <ul style="list-style: square">
         <li>Administrator może:</li>
-        <p>rejestrować nowego pacjenta lub nowego lekarza</p>
-        <p></p>
+        <ul>
+            <p>rejestrować nowego pacjenta lub nowego lekarza</p>
+        </ul>
         <li>Lekarz może:</li>
-        <p>przeglądać aktualne wizyty i historię wizyt pacjentów</p>
-        <p>zmieniać swoje hasło</p>
-        <p>zmieniać status wizyty</p>
+        <ul>
+            <p>przeglądać aktualne wizyty i historię wizyt pacjentów</p>
+            <p>zmieniać status wizyty</p>
+            <p>zmieniać swoje hasło</p>
+            <p>edytować swoje dane</p>
+        </ul>
         <li>Pacjent może:</li>
-        <p>przeglądać aktualne wizyty i historię swoich wizyt</p>
-        <p>zmieniać swoje hasło</p>
-        <p></p>
+        <ul>
+            <p>przeglądać lekarzy</p>
+            <p>wybierać lekarzy</p>
+            <p>przeglądać aktualne wizyty i historię swoich wizyt</p>
+            <p>zmieniać swoje hasło</p>
+            <p>edytować swoje dane</p>
+        </ul>
     </ul>
 </div>
     <div id="footer" th:replace="fragments.html :: footer" ></div>
