@@ -48,9 +48,11 @@ public class PatientController {
         }
         User loggedUser = this.sessionObject.getLoggedUser();
         if(keyword != null){
-            model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatientAndDate(loggedUser.getUserId(), Appointment.Status.Zaplanowana, keyword));
+            model.addAttribute("currentapp",
+                    this.appointmentService.getCurrentAppByPatientAndDate(loggedUser.getUserId(), Appointment.Status.Zaplanowana, keyword));
         }else {
-            model.addAttribute("currentapp", this.appointmentService.getCurrentAppByPatient(loggedUser.getUserId(), Appointment.Status.Zaplanowana));
+            model.addAttribute("currentapp",
+                    this.appointmentService.getCurrentAppByPatient(loggedUser.getUserId(), Appointment.Status.Zaplanowana));
         }
         model.addAttribute("role", this.sessionObject.isLogged() ? this.sessionObject.getLoggedUser().getRole().toString() : null);
         model.addAttribute("isLogged", this.sessionObject.isLogged());
